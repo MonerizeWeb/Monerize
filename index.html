@@ -7,56 +7,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #FAFAFA; 
-            color: #111111;
-            line-height: 1.8;
-            letter-spacing: -0.02em;
-        }
-        
-        /* Noise Texture para sensação premium */
-        .noise::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.02;
-            pointer-events: none;
-            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            z-index: 9999;
-        }
-
+        body { font-family: 'Inter', sans-serif; background-color: #FAFAFA; color: #111111; line-height: 1.8; letter-spacing: -0.02em; }
         .section-container { max-width: 1100px; margin: 0 auto; padding: 100px 24px; }
-        
-        .bento-card {
-            background: white;
-            border: 1px solid #E5E7EB;
-            padding: 48px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        /* Classe para imagens com filtro editorial */
-        .editorial-img {
-            filter: grayscale(100%) contrast(110%);
-            transition: all 0.6s ease;
-            object-fit: cover;
-        }
+        .bento-card { background: white; border: 1px solid #E5E7EB; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; }
+        .editorial-img { filter: grayscale(100%) contrast(105%); transition: all 0.8s ease; object-fit: cover; }
         .editorial-img:hover { filter: grayscale(0%); }
-
-        .fade-in { opacity: 0; animation: fadeIn 1s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.5rem center; background-size: 1.5em; }
     </style>
 </head>
-<body class="antialiased noise">
+<body class="antialiased">
 
-    <nav class="w-full bg-[#FAFAFA]/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">
+    <nav class="w-full bg-[#FAFAFA]/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 font-medium">
         <div class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
             <div class="text-xl font-semibold tracking-tighter">Monerize</div>
             <div class="hidden md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400">
                 <a href="#philosophy" class="hover:text-[#111111] transition">Philosophy</a>
-                <a href="#process" class="hover:text-[#111111] transition">Process</a>
                 <a href="#calculator" class="hover:text-[#111111] transition">Potential</a>
                 <a href="https://www.instagram.com/monerize/" target="_blank" class="hover:text-[#111111] transition">Instagram</a>
             </div>
@@ -66,18 +32,16 @@
         </div>
     </nav>
 
-    <header class="section-container pt-32 pb-20 fade-in">
+    <header class="section-container pt-32 pb-20">
         <div class="max-w-3xl">
-            <h1 class="text-5xl md:text-7xl font-semibold mb-8 tracking-tight leading-[1.1] text-[#111111]">
+            <h1 class="text-5xl md:text-7xl font-semibold mb-8 tracking-tight leading-[1.1]">
                 Build and monetize digital products with your audience.
             </h1>
             <p class="text-xl text-gray-500 mb-12 leading-relaxed max-w-xl">
                 Monerize partners with creators to launch courses, challenges, and memberships using a simple revenue-share model — with no upfront cost.
             </p>
             <div class="flex gap-8 items-center">
-                <a href="#calculator" class="bg-[#111111] text-white px-10 py-4 text-sm font-medium hover:opacity-90 transition">
-                    Analyze potential
-                </a>
+                <a href="#calculator" class="bg-[#111111] text-white px-10 py-4 text-sm font-medium hover:opacity-90 transition">Analyze potential</a>
                 <a href="#philosophy" class="text-sm font-semibold text-gray-400 hover:text-[#111111] transition">How it works →</a>
             </div>
         </div>
@@ -87,73 +51,71 @@
         <div class="grid md:grid-cols-3 gap-6">
             <div class="bento-card md:col-span-2">
                 <h2 class="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-300 mb-12">Philosophy</h2>
-                <h3 class="text-3xl font-semibold mb-8 max-w-md text-balance">A partner, not an agency. Aligned from day one.</h3>
-                <p class="text-gray-500 text-lg">We don't charge setup fees. We invest our infrastructure, team, and capital into your brand. Our interests are perfectly aligned: we only win when you win.</p>
+                <h3 class="text-3xl font-semibold mb-8 max-w-md">A partner, not an agency.</h3>
+                <p class="text-gray-500 text-lg">We don't charge setup fees. We invest our infrastructure, team, and capital into your brand. We only win when you win.</p>
             </div>
-            
             <div class="bento-card p-0 overflow-hidden bg-gray-100 min-h-[300px]">
-                <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&q=80&w=800" alt="Studio Vibe" class="editorial-img w-full h-full">
+                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=800" alt="Minimal Abstract" class="editorial-img w-full h-full">
             </div>
-
             <div class="bento-card">
-                <h4 class="font-semibold mb-4 text-sm">Revenue Share</h4>
+                <h4 class="font-semibold mb-4 text-sm uppercase tracking-wider">Revenue Share</h4>
                 <p class="text-sm text-gray-400">Zero upfront cost. We operate on a performance basis, sharing the value we create together.</p>
             </div>
             <div class="bento-card">
-                <h4 class="font-semibold mb-4 text-sm">Full Operation</h4>
+                <h4 class="font-semibold mb-4 text-sm uppercase tracking-wider">Full Operation</h4>
                 <p class="text-sm text-gray-400">From strategy to customer support. We handle the complexity so you can stay creative.</p>
             </div>
             <div class="bento-card">
-                <h4 class="font-semibold mb-4 text-sm">Scalable Growth</h4>
-                <p class="text-sm text-gray-400">We don't just launch; we optimize. Turning one-time sales into long-term recurring revenue.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="process" class="section-container bg-white border-y border-gray-100">
-        <div class="text-center mb-20">
-            <h2 class="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-300 mb-4">The Process</h2>
-            <h3 class="text-2xl font-semibold">From idea to operation.</h3>
-        </div>
-        <div class="grid md:grid-cols-3 gap-16">
-            <div class="space-y-6">
-                <span class="text-[10px] font-bold text-gray-200 uppercase tracking-widest">Step 01</span>
-                <h4 class="font-semibold text-lg">Market Insight</h4>
-                <p class="text-gray-500 text-sm">We analyze your audience data to find the exact product they are already willing to pay for. No guesswork.</p>
-            </div>
-            <div class="space-y-6">
-                <span class="text-[10px] font-bold text-gray-200 uppercase tracking-widest">Step 02</span>
-                <h4 class="font-semibold text-lg">Product Build</h4>
-                <p class="text-gray-500 text-sm">We build the curriculum, platform, and payment gateways. We handle 100% of the technical workload.</p>
-            </div>
-            <div class="space-y-6">
-                <span class="text-[10px] font-bold text-gray-200 uppercase tracking-widest">Step 03</span>
-                <h4 class="font-semibold text-lg">Launch & Growth</h4>
-                <p class="text-gray-500 text-sm">Our team manages the launch and day-to-day operations, ensuring a premium experience for your customers.</p>
+                <h4 class="font-semibold mb-4 text-sm uppercase tracking-wider">Aligned Growth</h4>
+                <p class="text-sm text-gray-400">We don't just launch; we optimize. Turning one-time sales into recurring revenue.</p>
             </div>
         </div>
     </section>
 
     <section id="calculator" class="bg-[#111111] text-white py-32">
         <div class="section-container">
-            <div class="grid md:grid-cols-2 gap-24 items-center">
-                <div>
-                    <h2 class="text-3xl font-semibold mb-6">Project your potential revenue.</h2>
-                    <p class="text-gray-400 mb-10">Based on a conservative 1% conversion of your total audience. This is the starting point.</p>
-                    <div class="space-y-8">
-                        <div class="group">
-                            <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Followers</label>
-                            <input type="number" id="followers" placeholder="50,000" class="w-full bg-transparent border-b border-white/20 pb-2 focus:border-white outline-none transition text-3xl font-light">
-                        </div>
-                        <div class="group">
-                            <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Price (€)</label>
-                            <input type="number" id="price" placeholder="47" class="w-full bg-transparent border-b border-white/20 pb-2 focus:border-white outline-none transition text-3xl font-light">
-                        </div>
-                    </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-20 text-center">
+                    <h2 class="text-4xl font-semibold mb-4 tracking-tight text-white">Revenue Projection</h2>
+                    <p class="text-gray-500">Based on conservative creator conversion benchmarks.</p>
                 </div>
-                <div class="bg-white/5 p-16 border border-white/10 text-center">
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500">Monthly Projection</span>
-                    <div class="text-7xl font-semibold mt-6 tracking-tighter" id="result">€0</div>
+
+                <div class="grid md:grid-cols-12 gap-12 bg-white/5 p-8 md:p-12 rounded-sm border border-white/10">
+                    <div class="md:col-span-7 space-y-10">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Followers</label>
+                                <input type="number" id="followers" value="50000" class="w-full bg-transparent border-b border-white/20 pb-2 focus:border-white outline-none transition text-2xl font-light">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Engagement Profile</label>
+                                <select id="profile" class="w-full bg-transparent border-b border-white/20 pb-2 focus:border-white outline-none transition text-xl font-light text-white">
+                                    <option value="conservative" class="bg-[#111111]">Conservative (0.5%)</option>
+                                    <option value="normal" selected class="bg-[#111111]">Normal (1.2%)</option>
+                                    <option value="optimistic" class="bg-[#111111]">Optimistic (2.0%)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Product Tiers</label>
+                            <div class="flex gap-4">
+                                <button onclick="setTiers(1)" id="t1" class="tier-btn border border-white/20 px-4 py-2 text-xs font-bold transition bg-white text-black">1 Tier</button>
+                                <button onclick="setTiers(2)" id="t2" class="tier-btn border border-white/20 px-4 py-2 text-xs font-bold transition">2 Tiers</button>
+                                <button onclick="setTiers(3)" id="t3" class="tier-btn border border-white/20 px-4 py-2 text-xs font-bold transition">3 Tiers</button>
+                            </div>
+                        </div>
+
+                        <div id="price-inputs" class="grid md:grid-cols-3 gap-6">
+                            </div>
+                    </div>
+
+                    <div class="md:col-span-5 flex flex-col justify-center items-center border-t md:border-t-0 md:border-l border-white/10 pt-10 md:pt-0 md:pl-12">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Est. Monthly Revenue</span>
+                        <div class="text-6xl font-semibold tracking-tighter" id="total-result">€0</div>
+                        <div class="mt-8 space-y-2 w-full" id="breakdown-ui">
+                            </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -167,21 +129,79 @@
             </div>
             <div class="flex gap-10 text-[11px] font-bold uppercase tracking-widest text-gray-400">
                  <a href="https://www.instagram.com/monerize/" target="_blank" class="hover:text-[#111111] transition">Instagram</a>
-                 <a href="mailto:partnerships@monerize.com" class="hover:text-[#111111] transition">Contact</a>
                  <a href="mailto:partnerships@monerize.com" class="hover:text-[#111111] transition italic">partnerships@monerize.com</a>
             </div>
         </div>
     </footer>
 
     <script>
+        let currentTiers = 1;
+        const prices = [49, 29, 149]; // Defaults for Tier 1, 2, 3
+
+        function setTiers(n) {
+            currentTiers = n;
+            document.querySelectorAll('.tier-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-black');
+            });
+            document.getElementById('t'+n).classList.add('bg-white', 'text-black');
+            renderPriceInputs();
+            calculate();
+        }
+
+        function renderPriceInputs() {
+            const container = document.getElementById('price-inputs');
+            container.innerHTML = '';
+            const labels = currentTiers === 1 ? ['Price'] : (currentTiers === 2 ? ['Basic', 'Premium'] : ['Starter', 'Core', 'Pro']);
+            const defaults = currentTiers === 1 ? [49] : (currentTiers === 2 ? [29, 79] : [19, 49, 149]);
+            
+            for(let i=0; i<currentTiers; i++) {
+                container.innerHTML += `
+                    <div>
+                        <label class="block text-[9px] font-bold text-gray-500 uppercase mb-2">${labels[i]}</label>
+                        <input type="number" id="p${i}" value="${defaults[i]}" oninput="calculate()" class="w-full bg-transparent border-b border-white/20 pb-1 outline-none text-lg font-light focus:border-white transition">
+                    </div>
+                `;
+            }
+        }
+
         function calculate() {
             const followers = document.getElementById('followers').value || 0;
-            const price = document.getElementById('price').value || 0;
-            const total = (followers * 0.01) * price;
-            document.getElementById('result').innerText = '€' + Math.round(total).toLocaleString('en-US');
+            const profile = document.getElementById('profile').value;
+            
+            const rates = { conservative: 0.005, normal: 0.012, optimistic: 0.02 };
+            const convRate = rates[profile];
+            const buyers = followers * convRate;
+
+            let total = 0;
+            let breakdownHtml = '';
+
+            if(currentTiers === 1) {
+                const p0 = document.getElementById('p0').value || 0;
+                total = buyers * p0;
+            } else if(currentTiers === 2) {
+                const p0 = document.getElementById('p0').value || 0;
+                const p1 = document.getElementById('p1').value || 0;
+                total = (buyers * 0.65 * p0) + (buyers * 0.35 * p1);
+            } else {
+                const p0 = document.getElementById('p0').value || 0;
+                const p1 = document.getElementById('p1').value || 0;
+                const p2 = document.getElementById('p2').value || 0;
+                total = (buyers * 0.60 * p0) + (buyers * 0.30 * p1) + (buyers * 0.10 * p2);
+            }
+
+            document.getElementById('total-result').innerText = '€' + Math.round(total).toLocaleString('en-US');
+            document.getElementById('breakdown-ui').innerHTML = `
+                <div class="flex justify-between text-[10px] text-gray-500 uppercase font-bold tracking-widest">
+                    <span>Total Buyers</span>
+                    <span class="text-white">${Math.round(buyers).toLocaleString()}</span>
+                </div>
+            `;
         }
+
+        // Initialize
+        setTiers(1);
         document.getElementById('followers').addEventListener('input', calculate);
-        document.getElementById('price').addEventListener('input', calculate);
+        document.getElementById('profile').addEventListener('change', calculate);
     </script>
 </body>
 </html>
