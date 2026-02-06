@@ -5,150 +5,201 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monerize | Partnership Studio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #FAFAFA; color: #111111; line-height: 1.8; letter-spacing: -0.02em; }
-        .section-container { max-width: 1100px; margin: 0 auto; padding: 100px 24px; }
-        .bento-card { background: white; border: 1px solid #E5E7EB; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .bento-card:hover { transform: translateY(-5px); border-color: #111111; }
-        .editorial-img { filter: grayscale(100%) contrast(105%); transition: 0.8s; object-fit: cover; }
-        .editorial-img:hover { filter: grayscale(0%); }
-        
-        /* Roadmap Styling Ampliado */
-        .step-number { font-size: 12px; font-weight: 800; color: #D1D5DB; margin-bottom: 12px; display: block; letter-spacing: 0.1em; }
-        .roadmap-item { border-left: 2px solid #E5E7EB; padding-left: 32px; position: relative; padding-bottom: 20px; }
-        .roadmap-item::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: #111111; border-radius: 50%; }
+        :root { --soft-black: #111111; --bg-cream: #FAFAFA; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-cream); 
+            color: var(--soft-black); 
+            line-height: 1.7; 
+            letter-spacing: -0.03em;
+            overflow-x: hidden;
+        }
 
-        input, select, textarea { appearance: none; background: transparent; border-bottom: 1px solid rgba(0,0,0,0.1); padding: 12px 0; outline: none; transition: 0.3s; width: 100%; font-size: 16px; }
-        input:focus, textarea:focus { border-color: #111111; }
-        .tier-btn.active { background-color: white; color: black; border-color: white; }
+        /* Efeito de Grão (Texture) */
+        body::before {
+            content: "";
+            fixed: top 0 left 0;
+            position: fixed;
+            width: 100vw; height: 100vh;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .section-container { max-width: 1200px; margin: 0 auto; padding: 120px 24px; }
+        
+        /* Cartões com profundidade suave */
+        .bento-card { 
+            background: white; 
+            border: 1px solid rgba(0,0,0,0.03); 
+            padding: 56px; 
+            display: flex; 
+            flex-direction: column; 
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.02);
+        }
+        .bento-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+            border-color: rgba(0,0,0,0.1);
+        }
+
+        /* Roadmap Enhancements */
+        .roadmap-item { border-left: 1px solid #EAEAEA; padding-left: 40px; position: relative; transition: 0.4s; }
+        .roadmap-item:hover { border-left-color: var(--soft-black); }
+        .roadmap-item::before { 
+            content: ''; position: absolute; left: -4px; top: 0; width: 7px; height: 7px; 
+            background: #EAEAEA; border-radius: 50%; transition: 0.4s;
+        }
+        .roadmap-item:hover::before { background: var(--soft-black); transform: scale(1.5); }
+
+        /* Typography */
+        .italic-accent { font-style: italic; font-family: serif; opacity: 0.8; }
+        
+        /* Form & Inputs */
+        input, select, textarea { 
+            background: transparent; border-bottom: 1px solid rgba(0,0,0,0.08); 
+            padding: 16px 0; outline: none; transition: 0.4s; width: 100%; font-weight: 300;
+        }
+        input:focus { border-bottom-color: var(--soft-black); }
+        
+        /* Custom Button */
+        .btn-premium {
+            position: relative; overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .btn-premium:hover { letter-spacing: 0.1em; opacity: 0.9; }
+
+        .tier-btn { transition: all 0.4s; border: 1px solid rgba(255,255,255,0.1); }
+        .tier-btn.active { background: white; color: black; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body class="antialiased">
 
-    <nav class="w-full bg-[#FAFAFA]/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 font-medium">
-        <div class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
-            <div class="text-xl font-semibold tracking-tighter">Monerize</div>
-            <div class="hidden md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400">
-                <a href="#philosophy" class="hover:text-[#111111] transition">Model</a>
-                <a href="#roadmap" class="hover:text-[#111111] transition">Roadmap</a>
-                <a href="#calculator" class="hover:text-[#111111] transition">Opportunity</a>
+    <nav class="w-full bg-[#FAFAFA]/70 backdrop-blur-xl sticky top-0 z-50 border-b border-black/[0.03]">
+        <div class="max-w-7xl mx-auto px-8 py-7 flex justify-between items-center">
+            <div class="text-2xl font-semibold tracking-tighter">Monerize</div>
+            <div class="hidden md:flex gap-12 text-[10px] font-bold uppercase tracking-[0.3em] text-black/40">
+                <a href="#philosophy" class="hover:text-black transition-colors">Framework</a>
+                <a href="#roadmap" class="hover:text-black transition-colors">Roadmap</a>
+                <a href="#calculator" class="hover:text-black transition-colors">Opportunity</a>
             </div>
-            <a href="#contact" class="text-xs font-semibold border border-[#111111] px-5 py-2 hover:bg-[#111111] hover:text-white transition duration-300">Apply</a>
+            <a href="#contact" class="text-[10px] font-bold uppercase tracking-widest border border-black/10 px-6 py-2.5 hover:bg-black hover:text-white transition-all duration-500">Apply Now</a>
         </div>
     </nav>
 
-    <header class="section-container pt-32 pb-20">
-        <div class="max-w-3xl">
-            <h1 class="text-5xl md:text-7xl font-semibold mb-8 tracking-tight leading-[1.1]">Build and monetize digital products with your audience.</h1>
-            <p class="text-xl text-gray-500 mb-12 leading-relaxed max-w-xl">
-                Monerize partners with creators to launch courses, challenges, and memberships using a simple revenue-share model. With no upfront cost.
+    <header class="section-container pt-40 pb-32">
+        <div class="max-w-4xl">
+            <h1 class="text-6xl md:text-8xl font-medium mb-10 tracking-tight leading-[1.05]">
+                Unlock the <span class="italic-accent">true value</span> of your community.
+            </h1>
+            <p class="text-xl md:text-2xl text-black/50 mb-14 leading-relaxed max-w-2xl font-light">
+                Monerize is a boutique partnership studio. We build, operate, and scale digital ecosystems for elite creators under a <span class="text-black font-medium">pure revenue-share</span> model.
             </p>
-            <div class="flex gap-8 items-center">
-                <a href="#calculator" class="bg-[#111111] text-white px-10 py-4 text-sm font-medium hover:opacity-90 transition">Analyze opportunity</a>
-                <a href="#philosophy" class="text-sm font-semibold text-gray-400 hover:text-[#111111] transition">Our Framework →</a>
+            <div class="flex flex-wrap gap-10 items-center">
+                <a href="#calculator" class="bg-black text-white px-12 py-5 text-xs font-bold uppercase tracking-widest btn-premium">Analyze Potential</a>
+                <a href="#philosophy" class="text-xs font-bold uppercase tracking-widest text-black/30 hover:text-black transition">Our Philosophy —</a>
             </div>
         </div>
     </header>
 
-    <section id="philosophy" class="section-container border-t border-gray-100">
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="bento-card md:col-span-2">
-                <h2 class="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-300 mb-12">The Partnership Model</h2>
-                <h3 class="text-3xl font-semibold mb-8 max-w-md">A partner, not an agency.</h3>
-                <p class="text-gray-500 text-lg">We don't charge setup fees. We invest our infrastructure, team, and capital into your brand. We only win when you win.</p>
+    <section id="philosophy" class="section-container pt-0">
+        <div class="grid md:grid-cols-12 gap-6">
+            <div class="bento-card md:col-span-8">
+                <span class="text-[10px] font-bold uppercase tracking-[0.4em] text-black/20 mb-16 block">Identity</span>
+                <h3 class="text-4xl font-light mb-8 max-w-xl leading-tight">We are not an agency. <br><span class="text-black/30 italic-accent">We are stakeholders in your brand.</span></h3>
+                <p class="text-black/50 text-lg font-light leading-relaxed">We eliminate the friction of monetization. No monthly fees, no setup costs. We invest our capital and expertise into your vision, taking 100% of the operational risk.</p>
             </div>
-            <div class="bento-card p-0 overflow-hidden bg-gray-100 min-h-[300px]">
-                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=800" alt="Minimalist Art" class="editorial-img w-full h-full">
+            <div class="bento-card md:col-span-4 p-0 overflow-hidden min-h-[400px]">
+                <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&q=80&w=1200" class="editorial-img w-full h-full">
             </div>
-            <div class="bento-card">
-                <h4 class="font-semibold mb-4 text-sm uppercase tracking-wider">Revenue Share</h4>
-                <p class="text-sm text-gray-400">Zero upfront cost. We operate on a performance basis, sharing the value we create together.</p>
+            <div class="bento-card md:col-span-4">
+                <h4 class="font-semibold mb-5 text-xs uppercase tracking-widest">Revenue Share</h4>
+                <p class="text-sm text-black/40 font-light leading-relaxed">Absolute alignment. We only generate profit when we create measurable wealth for you.</p>
             </div>
-            <div class="bento-card">
-                <h4 class="font-semibold mb-4 text-sm uppercase tracking-wider">Full Operation</h4>
-                <p class="text-sm text-gray-400">From strategy to customer support. We handle the complexity so you can stay creative.</p>
+            <div class="bento-card md:col-span-4">
+                <h4 class="font-semibold mb-5 text-xs uppercase tracking-widest">End-to-End</h4>
+                <p class="text-sm text-black/40 font-light leading-relaxed">From tech infrastructure to customer success. You stay in your zone of genius: <span class="italic">creation</span>.</p>
             </div>
-            <div class="bento-card">
-                <h4 class="font-semibold mb-4 text-sm uppercase tracking-wider">Product Ladder</h4>
-                <p class="text-sm text-gray-400">Multi-tier ecosystems designed to meet your audience at every stage of their journey.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="roadmap" class="bg-white border-y border-gray-100 py-32">
-        <div class="section-container">
-            <div class="max-w-2xl mb-20">
-                <h2 class="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-300 mb-4">Execution</h2>
-                <h3 class="text-4xl font-semibold tracking-tight">The 8-Week Blueprint.</h3>
-            </div>
-            <div class="grid md:grid-cols-4 gap-12">
-                <div class="roadmap-item">
-                    <span class="step-number">PHASE 01</span>
-                    <h4 class="font-bold text-sm uppercase mb-4 text-black">Foundation</h4>
-                    <p class="text-sm text-gray-500 leading-relaxed">Brand alignment, offer refinement, and strategic positioning of your signature programs.</p>
-                </div>
-                <div class="roadmap-item">
-                    <span class="step-number">PHASE 02</span>
-                    <h4 class="font-bold text-sm uppercase mb-4 text-black">Build</h4>
-                    <p class="text-sm text-gray-500 leading-relaxed">Custom platform development, automated email funnels, and global checkout systems.</p>
-                </div>
-                <div class="roadmap-item">
-                    <span class="step-number">PHASE 03</span>
-                    <h4 class="font-bold text-sm uppercase mb-4 text-black">Content</h4>
-                    <p class="text-sm text-gray-500 leading-relaxed">Asset creation, marketing sequences, and launch materials designed for maximum impact.</p>
-                </div>
-                <div class="roadmap-item">
-                    <span class="step-number">PHASE 04</span>
-                    <h4 class="font-bold text-sm uppercase mb-4 text-black">Launch</h4>
-                    <p class="text-sm text-gray-500 leading-relaxed">Strategic deployment, optimization, and scaling. Revenue begins to flow.</p>
-                </div>
-            </div>
-            <div class="mt-20 pt-8 border-t border-gray-50 max-w-xl">
-                <p class="text-[10px] text-gray-400 uppercase tracking-widest leading-loose">
-                    * This timeline represents our standard high-performance framework. Actual duration may be adjusted based on project complexity and content readiness to ensure the highest quality delivery.
-                </p>
+            <div class="bento-card md:col-span-4 p-0 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200" class="editorial-img w-full h-full">
             </div>
         </div>
     </section>
 
-    <section id="calculator" class="bg-[#111111] text-white py-32">
+    <section id="roadmap" class="bg-white py-40 border-y border-black/[0.03]">
         <div class="section-container">
-            <div class="max-w-4xl mx-auto">
-                <div class="mb-20 text-center">
-                    <h2 class="text-4xl font-semibold mb-4 tracking-tight">Uncaptured Value</h2>
-                    <p class="text-gray-500 text-sm italic">Estimate the opportunity currently left on the table.</p>
+            <div class="grid md:grid-cols-12 gap-20">
+                <div class="md:col-span-4">
+                    <h2 class="text-[10px] font-bold uppercase tracking-[0.4em] text-black/20 mb-8">Roadmap</h2>
+                    <h3 class="text-5xl font-light tracking-tighter mb-10 leading-tight">From Zero to <span class="italic-accent">Scalable Revenue</span> in 8 Weeks.</h3>
+                    <p class="text-black/40 font-light text-sm leading-loose uppercase tracking-widest">
+                        * A structured transition from content creator to business owner.
+                    </p>
                 </div>
-                <div class="grid md:grid-cols-12 gap-12 bg-white/5 p-8 md:p-12 border border-white/10 relative">
-                    <div class="md:col-span-7 space-y-10">
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div>
-                                <label class="block text-[10px] uppercase tracking-widest text-gray-500 mb-4">Followers (Max 700k)</label>
-                                <input type="number" id="followers" value="48000" class="text-white border-white/20 focus:border-white text-2xl font-light">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] uppercase tracking-widest text-gray-500 mb-4">Engagement</label>
-                                <select id="profile" class="text-white border-white/20 focus:border-white text-xl font-light">
-                                    <option value="conservative" class="bg-black">Conservative (0.5%)</option>
-                                    <option value="normal" selected class="bg-black">Standard (1%)</option>
-                                    <option value="optimistic" class="bg-black">Optimistic (2%)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] uppercase tracking-widest text-gray-500 mb-4">Product Ecosystem</label>
-                            <div class="flex gap-4">
-                                <button onclick="setTiers(1)" id="t1" class="tier-btn border border-white/20 px-4 py-2 text-[10px] uppercase tracking-widest transition">Single</button>
-                                <button onclick="setTiers(2)" id="t2" class="tier-btn border border-white/20 px-4 py-2 text-[10px] uppercase tracking-widest transition">Two-Tier</button>
-                                <button onclick="setTiers(3)" id="t3" class="tier-btn border border-white/20 px-4 py-2 text-[10px] uppercase tracking-widest transition active bg-white text-black border-white">Ladder (3)</button>
-                            </div>
-                        </div>
-                        <div id="price-inputs" class="grid md:grid-cols-3 gap-6"></div>
+                <div class="md:col-span-8 grid md:grid-cols-2 gap-x-16 gap-y-20">
+                    <div class="roadmap-item">
+                        <span class="step-number text-black/10">01</span>
+                        <h4 class="font-bold text-xs uppercase mb-4 tracking-widest">Strategic Foundation</h4>
+                        <p class="text-sm text-black/40 font-light leading-relaxed">Market positioning, audience deep-dive, and the architecture of your Product Ladder.</p>
                     </div>
-                    <div class="md:col-span-5 flex flex-col justify-center items-center border-t md:border-t-0 md:border-l border-white/10 pt-10 md:pt-0 md:pl-12 text-center">
-                        <span class="text-[10px] uppercase tracking-widest text-gray-500 mb-4">Launch Potential</span>
-                        <div class="text-6xl md:text-7xl font-semibold tracking-tighter" id="total-result">$0</div>
-                        <div class="text-[11px] text-gray-500 mt-4 uppercase tracking-[0.2em]" id="buyers-label">0 Potential Buyers</div>
+                    <div class="roadmap-item">
+                        <span class="step-number text-black/10">02</span>
+                        <h4 class="font-bold text-xs uppercase mb-4 tracking-widest">Infrastructure Build</h4>
+                        <p class="text-sm text-black/40 font-light leading-relaxed">Custom LMS development, checkout optimization, and high-conversion email funnels.</p>
+                    </div>
+                    <div class="roadmap-item">
+                        <span class="step-number text-black/10">03</span>
+                        <h4 class="font-bold text-xs uppercase mb-4 tracking-widest">Content & Assets</h4>
+                        <p class="text-sm text-black/40 font-light leading-relaxed">Expert-led production support, marketing collateral, and psychological launch triggers.</p>
+                    </div>
+                    <div class="roadmap-item">
+                        <span class="step-number text-black/10">04</span>
+                        <h4 class="font-bold text-xs uppercase mb-4 tracking-widest">Deployment</h4>
+                        <p class="text-sm text-black/40 font-light leading-relaxed">Strategic launch window, real-time optimization, and the start of your recurring revenue.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="bg-[#0A0A0A] text-white py-40">
+        <div class="section-container">
+            <div class="max-w-5xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-24 items-center">
+                    <div>
+                        <h2 class="text-5xl font-light mb-8 tracking-tighter leading-tight italic-accent">The math of <br>uncaptured value.</h2>
+                        <p class="text-white/40 mb-16 font-light max-w-sm">Use our proprietary framework to estimate what your community is currently leaving on the table.</p>
+                        
+                        <div class="space-y-12">
+                            <div>
+                                <label class="block text-[10px] uppercase tracking-[0.3em] text-white/30 mb-4">Total Followers</label>
+                                <input type="number" id="followers" value="48000" class="text-3xl text-white border-white/10 focus:border-white py-4 font-light">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] uppercase tracking-[0.3em] text-white/30 mb-6">Product Ladder</label>
+                                <div class="flex gap-3">
+                                    <button onclick="setTiers(1)" id="t1" class="tier-btn px-6 py-3 text-[9px] uppercase tracking-widest">Starter</button>
+                                    <button onclick="setTiers(2)" id="t2" class="tier-btn px-6 py-3 text-[9px] uppercase tracking-widest">Two-Tier</button>
+                                    <button onclick="setTiers(3)" id="t3" class="tier-btn active px-6 py-3 text-[9px] uppercase tracking-widest">Full Ladder</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/[0.02] border border-white/5 p-16 text-center rounded-sm">
+                        <span class="text-[10px] uppercase tracking-[0.5em] text-white/20 mb-6 block">Potential Revenue</span>
+                        <div class="text-7xl md:text-8xl font-medium tracking-tighter mb-8" id="total-result">$0</div>
+                        <p class="text-xs text-white/30 uppercase tracking-[0.2em]" id="buyers-label">0 Estimated Buyers</p>
+                        
+                        <div class="mt-16 pt-16 border-t border-white/5">
+                            <p class="text-[10px] text-white/20 leading-relaxed uppercase tracking-widest italic font-light">
+                                Based on industry-standard 1% engagement. <br>High-scale projects (>700k) require custom modeling.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -156,51 +207,49 @@
     </section>
 
     <section id="contact" class="section-container">
-        <div class="max-w-2xl mx-auto">
-            <div class="mb-16 text-center">
-                <h2 class="text-3xl font-semibold mb-4 tracking-tight">Apply for Partnership</h2>
-                <p class="text-gray-500 text-sm">We only accept 2 new partnerships per quarter to ensure total focus.</p>
-            </div>
-            <form action="https://formspree.io/f/mlgwrybe" method="POST" class="space-y-8">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <label class="text-[10px] uppercase tracking-widest text-gray-400">Full Name</label>
-                        <input type="text" name="name" required placeholder="John Doe">
-                    </div>
-                    <div>
-                        <label class="text-[10px] uppercase tracking-widest text-gray-400">Email Address</label>
-                        <input type="email" name="email" required placeholder="john@example.com">
-                    </div>
+        <div class="grid md:grid-cols-2 gap-24">
+            <div>
+                <h2 class="text-5xl font-light tracking-tighter mb-8 leading-tight">Start a <span class="italic-accent">private</span> <br>conversation.</h2>
+                <p class="text-black/40 text-lg font-light leading-relaxed max-w-md">We selective about our partners. If you have an engaged audience and are ready to build a legacy, we want to hear from you.</p>
+                <div class="mt-20 p-0 overflow-hidden rounded-sm grayscale opacity-30">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" alt="Studio Space">
                 </div>
-                <div class="grid md:grid-cols-2 gap-8">
+            </div>
+            
+            <form action="https://formspree.io/f/mlgwrybe" method="POST" class="space-y-12">
+                <div class="grid md:grid-cols-2 gap-12">
                     <div>
-                        <label class="text-[10px] uppercase tracking-widest text-gray-400">Instagram @Handle</label>
-                        <input type="text" name="instagram" placeholder="@yourprofile">
+                        <label class="text-[10px] uppercase tracking-[0.2em] text-black/30">Full Name</label>
+                        <input type="text" name="name" required placeholder="Ex: Lucas Silva">
                     </div>
                     <div>
-                        <label class="text-[10px] uppercase tracking-widest text-gray-400">Primary Niche</label>
-                        <input type="text" name="niche" placeholder="Fitness, Art, Business...">
+                        <label class="text-[10px] uppercase tracking-[0.2em] text-black/30">Email</label>
+                        <input type="email" name="email" required placeholder="lucas@studio.com">
                     </div>
                 </div>
                 <div>
-                    <label class="text-[10px] uppercase tracking-widest text-gray-400">Project Details</label>
-                    <textarea name="message" rows="4" required placeholder="Tell us about your audience and goals..."></textarea>
+                    <label class="text-[10px] uppercase tracking-[0.2em] text-black/30">Instagram @Handle</label>
+                    <input type="text" name="instagram" placeholder="@yourprofile">
                 </div>
-                <button type="submit" class="w-full bg-[#111111] text-white py-5 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition">
+                <div>
+                    <label class="text-[10px] uppercase tracking-[0.2em] text-black/30">Message</label>
+                    <textarea name="message" rows="4" required placeholder="Briefly describe your current situation..."></textarea>
+                </div>
+                <button type="submit" class="w-full bg-black text-white py-6 text-[10px] font-bold uppercase tracking-[0.3em] btn-premium">
                     Submit Application
                 </button>
             </form>
         </div>
     </section>
 
-    <footer class="border-t border-gray-100 py-16">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
-            <div class="flex flex-col gap-2">
-                <span class="text-xl font-semibold tracking-tighter">Monerize</span>
-                <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-300">© 2026 Partnership Studio</span>
+    <footer class="border-t border-black/[0.03] py-20">
+        <div class="section-container flex flex-col md:flex-row justify-between items-center gap-10">
+            <div class="flex flex-col gap-3">
+                <span class="text-2xl font-semibold tracking-tighter">Monerize</span>
+                <span class="text-[9px] font-bold uppercase tracking-[0.5em] text-black/20">Partnership Studio © 2026</span>
             </div>
-            <div class="flex gap-10 text-[11px] font-bold uppercase tracking-widest text-gray-400">
-                 <a href="https://www.instagram.com/monerize/" target="_blank" class="hover:text-[#111111] transition">Instagram</a>
+            <div class="flex gap-12 text-[10px] font-bold uppercase tracking-[0.3em] text-black/30">
+                 <a href="https://instagram.com/monerize" class="hover:text-black transition">Instagram</a>
             </div>
         </div>
     </footer>
@@ -210,69 +259,50 @@
 
         function setTiers(n) {
             currentTiers = n;
-            document.querySelectorAll('.tier-btn').forEach(btn => btn.classList.remove('active', 'bg-white', 'text-black', 'border-white'));
-            const active = document.getElementById('t' + n);
-            active.classList.add('active', 'bg-white', 'text-black', 'border-white');
-            renderPriceInputs();
+            document.querySelectorAll('.tier-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('t' + n).classList.add('active');
             calculate();
         }
 
-        function renderPriceInputs() {
-            const container = document.getElementById('price-inputs');
-            container.innerHTML = '';
-            const labels = currentTiers === 1 ? ['Price'] : (currentTiers === 2 ? ['Entry', 'Premium'] : ['Entry', 'Core', 'High']);
-            const defaults = currentTiers === 1 ? [49] : (currentTiers === 2 ? [29, 97] : [29, 97, 250]);
-            for (let i = 0; i < currentTiers; i++) {
-                container.innerHTML += `<div><label class="block text-[9px] text-gray-500 uppercase mb-2 tracking-widest">${labels[i]}</label><input type="number" id="p${i}" value="${defaults[i]}" oninput="calculate()" class="w-full bg-transparent border-b border-white/20 pb-1 outline-none text-lg font-light focus:border-white transition text-white"></div>`;
-            }
-        }
-
-        function animateValue(obj, start, end, duration, isCap) {
-            if (isCap) {
-                obj.innerHTML = "Custom Quote";
-                obj.style.fontSize = "2.5rem"; // Reduz o tamanho para caber o texto
-                return;
-            }
-            obj.style.fontSize = ""; // Reset do tamanho caso não seja cap
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const current = Math.floor(progress * (end - start) + start);
-                obj.innerHTML = '$' + current.toLocaleString();
-                if (progress < 1) window.requestAnimationFrame(step);
-            };
-            window.requestAnimationFrame(step);
-        }
-
         function calculate() {
-            const fInput = document.getElementById('followers');
-            const f = parseInt(fInput.value) || 0;
+            const f = parseInt(document.getElementById('followers').value) || 0;
             const display = document.getElementById('total-result');
             const buyersLabel = document.getElementById('buyers-label');
 
             if (f > 700000) {
-                animateValue(display, 0, 0, 400, true);
-                buyersLabel.innerText = "High-scale strategy required";
+                display.innerHTML = "Custom";
+                display.style.fontSize = "4rem";
+                buyersLabel.innerText = "High-scale consultation required";
                 return;
             }
 
-            const r = { conservative: 0.005, normal: 0.01, optimistic: 0.02 }[document.getElementById('profile').value];
-            const buyers = f * r;
-            let rev = 0;
+            display.style.fontSize = "";
+            const rate = 0.01; // Standard engagement 1%
+            const buyers = f * rate;
+            let total = 0;
 
-            if (currentTiers === 1) rev = buyers * (document.getElementById('p0').value || 0);
-            else if (currentTiers === 2) rev = (buyers * 0.65 * (document.getElementById('p0').value || 0)) + (buyers * 0.35 * (document.getElementById('p1').value || 0));
-            else rev = (buyers * 0.60 * (document.getElementById('p0').value || 0)) + (buyers * 0.30 * (document.getElementById('p1').value || 0)) + (buyers * 0.10 * (document.getElementById('p2').value || 0));
+            if (currentTiers === 1) total = buyers * 49;
+            else if (currentTiers === 2) total = (buyers * 0.65 * 29) + (buyers * 0.35 * 97);
+            else total = (buyers * 0.60 * 29) + (buyers * 0.30 * 97) + (buyers * 0.10 * 250);
 
-            const oldVal = parseInt(display.innerText.replace(/[^0-9]/g, '')) || 0;
-            animateValue(display, oldVal, Math.round(rev), 400, false);
+            // Smooth number transition
+            let currentDisplay = parseInt(display.innerText.replace(/[^0-9]/g, '')) || 0;
+            let start = null;
+            const duration = 600;
+
+            function animate(timestamp) {
+                if (!start) start = timestamp;
+                const progress = Math.min((timestamp - start) / duration, 1);
+                const value = Math.floor(progress * (total - currentDisplay) + currentDisplay);
+                display.innerHTML = '$' + value.toLocaleString();
+                if (progress < 1) requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
             buyersLabel.innerText = Math.round(buyers).toLocaleString() + " Potential Buyers";
         }
 
-        setTiers(3);
         document.getElementById('followers').oninput = calculate;
-        document.getElementById('profile').onchange = calculate;
+        calculate();
     </script>
 </body>
 </html>
