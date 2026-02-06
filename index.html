@@ -9,7 +9,8 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #FAFAFA; color: #111111; line-height: 1.8; letter-spacing: -0.02em; }
         .section-container { max-width: 1100px; margin: 0 auto; padding: 100px 24px; }
-        .bento-card { background: white; border: 1px solid #E5E7EB; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; }
+        .bento-card { background: white; border: 1px solid #E5E7EB; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .bento-card:hover { transform: translateY(-5px); border-color: #111111; }
         .editorial-img { filter: grayscale(100%) contrast(105%); transition: all 0.8s ease; object-fit: cover; }
         .editorial-img:hover { filter: grayscale(0%); }
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
@@ -23,25 +24,21 @@
             <div class="text-xl font-semibold tracking-tighter">Monerize</div>
             <div class="hidden md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400">
                 <a href="#philosophy" class="hover:text-[#111111] transition">Philosophy</a>
-                <a href="#calculator" class="hover:text-[#111111] transition">Potential</a>
+                <a href="#calculator" class="hover:text-[#111111] transition">Opportunity</a>
                 <a href="https://www.instagram.com/monerize/" target="_blank" class="hover:text-[#111111] transition">Instagram</a>
             </div>
-            <a href="mailto:partnerships@monerize.com" class="text-xs font-semibold border border-[#111111] px-5 py-2 hover:bg-[#111111] hover:text-white transition duration-300">
-                Contact
-            </a>
+            <a href="mailto:partnerships@monerize.com" class="text-xs font-semibold border border-[#111111] px-5 py-2 hover:bg-[#111111] hover:text-white transition duration-300">Contact</a>
         </div>
     </nav>
 
     <header class="section-container pt-32 pb-20">
         <div class="max-w-3xl">
-            <h1 class="text-5xl md:text-7xl font-semibold mb-8 tracking-tight leading-[1.1]">
-                Build and monetize digital products with your audience.
-            </h1>
+            <h1 class="text-5xl md:text-7xl font-semibold mb-8 tracking-tight leading-[1.1]">Build and monetize digital products with your audience.</h1>
             <p class="text-xl text-gray-500 mb-12 leading-relaxed max-w-xl">
-                Monerize partners with creators to launch courses, challenges, and memberships using a simple revenue-share model — with no upfront cost.
+                Monerize partners with creators to launch courses, challenges, and memberships using a simple revenue-share model. With no upfront cost.
             </p>
             <div class="flex gap-8 items-center">
-                <a href="#calculator" class="bg-[#111111] text-white px-10 py-4 text-sm font-medium hover:opacity-90 transition">Analyze potential</a>
+                <a href="#calculator" class="bg-[#111111] text-white px-10 py-4 text-sm font-medium hover:opacity-90 transition">Analyze opportunity</a>
                 <a href="#philosophy" class="text-sm font-semibold text-gray-400 hover:text-[#111111] transition">How it works →</a>
             </div>
         </div>
@@ -76,11 +73,11 @@
         <div class="section-container">
             <div class="max-w-4xl mx-auto">
                 <div class="mb-20 text-center">
-                    <h2 class="text-4xl font-semibold mb-4 tracking-tight text-white">Revenue Projection</h2>
-                    <p class="text-gray-500">Based on conservative creator conversion benchmarks.</p>
+                    <h2 class="text-4xl font-semibold mb-4 tracking-tight">Uncaptured Value</h2>
+                    <p class="text-gray-500 text-sm max-w-lg mx-auto leading-relaxed">Your audience is already looking for solutions. This is the estimated revenue currently being left on the table by not having a structured digital ecosystem.</p>
                 </div>
 
-                <div class="grid md:grid-cols-12 gap-12 bg-white/5 p-8 md:p-12 rounded-sm border border-white/10">
+                <div class="grid md:grid-cols-12 gap-12 bg-white/5 p-8 md:p-12 rounded-sm border border-white/10 relative">
                     <div class="md:col-span-7 space-y-10">
                         <div class="grid md:grid-cols-2 gap-8">
                             <div>
@@ -88,35 +85,34 @@
                                 <input type="number" id="followers" value="50000" class="w-full bg-transparent border-b border-white/20 pb-2 focus:border-white outline-none transition text-2xl font-light">
                             </div>
                             <div>
-                                <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Engagement Profile</label>
+                                <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Engagement</label>
                                 <select id="profile" class="w-full bg-transparent border-b border-white/20 pb-2 focus:border-white outline-none transition text-xl font-light text-white">
-                                    <option value="conservative" class="bg-[#111111]">Conservative (0.5%)</option>
-                                    <option value="normal" selected class="bg-[#111111]">Normal (1.2%)</option>
-                                    <option value="optimistic" class="bg-[#111111]">Optimistic (2.0%)</option>
+                                    <option value="conservative" class="bg-[#111111]">Conservative</option>
+                                    <option value="normal" selected class="bg-[#111111]">Normal</option>
+                                    <option value="optimistic" class="bg-[#111111]">Optimistic</option>
                                 </select>
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Product Tiers</label>
+                            <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Current Ecosystem Complexity</label>
                             <div class="flex gap-4">
-                                <button onclick="setTiers(1)" id="t1" class="tier-btn border border-white/20 px-4 py-2 text-xs font-bold transition bg-white text-black">1 Tier</button>
-                                <button onclick="setTiers(2)" id="t2" class="tier-btn border border-white/20 px-4 py-2 text-xs font-bold transition">2 Tiers</button>
-                                <button onclick="setTiers(3)" id="t3" class="tier-btn border border-white/20 px-4 py-2 text-xs font-bold transition">3 Tiers</button>
+                                <button onclick="setTiers(1)" id="t1" class="tier-btn border border-white/20 px-4 py-2 text-[10px] font-bold uppercase tracking-widest transition">Single Tier</button>
+                                <button onclick="setTiers(2)" id="t2" class="tier-btn border border-white/20 px-4 py-2 text-[10px] font-bold uppercase tracking-widest transition">Dual Tier</button>
+                                <button onclick="setTiers(3)" id="t3" class="tier-btn border border-white/20 px-4 py-2 text-[10px] font-bold uppercase tracking-widest transition">Optimized (3)</button>
                             </div>
                         </div>
 
-                        <div id="price-inputs" class="grid md:grid-cols-3 gap-6">
-                            </div>
+                        <div id="price-inputs" class="grid md:grid-cols-3 gap-6"></div>
                     </div>
 
                     <div class="md:col-span-5 flex flex-col justify-center items-center border-t md:border-t-0 md:border-l border-white/10 pt-10 md:pt-0 md:pl-12">
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Est. Monthly Revenue</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Monthly Opportunity Gap</span>
                         <div class="text-6xl font-semibold tracking-tighter" id="total-result">€0</div>
-                        <div class="mt-8 space-y-2 w-full" id="breakdown-ui">
-                            </div>
+                        <div class="mt-8 space-y-3 w-full" id="breakdown-ui"></div>
                     </div>
                 </div>
+                <p class="text-center mt-8 text-[10px] text-gray-600 uppercase tracking-widest italic">Calculated based on average creator conversion benchmarks.</p>
             </div>
         </div>
     </section>
@@ -136,14 +132,15 @@
 
     <script>
         let currentTiers = 1;
-        const prices = [49, 29, 149]; // Defaults for Tier 1, 2, 3
-
         function setTiers(n) {
             currentTiers = n;
             document.querySelectorAll('.tier-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'text-black');
+                btn.classList.remove('bg-white', 'text-black', 'border-white');
+                btn.classList.add('text-gray-500', 'border-white/20');
             });
-            document.getElementById('t'+n).classList.add('bg-white', 'text-black');
+            const activeBtn = document.getElementById('t'+n);
+            activeBtn.classList.add('bg-white', 'text-black', 'border-white');
+            activeBtn.classList.remove('text-gray-500', 'border-white/20');
             renderPriceInputs();
             calculate();
         }
@@ -151,54 +148,29 @@
         function renderPriceInputs() {
             const container = document.getElementById('price-inputs');
             container.innerHTML = '';
-            const labels = currentTiers === 1 ? ['Price'] : (currentTiers === 2 ? ['Basic', 'Premium'] : ['Starter', 'Core', 'Pro']);
+            const labels = currentTiers === 1 ? ['Target Price'] : (currentTiers === 2 ? ['Basic', 'Premium'] : ['Starter', 'Core', 'Pro']);
             const defaults = currentTiers === 1 ? [49] : (currentTiers === 2 ? [29, 79] : [19, 49, 149]);
-            
             for(let i=0; i<currentTiers; i++) {
-                container.innerHTML += `
-                    <div>
-                        <label class="block text-[9px] font-bold text-gray-500 uppercase mb-2">${labels[i]}</label>
-                        <input type="number" id="p${i}" value="${defaults[i]}" oninput="calculate()" class="w-full bg-transparent border-b border-white/20 pb-1 outline-none text-lg font-light focus:border-white transition">
-                    </div>
-                `;
+                container.innerHTML += `<div><label class="block text-[9px] font-bold text-gray-500 uppercase mb-2 tracking-widest">${labels[i]}</label><input type="number" id="p${i}" value="${defaults[i]}" oninput="calculate()" class="w-full bg-transparent border-b border-white/20 pb-1 outline-none text-lg font-light focus:border-white transition"></div>`;
             }
         }
 
         function calculate() {
             const followers = document.getElementById('followers').value || 0;
             const profile = document.getElementById('profile').value;
-            
             const rates = { conservative: 0.005, normal: 0.012, optimistic: 0.02 };
-            const convRate = rates[profile];
-            const buyers = followers * convRate;
+            const totalBuyers = followers * rates[profile];
+            let totalRevenue = 0;
+            if(currentTiers === 1) totalRevenue = totalBuyers * (document.getElementById('p0').value || 0);
+            else if(currentTiers === 2) totalRevenue = (totalBuyers * 0.65 * (document.getElementById('p0').value || 0)) + (totalBuyers * 0.35 * (document.getElementById('p1').value || 0));
+            else totalRevenue = (totalBuyers * 0.60 * (document.getElementById('p0').value || 0)) + (totalBuyers * 0.30 * (document.getElementById('p1').value || 0)) + (totalBuyers * 0.10 * (document.getElementById('p2').value || 0));
 
-            let total = 0;
-            let breakdownHtml = '';
-
-            if(currentTiers === 1) {
-                const p0 = document.getElementById('p0').value || 0;
-                total = buyers * p0;
-            } else if(currentTiers === 2) {
-                const p0 = document.getElementById('p0').value || 0;
-                const p1 = document.getElementById('p1').value || 0;
-                total = (buyers * 0.65 * p0) + (buyers * 0.35 * p1);
-            } else {
-                const p0 = document.getElementById('p0').value || 0;
-                const p1 = document.getElementById('p1').value || 0;
-                const p2 = document.getElementById('p2').value || 0;
-                total = (buyers * 0.60 * p0) + (buyers * 0.30 * p1) + (buyers * 0.10 * p2);
-            }
-
-            document.getElementById('total-result').innerText = '€' + Math.round(total).toLocaleString('en-US');
+            document.getElementById('total-result').innerText = '€' + Math.round(totalRevenue).toLocaleString('en-US');
             document.getElementById('breakdown-ui').innerHTML = `
-                <div class="flex justify-between text-[10px] text-gray-500 uppercase font-bold tracking-widest">
-                    <span>Total Buyers</span>
-                    <span class="text-white">${Math.round(buyers).toLocaleString()}</span>
-                </div>
+                <div class="flex justify-between text-[10px] text-gray-500 uppercase font-bold tracking-widest border-b border-white/5 pb-2"><span>Monthly Loss</span><span class="text-white">€${Math.round(totalRevenue).toLocaleString()}</span></div>
+                <div class="flex justify-between text-[10px] text-[#FAFAFA] uppercase font-bold tracking-widest pt-1"><span>Annual Opportunity Gap</span><span class="text-white">€${Math.round(totalRevenue * 12).toLocaleString()}</span></div>
             `;
         }
-
-        // Initialize
         setTiers(1);
         document.getElementById('followers').addEventListener('input', calculate);
         document.getElementById('profile').addEventListener('change', calculate);
