@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monerize | Partnership Studio for Creators</title>
+    <title>Monerize | Partnership Studio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -12,119 +12,137 @@
             background-color: #FAFAFA; 
             color: #111111;
             line-height: 1.7;
+            letter-spacing: -0.01em;
         }
         .section-container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 100px 24px;
         }
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
+        .text-charcoal { color: #111111; }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+            -webkit-appearance: none; margin: 0;
         }
+        .fade-in { opacity: 0; animation: fadeIn 1s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="antialiased text-[#111111]">
 
     <nav class="w-full bg-[#FAFAFA]/90 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
-            <div class="text-xl font-semibold tracking-tight">
-                Monerize
-            </div>
-            <div class="hidden md:flex gap-12 text-[13px] font-medium uppercase tracking-widest text-gray-400">
+            <div class="text-xl font-semibold tracking-tighter">Monerize</div>
+            <div class="hidden md:flex gap-10 text-[12px] font-medium uppercase tracking-[0.2em] text-gray-400">
                 <a href="#philosophy" class="hover:text-[#111111] transition">Philosophy</a>
+                <a href="#process" class="hover:text-[#111111] transition">Process</a>
                 <a href="#calculator" class="hover:text-[#111111] transition">Potential</a>
-                <a href="mailto:partnerships@monerize.com" class="hover:text-[#111111] transition">Contact</a>
             </div>
+            <a href="mailto:partnerships@monerize.com" class="text-xs font-semibold border border-[#111111] px-5 py-2 hover:bg-[#111111] hover:text-white transition duration-300">
+                Contact
+            </a>
         </div>
     </nav>
 
-    <header class="section-container pt-32 pb-20">
+    <header class="section-container pt-32 pb-24 fade-in">
         <div class="max-w-2xl">
-            <h1 class="text-4xl md:text-5xl font-semibold mb-8 tracking-tight leading-[1.15]">
+            <h1 class="text-4xl md:text-6xl font-semibold mb-8 tracking-tight leading-[1.1]">
                 Build and monetize digital products with your audience.
             </h1>
-            <p class="text-lg text-gray-500 mb-10 leading-relaxed">
-                Monerize partners with creators to launch courses, challenges, and memberships using a simple revenue-share model — with no upfront cost.
+            <p class="text-lg text-gray-500 mb-10 leading-relaxed max-w-lg">
+                A partnership studio for creators. We launch and operate courses, challenges, and memberships with no upfront cost.
             </p>
-            <a href="#calculator" class="inline-block bg-[#111111] text-white px-8 py-4 text-sm font-medium hover:bg-[#2F2F2F] transition">
-                Analyze potential
-            </a>
+            <div class="flex gap-6 items-center">
+                <a href="#calculator" class="bg-[#111111] text-white px-8 py-4 text-sm font-medium hover:bg-[#2F2F2F] transition">
+                    Analyze potential
+                </a>
+                <a href="#process" class="text-sm font-semibold text-gray-400 hover:text-[#111111] transition">Our process →</a>
+            </div>
         </div>
     </header>
 
     <section id="philosophy" class="bg-white border-y border-gray-100">
         <div class="section-container grid md:grid-cols-2 gap-20">
             <div>
-                <h2 class="text-sm font-semibold uppercase tracking-[0.2em] text-gray-400 mb-6">Philosophy</h2>
+                <h2 class="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-300 mb-6">Philosophy</h2>
                 <h3 class="text-2xl font-semibold mb-6">A partner, not an agency.</h3>
-                <p class="text-gray-500 mb-6">
-                    We don't charge consulting hours or setup fees. We only win when you win.
-                </p>
-                <p class="text-gray-500">
-                    Monerize handles the strategy, production, and systems. You focus on the content. We share the revenue.
-                </p>
+                <p class="text-gray-500 mb-6">We don't sell services or charge by the hour. We invest our time and infrastructure into your brand.</p>
+                <p class="text-gray-500">Our interests are perfectly aligned: we only win when your product succeeds.</p>
             </div>
-            <div class="space-y-8">
-                <div class="border-l border-gray-200 pl-6">
-                    <h4 class="font-semibold mb-2">Aligned Incentives</h4>
-                    <p class="text-sm text-gray-500 text-balance">Our revenue-share model ensures we are as invested in your product's success as you are.</p>
+            <div class="grid grid-cols-1 gap-10">
+                <div class="border-l-2 border-gray-100 pl-6">
+                    <h4 class="font-semibold mb-2 text-sm">Revenue-Share Model</h4>
+                    <p class="text-sm text-gray-400">Simple, transparent, and built on trust. No hidden fees or complex contracts.</p>
                 </div>
-                <div class="border-l border-gray-200 pl-6">
-                    <h4 class="font-semibold mb-2">Zero Risk</h4>
-                    <p class="text-sm text-gray-500">No upfront investment required. We provide the expertise and infrastructure to scale.</p>
+                <div class="border-l-2 border-gray-100 pl-6">
+                    <h4 class="font-semibold mb-2 text-sm">Full Operation</h4>
+                    <p class="text-sm text-gray-400">From strategy and tech to customer support. We handle the complexity, you keep the creative focus.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="calculator" class="section-container">
-        <div class="max-w-3xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-2xl font-semibold mb-4">Project your potential.</h2>
-                <p class="text-gray-500">Based on a conservative 1% conversion rate of your current audience.</p>
+    <section id="process" class="section-container">
+        <h2 class="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-300 mb-16 text-center">The Partnership Process</h2>
+        <div class="grid md:grid-cols-3 gap-16">
+            <div class="space-y-4">
+                <span class="text-[10px] font-bold text-gray-200 uppercase">01 / Insight</span>
+                <h4 class="font-semibold">Discovery</h4>
+                <p class="text-sm text-gray-500">We analyze your audience engagement to identify the exact product they are begging for.</p>
             </div>
-
-            <div class="bg-white border border-gray-100 p-10 md:p-16 shadow-sm">
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div class="space-y-10">
-                        <div>
-                            <label class="block text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-4">Followers</label>
-                            <input type="number" id="followers" placeholder="50000" class="w-full bg-transparent border-b border-gray-200 pb-2 focus:border-[#111111] outline-none transition text-xl">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-4">Product Price (€)</label>
-                            <input type="number" id="price" placeholder="47" class="w-full bg-transparent border-b border-gray-200 pb-2 focus:border-[#111111] outline-none transition text-xl">
-                        </div>
-                    </div>
-                    <div class="flex flex-col justify-end">
-                        <p class="text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-2">Estimated Monthly Revenue</p>
-                        <p class="text-5xl font-semibold tracking-tighter" id="result">€0</p>
-                        <p class="text-[10px] text-gray-300 mt-4 italic leading-relaxed">
-                            *This simulation is for informational purposes only and assumes an optimized partnership.
-                        </p>
-                    </div>
-                </div>
+            <div class="space-y-4">
+                <span class="text-[10px] font-bold text-gray-200 uppercase">02 / Build</span>
+                <h4 class="font-semibold">Development</h4>
+                <p class="text-sm text-gray-500">Our studio builds the curriculum, platform, and payment systems. Stress-free creation.</p>
             </div>
-
-            <div class="mt-12 text-center">
-                <p class="text-gray-500 mb-6">Ready to turn this projection into reality?</p>
-                <a href="mailto:partnerships@monerize.com" class="text-sm font-semibold border-b border-[#111111] pb-1 hover:text-gray-400 hover:border-gray-200 transition">
-                    Apply for a partnership
-                </a>
+            <div class="space-y-4">
+                <span class="text-[10px] font-bold text-gray-200 uppercase">03 / Scale</span>
+                <h4 class="font-semibold">Launch & Growth</h4>
+                <p class="text-sm text-gray-500">We manage the launch and day-to-day operations while we scale your recurring revenue.</p>
             </div>
         </div>
     </section>
 
-    <footer class="border-t border-gray-100 pt-20 pb-10">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="text-sm text-gray-400">
-                © 2026 Monerize. A partnership studio.
+    <section id="calculator" class="bg-[#111111] text-white py-24">
+        <div class="section-container">
+            <div class="max-w-3xl mx-auto">
+                <div class="mb-16">
+                    <h2 class="text-3xl font-semibold mb-4">Project your potential.</h2>
+                    <p class="text-gray-400">Based on a conservative 1% conversion of your current audience.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-16 items-end border-t border-white/10 pt-16">
+                    <div class="space-y-12">
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Your Followers</label>
+                            <input type="number" id="followers" placeholder="50000" class="w-full bg-transparent border-b border-white/20 pb-2 focus:border-white outline-none transition text-2xl font-light">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Product Price (€)</label>
+                            <input type="number" id="price" placeholder="47" class="w-full bg-transparent border-b border-white/20 pb-2 focus:border-white outline-none transition text-2xl font-light">
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2">Est. Monthly Revenue</p>
+                        <p class="text-6xl font-semibold tracking-tighter text-white" id="result">€0</p>
+                    </div>
+                </div>
             </div>
-            <div class="text-[13px] font-medium text-gray-400 flex gap-8">
-                <a href="mailto:partnerships@monerize.com" class="hover:text-[#111111] transition">partnerships@monerize.com</a>
-            </div>
+        </div>
+    </section>
+
+    <section class="section-container text-center">
+        <h2 class="text-2xl font-semibold mb-6">Ready to start?</h2>
+        <p class="text-gray-500 mb-10">We are currently accepting 2 new partnerships this month.</p>
+        <a href="mailto:partnerships@monerize.com" class="text-sm font-semibold border-b-2 border-[#111111] pb-1 hover:text-gray-400 hover:border-gray-200 transition">
+            partnerships@monerize.com
+        </a>
+    </section>
+
+    <footer class="border-t border-gray-100 py-12">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <span class="text-[10px] font-medium uppercase tracking-widest text-gray-300">© 2026 Monerize Studio</span>
+            <div class="flex gap-6">
+                </div>
         </div>
     </footer>
 
@@ -138,6 +156,5 @@
         document.getElementById('followers').addEventListener('input', calculate);
         document.getElementById('price').addEventListener('input', calculate);
     </script>
-
 </body>
 </html>
