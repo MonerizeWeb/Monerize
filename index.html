@@ -13,10 +13,13 @@
         .bento-card:hover { transform: translateY(-5px); border-color: #111111; }
         .editorial-img { filter: grayscale(100%) contrast(105%); transition: 0.8s; object-fit: cover; }
         .editorial-img:hover { filter: grayscale(0%); }
-        .step-number { font-size: 10px; font-weight: 800; color: #E5E7EB; margin-bottom: 8px; display: block; }
-        .roadmap-item { border-left: 1px solid #E5E7EB; padding-left: 24px; position: relative; }
-        .roadmap-item::before { content: ''; position: absolute; left: -4px; top: 0; width: 7px; height: 7px; background: #111111; border-radius: 50%; }
-        input, select, textarea { appearance: none; background: transparent; border-bottom: 1px solid rgba(0,0,0,0.1); padding: 12px 0; outline: none; transition: 0.3s; width: 100%; font-size: 14px; }
+        
+        /* Roadmap Styling Ampliado */
+        .step-number { font-size: 12px; font-weight: 800; color: #D1D5DB; margin-bottom: 12px; display: block; letter-spacing: 0.1em; }
+        .roadmap-item { border-left: 2px solid #E5E7EB; padding-left: 32px; position: relative; padding-bottom: 20px; }
+        .roadmap-item::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: #111111; border-radius: 50%; }
+
+        input, select, textarea { appearance: none; background: transparent; border-bottom: 1px solid rgba(0,0,0,0.1); padding: 12px 0; outline: none; transition: 0.3s; width: 100%; font-size: 16px; }
         input:focus, textarea:focus { border-color: #111111; }
         .tier-btn.active { background-color: white; color: black; border-color: white; }
     </style>
@@ -78,29 +81,33 @@
             <div class="max-w-2xl mb-20">
                 <h2 class="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-300 mb-4">Execution</h2>
                 <h3 class="text-4xl font-semibold tracking-tight">The 8-Week Blueprint.</h3>
-                <p class="text-gray-500 mt-6 italic">A structured, proven process that respects your time while building lasting infrastructure.</p>
             </div>
             <div class="grid md:grid-cols-4 gap-12">
                 <div class="roadmap-item">
                     <span class="step-number">PHASE 01</span>
-                    <h4 class="font-bold text-xs uppercase mb-3">Foundation</h4>
-                    <p class="text-xs text-gray-400 leading-relaxed">Brand alignment, offer refinement, and strategic positioning of your signature programs.</p>
+                    <h4 class="font-bold text-sm uppercase mb-4 text-black">Foundation</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">Brand alignment, offer refinement, and strategic positioning of your signature programs.</p>
                 </div>
                 <div class="roadmap-item">
                     <span class="step-number">PHASE 02</span>
-                    <h4 class="font-bold text-xs uppercase mb-3">Build</h4>
-                    <p class="text-xs text-gray-400 leading-relaxed">Custom platform development, automated email funnels, and global checkout systems.</p>
+                    <h4 class="font-bold text-sm uppercase mb-4 text-black">Build</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">Custom platform development, automated email funnels, and global checkout systems.</p>
                 </div>
                 <div class="roadmap-item">
                     <span class="step-number">PHASE 03</span>
-                    <h4 class="font-bold text-xs uppercase mb-3">Content</h4>
-                    <p class="text-xs text-gray-400 leading-relaxed">Asset creation, marketing sequences, and launch materials designed for maximum impact.</p>
+                    <h4 class="font-bold text-sm uppercase mb-4 text-black">Content</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">Asset creation, marketing sequences, and launch materials designed for maximum impact.</p>
                 </div>
                 <div class="roadmap-item">
                     <span class="step-number">PHASE 04</span>
-                    <h4 class="font-bold text-xs uppercase mb-3">Launch</h4>
-                    <p class="text-xs text-gray-400 leading-relaxed">Strategic deployment, optimization, and scaling. Revenue begins to flow.</p>
+                    <h4 class="font-bold text-sm uppercase mb-4 text-black">Launch</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">Strategic deployment, optimization, and scaling. Revenue begins to flow.</p>
                 </div>
+            </div>
+            <div class="mt-20 pt-8 border-t border-gray-50 max-w-xl">
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest leading-loose">
+                    * This timeline represents our standard high-performance framework. Actual duration may be adjusted based on project complexity and content readiness to ensure the highest quality delivery.
+                </p>
             </div>
         </div>
     </section>
@@ -116,7 +123,7 @@
                     <div class="md:col-span-7 space-y-10">
                         <div class="grid md:grid-cols-2 gap-8">
                             <div>
-                                <label class="block text-[10px] uppercase tracking-widest text-gray-500 mb-4">Followers</label>
+                                <label class="block text-[10px] uppercase tracking-widest text-gray-500 mb-4">Followers (Max 700k)</label>
                                 <input type="number" id="followers" value="48000" class="text-white border-white/20 focus:border-white text-2xl font-light">
                             </div>
                             <div>
@@ -140,7 +147,7 @@
                     </div>
                     <div class="md:col-span-5 flex flex-col justify-center items-center border-t md:border-t-0 md:border-l border-white/10 pt-10 md:pt-0 md:pl-12 text-center">
                         <span class="text-[10px] uppercase tracking-widest text-gray-500 mb-4">Launch Potential</span>
-                        <div class="text-7xl font-semibold tracking-tighter" id="total-result">$0</div>
+                        <div class="text-6xl md:text-7xl font-semibold tracking-tighter" id="total-result">$0</div>
                         <div class="text-[11px] text-gray-500 mt-4 uppercase tracking-[0.2em]" id="buyers-label">0 Potential Buyers</div>
                     </div>
                 </div>
@@ -200,6 +207,7 @@
 
     <script>
         let currentTiers = 3;
+
         function setTiers(n) {
             currentTiers = n;
             document.querySelectorAll('.tier-btn').forEach(btn => btn.classList.remove('active', 'bg-white', 'text-black', 'border-white'));
@@ -208,6 +216,7 @@
             renderPriceInputs();
             calculate();
         }
+
         function renderPriceInputs() {
             const container = document.getElementById('price-inputs');
             container.innerHTML = '';
@@ -217,7 +226,14 @@
                 container.innerHTML += `<div><label class="block text-[9px] text-gray-500 uppercase mb-2 tracking-widest">${labels[i]}</label><input type="number" id="p${i}" value="${defaults[i]}" oninput="calculate()" class="w-full bg-transparent border-b border-white/20 pb-1 outline-none text-lg font-light focus:border-white transition text-white"></div>`;
             }
         }
-        function animateValue(obj, start, end, duration) {
+
+        function animateValue(obj, start, end, duration, isCap) {
+            if (isCap) {
+                obj.innerHTML = "Custom Quote";
+                obj.style.fontSize = "2.5rem"; // Reduz o tamanho para caber o texto
+                return;
+            }
+            obj.style.fontSize = ""; // Reset do tamanho caso não seja cap
             let startTimestamp = null;
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
@@ -228,19 +244,32 @@
             };
             window.requestAnimationFrame(step);
         }
+
         function calculate() {
-            const f = document.getElementById('followers').value || 0;
+            const fInput = document.getElementById('followers');
+            const f = parseInt(fInput.value) || 0;
+            const display = document.getElementById('total-result');
+            const buyersLabel = document.getElementById('buyers-label');
+
+            if (f > 700000) {
+                animateValue(display, 0, 0, 400, true);
+                buyersLabel.innerText = "High-scale strategy required";
+                return;
+            }
+
             const r = { conservative: 0.005, normal: 0.01, optimistic: 0.02 }[document.getElementById('profile').value];
             const buyers = f * r;
             let rev = 0;
+
             if (currentTiers === 1) rev = buyers * (document.getElementById('p0').value || 0);
             else if (currentTiers === 2) rev = (buyers * 0.65 * (document.getElementById('p0').value || 0)) + (buyers * 0.35 * (document.getElementById('p1').value || 0));
             else rev = (buyers * 0.60 * (document.getElementById('p0').value || 0)) + (buyers * 0.30 * (document.getElementById('p1').value || 0)) + (buyers * 0.10 * (document.getElementById('p2').value || 0));
-            const display = document.getElementById('total-result');
+
             const oldVal = parseInt(display.innerText.replace(/[^0-9]/g, '')) || 0;
-            animateValue(display, oldVal, Math.round(rev), 400);
-            document.getElementById('buyers-label').innerText = Math.round(buyers).toLocaleString() + " Potential Buyers";
+            animateValue(display, oldVal, Math.round(rev), 400, false);
+            buyersLabel.innerText = Math.round(buyers).toLocaleString() + " Potential Buyers";
         }
+
         setTiers(3);
         document.getElementById('followers').oninput = calculate;
         document.getElementById('profile').onchange = calculate;
