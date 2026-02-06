@@ -9,14 +9,12 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #FAFAFA; color: #111111; line-height: 1.8; letter-spacing: -0.02em; overflow-x: hidden; }
         
-        /* NOVO FUNDO ANIMADO */
         #bg-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0; pointer-events: none;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0,0,0,0.05) 0%, rgba(250,250,250,0) 50%);
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0,0,0,0.08) 0%, rgba(250,250,250,0) 50%);
         }
 
-        /* Efeito de Grão / Textura */
         .grain {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("https://grainy-gradients.vercel.app/noise.svg");
@@ -31,7 +29,6 @@
         .editorial-img { filter: grayscale(100%) contrast(105%); transition: 0.8s; object-fit: cover; border-radius: 4px; }
         .editorial-img:hover { filter: grayscale(0%); }
 
-        /* Roadmap Ampliado para Leitura */
         .step-number { font-size: 11px; font-weight: 800; color: #D1D5DB; margin-bottom: 16px; display: block; letter-spacing: 0.2em; }
         .roadmap-item { border-left: 1px solid #E5E7EB; padding-left: 32px; position: relative; padding-bottom: 40px; }
         .roadmap-item::before { content: ''; position: absolute; left: -4.5px; top: 0; width: 8px; height: 8px; background: #111111; border-radius: 50%; }
@@ -107,6 +104,7 @@
             <div class="max-w-2xl mb-24">
                 <h2 class="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-300 mb-6">Execution</h2>
                 <h3 class="text-5xl font-semibold tracking-tighter">The 8-Week Blueprint.</h3>
+                <p class="mt-8 text-gray-400 text-sm italic">Note: Timelines are estimated based on project complexity and content readiness.</p>
             </div>
             <div class="grid md:grid-cols-4 gap-16">
                 <div class="roadmap-item">
@@ -144,7 +142,7 @@
                         <div class="space-y-12">
                             <div>
                                 <label class="block text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-4">Total Followers</label>
-                                <input type="number" id="followers" value="48000" class="text-white border-white/10 focus:border-white text-3xl font-light">
+                                <input type="number" id="followers" value="48000" oninput="calculate()" class="text-white border-white/10 focus:border-white text-3xl font-light w-full bg-transparent outline-none border-b pb-2">
                             </div>
                             <div>
                                 <label class="block text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-6">Product Ecosystem</label>
@@ -204,14 +202,13 @@
         <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-10">
             <div class="flex flex-col gap-2">
                 <span class="text-2xl font-semibold tracking-tighter">Monerize</span>
-                <span class="text-[9px] font-bold uppercase tracking-[0.5em] text-gray-300">Partnership Studio © 2026</span>
+                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.1em]">Monerize© — Creator Monetization Partnership Studio</span>
             </div>
             <a href="https://instagram.com/monerize" target="_blank" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black transition">Instagram</a>
         </div>
     </footer>
 
     <script>
-        // Fundo Animado Mouse
         const bg = document.getElementById('bg-canvas');
         window.addEventListener('mousemove', (e) => {
             const x = (e.clientX / window.innerWidth) * 100;
@@ -220,7 +217,6 @@
             bg.style.setProperty('--y', y + '%');
         });
 
-        // Calculadora
         let currentTiers = 3;
         function setTiers(n) {
             currentTiers = n;
@@ -256,19 +252,32 @@
         function calculate() {
             const f = parseInt(document.getElementById('followers').value) || 0;
             const display = document.getElementById('total-result');
-            if (f > 700000) { animateValue(display, 0, 0, 400, true); return; }
-            const rate = 0.01;
+            
+            if (f > 2000000) { animateValue(display, 0, 0, 400, true); return; }
+            
+            const rate = 0.01; // 1% conversion estimate
             const buyers = f * rate;
             let rev = 0;
-            if (currentTiers === 1) rev = buyers * (document.getElementById('p0').value || 0);
-            else if (currentTiers === 2) rev = (buyers * 0.65 * (document.getElementById('p0').value || 0)) + (buyers * 0.35 * (document.getElementById('p1').value || 0));
-            else rev = (buyers * 0.60 * (document.getElementById('p0').value || 0)) + (buyers * 0.30 * (document.getElementById('p1').value || 0)) + (buyers * 0.10 * (document.getElementById('p2').value || 0));
+            
+            if (currentTiers === 1) {
+                rev = buyers * (document.getElementById('p0')?.value || 0);
+            } else if (currentTiers === 2) {
+                rev = (buyers * 0.70 * (document.getElementById('p0')?.value || 0)) + 
+                      (buyers * 0.30 * (document.getElementById('p1')?.value || 0));
+            } else {
+                rev = (buyers * 0.60 * (document.getElementById('p0')?.value || 0)) + 
+                      (buyers * 0.30 * (document.getElementById('p1')?.value || 0)) + 
+                      (buyers * 0.10 * (document.getElementById('p2')?.value || 0));
+            }
+            
             const oldVal = parseInt(display.innerText.replace(/[^0-9]/g, '')) || 0;
             animateValue(display, oldVal, Math.round(rev), 400, false);
-            document.getElementById('buyers-label').innerText = Math.round(buyers).toLocaleString() + " Potential Buyers";
+            document.getElementById('buyers-label').innerText = Math.round(buyers).toLocaleString() + " Estimated Buyers";
         }
 
-        setTiers(3);
+        // Initialize
+        renderPriceInputs();
+        calculate();
     </script>
 </body>
 </html>
