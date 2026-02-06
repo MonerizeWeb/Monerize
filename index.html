@@ -5,57 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monerize | Partnership Studio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: #FAFAFA; 
             color: #111111;
-            line-height: 1.7;
+            line-height: 1.8;
             letter-spacing: -0.01em;
         }
         .section-container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 100px 24px;
+            padding: 120px 24px;
         }
-        .text-charcoal { color: #111111; }
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
             -webkit-appearance: none; margin: 0;
         }
         .fade-in { opacity: 0; animation: fadeIn 1s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Ajuste de legibilidade para textos pequenos */
+        .label-text {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #6B7280; /* Slate Gray das tuas guidelines */
+        }
     </style>
 </head>
 <body class="antialiased text-[#111111]">
 
-    <nav class="w-full bg-[#FAFAFA]/90 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-100">
+    <nav class="w-full bg-[#FAFAFA]/95 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
             <div class="text-xl font-semibold tracking-tighter">Monerize</div>
-            <div class="hidden md:flex gap-10 text-[12px] font-medium uppercase tracking-[0.2em] text-gray-400">
+            <div class="hidden md:flex gap-10 text-[12px] font-bold uppercase tracking-[0.2em] text-gray-400">
                 <a href="#philosophy" class="hover:text-[#111111] transition">Philosophy</a>
                 <a href="#process" class="hover:text-[#111111] transition">Process</a>
                 <a href="#calculator" class="hover:text-[#111111] transition">Potential</a>
             </div>
-            <a href="mailto:partnerships@monerize.com" class="text-xs font-semibold border border-[#111111] px-5 py-2 hover:bg-[#111111] hover:text-white transition duration-300">
+            <a href="mailto:partnerships@monerize.com" class="text-sm font-semibold border border-[#111111] px-6 py-2.5 hover:bg-[#111111] hover:text-white transition duration-300">
                 Contact
             </a>
         </div>
     </nav>
 
     <header class="section-container pt-32 pb-24 fade-in">
-        <div class="max-w-2xl">
-            <h1 class="text-4xl md:text-6xl font-semibold mb-8 tracking-tight leading-[1.1]">
+        <div class="max-w-3xl">
+            <h1 class="text-5xl md:text-7xl font-semibold mb-10 tracking-tight leading-[1.1] text-[#111111]">
                 Build and monetize digital products with your audience.
             </h1>
-            <p class="text-lg text-gray-500 mb-10 leading-relaxed max-w-lg">
+            <p class="text-xl text-gray-500 mb-12 leading-relaxed max-w-xl">
                 A partnership studio for creators. We launch and operate courses, challenges, and memberships with no upfront cost.
             </p>
-            <div class="flex gap-6 items-center">
-                <a href="#calculator" class="bg-[#111111] text-white px-8 py-4 text-sm font-medium hover:bg-[#2F2F2F] transition">
+            <div class="flex flex-wrap gap-8 items-center">
+                <a href="#calculator" class="bg-[#111111] text-white px-10 py-5 text-base font-medium hover:bg-[#2F2F2F] transition">
                     Analyze potential
                 </a>
-                <a href="#process" class="text-sm font-semibold text-gray-400 hover:text-[#111111] transition">Our process →</a>
+                <a href="#process" class="text-base font-semibold text-gray-500 hover:text-[#111111] transition border-b border-transparent hover:border-[#111111]">Our process →</a>
             </div>
         </div>
     </header>
@@ -63,86 +71,90 @@
     <section id="philosophy" class="bg-white border-y border-gray-100">
         <div class="section-container grid md:grid-cols-2 gap-20">
             <div>
-                <h2 class="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-300 mb-6">Philosophy</h2>
-                <h3 class="text-2xl font-semibold mb-6">A partner, not an agency.</h3>
-                <p class="text-gray-500 mb-6">We don't sell services or charge by the hour. We invest our time and infrastructure into your brand.</p>
-                <p class="text-gray-500">Our interests are perfectly aligned: we only win when your product succeeds.</p>
+                <h2 class="label-text mb-8 text-[#6B7280]">Philosophy</h2>
+                <h3 class="text-3xl font-semibold mb-8">A partner, not an agency.</h3>
+                <p class="text-lg text-gray-500 mb-6">We don't sell services or charge by the hour. We invest our time and infrastructure into your brand.</p>
+                <p class="text-lg text-gray-500">Our interests are perfectly aligned: we only win quando your product succeeds.</p>
             </div>
-            <div class="grid grid-cols-1 gap-10">
-                <div class="border-l-2 border-gray-100 pl-6">
-                    <h4 class="font-semibold mb-2 text-sm">Revenue-Share Model</h4>
-                    <p class="text-sm text-gray-400">Simple, transparent, and built on trust. No hidden fees or complex contracts.</p>
+            <div class="grid grid-cols-1 gap-12">
+                <div class="border-l-4 border-gray-50 pl-8">
+                    <h4 class="font-semibold mb-3 text-lg">Revenue-Share Model</h4>
+                    <p class="text-gray-500">Simple, transparent, and built on trust. No hidden fees or complex contracts.</p>
                 </div>
-                <div class="border-l-2 border-gray-100 pl-6">
-                    <h4 class="font-semibold mb-2 text-sm">Full Operation</h4>
-                    <p class="text-sm text-gray-400">From strategy and tech to customer support. We handle the complexity, you keep the creative focus.</p>
+                <div class="border-l-4 border-gray-50 pl-8">
+                    <h4 class="font-semibold mb-3 text-lg">Full Operation</h4>
+                    <p class="text-gray-500">From strategy and tech to customer support. We handle the complexity, you keep the creative focus.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="process" class="section-container">
-        <h2 class="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-300 mb-16 text-center">The Partnership Process</h2>
+        <div class="text-center mb-20">
+            <h2 class="label-text mb-4">The Partnership Process</h2>
+        </div>
         <div class="grid md:grid-cols-3 gap-16">
-            <div class="space-y-4">
-                <span class="text-[10px] font-bold text-gray-200 uppercase">01 / Insight</span>
-                <h4 class="font-semibold">Discovery</h4>
-                <p class="text-sm text-gray-500">We analyze your audience engagement to identify the exact product they are begging for.</p>
+            <div class="space-y-6">
+                <span class="text-sm font-bold text-gray-400 uppercase tracking-widest">01 / Insight</span>
+                <h4 class="text-xl font-semibold">Discovery</h4>
+                <p class="text-gray-500">We analyze your audience engagement to identify the exact product they are begging for.</p>
             </div>
-            <div class="space-y-4">
-                <span class="text-[10px] font-bold text-gray-200 uppercase">02 / Build</span>
-                <h4 class="font-semibold">Development</h4>
-                <p class="text-sm text-gray-500">Our studio builds the curriculum, platform, and payment systems. Stress-free creation.</p>
+            <div class="space-y-6">
+                <span class="text-sm font-bold text-gray-400 uppercase tracking-widest">02 / Build</span>
+                <h4 class="text-xl font-semibold">Development</h4>
+                <p class="text-gray-500">Our studio builds the curriculum, platform, and payment systems. Stress-free creation.</p>
             </div>
-            <div class="space-y-4">
-                <span class="text-[10px] font-bold text-gray-200 uppercase">03 / Scale</span>
-                <h4 class="font-semibold">Launch & Growth</h4>
-                <p class="text-sm text-gray-500">We manage the launch and day-to-day operations while we scale your recurring revenue.</p>
+            <div class="space-y-6">
+                <span class="text-sm font-bold text-gray-400 uppercase tracking-widest">03 / Scale</span>
+                <h4 class="text-xl font-semibold">Launch & Growth</h4>
+                <p class="text-gray-500">We manage the launch and day-to-day operations while we scale your recurring revenue.</p>
             </div>
         </div>
     </section>
 
-    <section id="calculator" class="bg-[#111111] text-white py-24">
+    <section id="calculator" class="bg-[#111111] text-white py-32">
         <div class="section-container">
-            <div class="max-w-3xl mx-auto">
-                <div class="mb-16">
-                    <h2 class="text-3xl font-semibold mb-4">Project your potential.</h2>
-                    <p class="text-gray-400">Based on a conservative 1% conversion of your current audience.</p>
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-20">
+                    <h2 class="text-4xl font-semibold mb-6">Project your potential.</h2>
+                    <p class="text-lg text-gray-400">Based on a conservative 1% conversion of your current audience.</p>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-16 items-end border-t border-white/10 pt-16">
-                    <div class="space-y-12">
+                <div class="grid md:grid-cols-2 gap-20 items-end border-t border-white/10 pt-20">
+                    <div class="space-y-16">
                         <div>
-                            <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Your Followers</label>
-                            <input type="number" id="followers" placeholder="50000" class="w-full bg-transparent border-b border-white/20 pb-2 focus:border-white outline-none transition text-2xl font-light">
+                            <label class="block text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-6">Your Followers</label>
+                            <input type="number" id="followers" placeholder="50,000" class="w-full bg-transparent border-b border-white/30 pb-4 focus:border-white outline-none transition text-3xl font-light placeholder:text-white/20">
                         </div>
                         <div>
-                            <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Product Price (€)</label>
-                            <input type="number" id="price" placeholder="47" class="w-full bg-transparent border-b border-white/20 pb-2 focus:border-white outline-none transition text-2xl font-light">
+                            <label class="block text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-6">Product Price (€)</label>
+                            <input type="number" id="price" placeholder="47" class="w-full bg-transparent border-b border-white/30 pb-4 focus:border-white outline-none transition text-3xl font-light placeholder:text-white/20">
                         </div>
                     </div>
-                    <div>
-                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2">Est. Monthly Revenue</p>
-                        <p class="text-6xl font-semibold tracking-tighter text-white" id="result">€0</p>
+                    <div class="bg-white/5 p-12 rounded-sm border border-white/10">
+                        <p class="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-4">Est. Monthly Revenue</p>
+                        <p class="text-7xl font-semibold tracking-tighter text-white" id="result">€0</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-container text-center">
-        <h2 class="text-2xl font-semibold mb-6">Ready to start?</h2>
-        <p class="text-gray-500 mb-10">We are currently accepting 2 new partnerships this month.</p>
-        <a href="mailto:partnerships@monerize.com" class="text-sm font-semibold border-b-2 border-[#111111] pb-1 hover:text-gray-400 hover:border-gray-200 transition">
+    <section class="section-container text-center py-32">
+        <h2 class="text-3xl font-semibold mb-8">Ready to start?</h2>
+        <p class="text-xl text-gray-500 mb-12">We are currently accepting 2 new partnerships this month.</p>
+        <a href="mailto:partnerships@monerize.com" class="text-lg font-semibold border-b-2 border-[#111111] pb-2 hover:text-gray-400 hover:border-gray-200 transition">
             partnerships@monerize.com
         </a>
     </section>
 
-    <footer class="border-t border-gray-100 py-12">
-        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
-            <span class="text-[10px] font-medium uppercase tracking-widest text-gray-300">© 2026 Monerize Studio</span>
-            <div class="flex gap-6">
-                </div>
+    <footer class="border-t border-gray-100 py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
+            <span class="text-xs font-bold uppercase tracking-[0.3em] text-gray-400">© 2026 Monerize Studio</span>
+            <div class="flex gap-10 text-xs font-bold uppercase tracking-widest text-gray-400">
+                 <a href="mailto:partnerships@monerize.com" class="hover:text-[#111111] transition">Contact</a>
+                 <a href="#" class="hover:text-[#111111] transition">Privacy</a>
+            </div>
         </div>
     </footer>
 
