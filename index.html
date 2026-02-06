@@ -9,10 +9,11 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #FAFAFA; color: #111111; line-height: 1.8; letter-spacing: -0.02em; overflow-x: hidden; }
         
+        /* FUNDO SUAVE (Aura de 5% como na versão que enviaste) */
         #bg-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0; pointer-events: none;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0,0,0,0.08) 0%, rgba(250,250,250,0) 50%);
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0,0,0,0.05) 0%, rgba(250,250,250,0) 50%);
         }
 
         .grain {
@@ -104,7 +105,7 @@
             <div class="max-w-2xl mb-24">
                 <h2 class="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-300 mb-6">Execution</h2>
                 <h3 class="text-5xl font-semibold tracking-tighter">The 8-Week Blueprint.</h3>
-                <p class="mt-8 text-gray-400 text-sm italic">Note: Timelines are estimated based on project complexity and content readiness.</p>
+                <p class="mt-6 text-gray-400 text-sm italic">Note: Timelines are estimated based on project complexity and content readiness.</p>
             </div>
             <div class="grid md:grid-cols-4 gap-16">
                 <div class="roadmap-item">
@@ -137,11 +138,9 @@
                 <div class="grid md:grid-cols-2 gap-24 items-center">
                     <div>
                         <h2 class="text-5xl font-semibold mb-8 tracking-tighter leading-tight">The math of <br><span class="text-white/30 italic">uncaptured value.</span></h2>
-                        <p class="text-gray-500 mb-16 font-light">Estimate what your community is currently leaving on the table.</p>
-                        
                         <div class="space-y-12">
                             <div>
-                                <label class="block text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-4">Total Followers</label>
+                                <label class="block text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-4">Total Followers (700k Max)</label>
                                 <input type="number" id="followers" value="48000" oninput="calculate()" class="text-white border-white/10 focus:border-white text-3xl font-light w-full bg-transparent outline-none border-b pb-2">
                             </div>
                             <div>
@@ -167,33 +166,17 @@
     </section>
 
     <section id="contact" class="section-container">
-        <div class="max-w-3xl mx-auto">
-            <div class="mb-20 text-center">
-                <h2 class="text-4xl font-semibold mb-4 tracking-tight">Private Conversation</h2>
-                <p class="text-gray-500 font-light">We are selective about our partners. If you have an engaged audience and are ready to build a legacy, we want to hear from you.</p>
-            </div>
-            <form action="https://formspree.io/f/mlgwrybe" method="POST" class="space-y-12">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-4xl font-semibold mb-4 tracking-tight">Apply for Partnership</h2>
+            <p class="text-gray-500 font-light mb-16">Limited to 2 new partners per quarter.</p>
+            <form action="https://formspree.io/f/mlgwrybe" method="POST" class="space-y-12 text-left">
                 <div class="grid md:grid-cols-2 gap-12">
-                    <div>
-                        <label class="text-[10px] uppercase tracking-widest text-gray-400">Full Name</label>
-                        <input type="text" name="name" required placeholder="Ex: Lucas Silva">
-                    </div>
-                    <div>
-                        <label class="text-[10px] uppercase tracking-widest text-gray-400">Email Address</label>
-                        <input type="email" name="email" required placeholder="lucas@studio.com">
-                    </div>
+                    <input type="text" name="name" required placeholder="Full Name">
+                    <input type="email" name="email" required placeholder="Email Address">
                 </div>
-                <div>
-                    <label class="text-[10px] uppercase tracking-widest text-gray-400">Instagram @Handle</label>
-                    <input type="text" name="instagram" placeholder="@yourprofile">
-                </div>
-                <div>
-                    <label class="text-[10px] uppercase tracking-widest text-gray-400">Message</label>
-                    <textarea name="message" rows="4" required placeholder="Briefly describe your current situation..."></textarea>
-                </div>
-                <button type="submit" class="w-full bg-[#111111] text-white py-6 text-[10px] font-bold uppercase tracking-[0.3em] hover:opacity-90 transition">
-                    Submit Application
-                </button>
+                <input type="text" name="instagram" placeholder="Instagram @Handle">
+                <textarea name="message" rows="4" required placeholder="Tell us about your project..."></textarea>
+                <button type="submit" class="w-full bg-[#111111] text-white py-6 text-[10px] font-bold uppercase tracking-[0.3em] hover:opacity-90 transition">Submit Application</button>
             </form>
         </div>
     </section>
@@ -209,6 +192,7 @@
     </footer>
 
     <script>
+        // Aura suave de 5% que segue o rato
         const bg = document.getElementById('bg-canvas');
         window.addEventListener('mousemove', (e) => {
             const x = (e.clientX / window.innerWidth) * 100;
@@ -217,6 +201,7 @@
             bg.style.setProperty('--y', y + '%');
         });
 
+        // Lógica da Calculadora Suave
         let currentTiers = 3;
         function setTiers(n) {
             currentTiers = n;
@@ -253,29 +238,30 @@
             const f = parseInt(document.getElementById('followers').value) || 0;
             const display = document.getElementById('total-result');
             
-            if (f > 2000000) { animateValue(display, 0, 0, 400, true); return; }
+            // Limite de 700k como solicitado
+            if (f > 700000) { 
+                animateValue(display, 0, 0, 400, true); 
+                document.getElementById('buyers-label').innerText = "Contact for Enterprise scale";
+                return; 
+            }
             
-            const rate = 0.01; // 1% conversion estimate
-            const buyers = f * rate;
+            const buyers = f * 0.01;
             let rev = 0;
             
             if (currentTiers === 1) {
                 rev = buyers * (document.getElementById('p0')?.value || 0);
             } else if (currentTiers === 2) {
-                rev = (buyers * 0.70 * (document.getElementById('p0')?.value || 0)) + 
-                      (buyers * 0.30 * (document.getElementById('p1')?.value || 0));
+                rev = (buyers * 0.65 * (document.getElementById('p0')?.value || 0)) + (buyers * 0.35 * (document.getElementById('p1')?.value || 0));
             } else {
-                rev = (buyers * 0.60 * (document.getElementById('p0')?.value || 0)) + 
-                      (buyers * 0.30 * (document.getElementById('p1')?.value || 0)) + 
-                      (buyers * 0.10 * (document.getElementById('p2')?.value || 0));
+                rev = (buyers * 0.60 * (document.getElementById('p0')?.value || 0)) + (buyers * 0.30 * (document.getElementById('p1')?.value || 0)) + (buyers * 0.10 * (document.getElementById('p2')?.value || 0));
             }
             
             const oldVal = parseInt(display.innerText.replace(/[^0-9]/g, '')) || 0;
             animateValue(display, oldVal, Math.round(rev), 400, false);
-            document.getElementById('buyers-label').innerText = Math.round(buyers).toLocaleString() + " Estimated Buyers";
+            document.getElementById('buyers-label').innerText = Math.round(buyers).toLocaleString() + " Potential Buyers";
         }
 
-        // Initialize
+        // Init
         renderPriceInputs();
         calculate();
     </script>
