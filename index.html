@@ -9,12 +9,13 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #FAFAFA; color: #111111; line-height: 1.8; letter-spacing: -0.02em; }
         .section-container { max-width: 1100px; margin: 0 auto; padding: 100px 24px; }
-        .bento-card { background: white; border: 1px solid #E5E7EB; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .bento-card { background: white; border: 1px solid #E5E7EB; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .bento-card:hover { transform: translateY(-5px); border-color: #111111; }
-        .editorial-img { filter: grayscale(100%) contrast(105%); transition: all 0.8s ease; object-fit: cover; }
+        .editorial-img { filter: grayscale(100%) contrast(105%); transition: 0.8s; object-fit: cover; }
         .editorial-img:hover { filter: grayscale(0%); }
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.5rem center; background-size: 1.5em; }
+        .tier-btn.active { background-color: white; color: black; border-color: white; }
     </style>
 </head>
 <body class="antialiased">
@@ -24,8 +25,8 @@
             <div class="text-xl font-semibold tracking-tighter">Monerize</div>
             <div class="hidden md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400">
                 <a href="#philosophy" class="hover:text-[#111111] transition">Model</a>
-                <a href="#calculator" class="hover:text-[#111111] transition">Uncaptured Value</a>
-                <a href="https://www.instagram.com/monerize/" target="_blank" class="hover:text-[#111111] transition">Instagram</a>
+                <a href="#timeline" class="hover:text-[#111111] transition">8-Week Roadmap</a>
+                <a href="#calculator" class="hover:text-[#111111] transition">Opportunity</a>
             </div>
             <a href="mailto:partnerships@monerize.com" class="text-xs font-semibold border border-[#111111] px-5 py-2 hover:bg-[#111111] hover:text-white transition duration-300">Contact</a>
         </div>
@@ -39,7 +40,7 @@
             </p>
             <div class="flex gap-8 items-center">
                 <a href="#calculator" class="bg-[#111111] text-white px-10 py-4 text-sm font-medium hover:opacity-90 transition">Analyze uncaptured value</a>
-                <a href="#philosophy" class="text-sm font-semibold text-gray-400 hover:text-[#111111] transition">Our framework →</a>
+                <a href="#philosophy" class="text-sm font-semibold text-gray-400 hover:text-[#111111] transition">How it works →</a>
             </div>
         </div>
     </header>
@@ -47,26 +48,41 @@
     <section id="philosophy" class="section-container border-t border-gray-100">
         <div class="grid md:grid-cols-3 gap-6">
             <div class="bento-card md:col-span-2">
-                <h2 class="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-300 mb-12">The Partnership Model</h2>
+                <h2 class="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-300 mb-12">The Partnership</h2>
                 <h3 class="text-3xl font-semibold mb-8 max-w-md">Your genius is content. Ours is the infrastructure.</h3>
-                <p class="text-gray-500 text-lg leading-relaxed">
-                    We transform your engaged community into a predictable revenue engine. Instead of a one-off course, we build a <strong>Product Ladder</strong>: a multi-tier ecosystem designed to meet your audience at every stage of their journey. From initial curiosity to committed transformation.
-                </p>
+                <p class="text-gray-500 text-lg">We transform your community into a predictable revenue engine by building a <strong>Product Ladder</strong>: a multi-tier ecosystem designed for every stage of your audience's journey.</p>
             </div>
             <div class="bento-card p-0 overflow-hidden bg-gray-100 min-h-[300px]">
-                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=800" alt="Minimalist Abstract Art" class="editorial-img w-full h-full">
+                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=800" alt="Minimalist Art" class="editorial-img w-full h-full">
             </div>
-            <div class="bento-card">
-                <h4 class="font-semibold mb-4 text-sm uppercase tracking-wider">Zero Risk</h4>
-                <p class="text-sm text-gray-400">No platform fees or tech costs. We invest our resources to build your digital home so you can focus 100% on your community.</p>
+        </div>
+    </section>
+
+    <section id="timeline" class="section-container pt-0">
+        <div class="mb-16">
+            <h2 class="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-300 mb-4">Roadmap</h2>
+            <h3 class="text-3xl font-semibold">From agreement to revenue in 8 weeks.</h3>
+        </div>
+        <div class="grid md:grid-cols-4 gap-8">
+            <div class="space-y-4">
+                <div class="text-xs font-bold text-gray-300">WEEKS 1-2</div>
+                <h4 class="font-semibold text-sm uppercase">Foundation</h4>
+                <p class="text-xs text-gray-400">Brand alignment, offer refinement, and signature program structure.</p>
             </div>
-            <div class="bento-card">
-                <h4 class="font-semibold mb-4 text-sm uppercase tracking-wider">Full Operation</h4>
-                <p class="text-sm text-gray-400">From automated email sequences to responsive customer support and checkout systems. We handle the logistics completely.</p>
+            <div class="space-y-4">
+                <div class="text-xs font-bold text-gray-300">WEEKS 3-4</div>
+                <h4 class="font-semibold text-sm uppercase">Build</h4>
+                <p class="text-xs text-gray-400">Platform development, email automation, and checkout infrastructure.</p>
             </div>
-            <div class="bento-card">
-                <h4 class="font-semibold mb-4 text-sm uppercase tracking-wider">Total Alignment</h4>
-                <p class="text-sm text-gray-400">Our success is directly tied to yours. We only earn when you earn, creating a true partnership economic model.</p>
+            <div class="space-y-4">
+                <div class="text-xs font-bold text-gray-300">WEEKS 5-6</div>
+                <h4 class="font-semibold text-sm uppercase">Content</h4>
+                <p class="text-xs text-gray-400">Creation support, marketing assets, and launch sequences build-out.</p>
+            </div>
+            <div class="space-y-4">
+                <div class="text-xs font-bold text-gray-300">WEEKS 7-8</div>
+                <h4 class="font-semibold text-sm uppercase">Launch</h4>
+                <p class="text-xs text-gray-400">Soft launch to existing audience, optimization, and scaling prep.</p>
             </div>
         </div>
     </section>
@@ -76,45 +92,49 @@
             <div class="max-w-4xl mx-auto">
                 <div class="mb-20 text-center">
                     <h2 class="text-4xl font-semibold mb-4 tracking-tight">Uncaptured Value</h2>
-                    <p class="text-gray-500 text-sm max-w-lg mx-auto leading-relaxed italic font-serif">"The difference between hobbyist content and professional monetization isn't audience size — it's infrastructure."</p>
+                    <p class="text-gray-500 text-sm italic">Estimate the opportunity currently left on the table.</p>
                 </div>
 
-                <div class="grid md:grid-cols-12 gap-12 bg-white/5 p-8 md:p-12 rounded-sm border border-white/10 relative">
+                <div class="grid md:grid-cols-12 gap-12 bg-white/5 p-8 md:p-12 border border-white/10 relative">
                     <div class="md:col-span-7 space-y-10">
                         <div class="grid md:grid-cols-2 gap-8">
                             <div>
-                                <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Current Followers</label>
-                                <input type="number" id="followers" value="48000" class="w-full bg-transparent border-b border-white/20 pb-2 focus:border-white outline-none transition text-2xl font-light">
+                                <label class="block text-[10px] uppercase tracking-widest text-gray-500 mb-4">Current Followers</label>
+                                <input type="number" id="followers" value="48000" class="w-full bg-transparent border-b border-white/20 pb-2 outline-none text-2xl font-light">
                             </div>
                             <div>
-                                <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Engagement Profile</label>
-                                <select id="profile" class="w-full bg-transparent border-b border-white/20 pb-2 focus:border-white outline-none transition text-xl font-light text-white">
-                                    <option value="conservative" class="bg-[#111111]">Conservative</option>
-                                    <option value="normal" selected class="bg-[#111111]">Industry Standard (1%)</option>
-                                    <option value="optimistic" class="bg-[#111111]">Optimistic</option>
+                                <label class="block text-[10px] uppercase tracking-widest text-gray-500 mb-4">Engagement</label>
+                                <select id="profile" class="w-full bg-transparent border-b border-white/20 pb-2 outline-none text-xl font-light">
+                                    <option value="conservative">Conservative (0.5%)</option>
+                                    <option value="normal" selected>Standard (1%)</option>
+                                    <option value="optimistic">Optimistic (2%)</option>
                                 </select>
                             </div>
                         </div>
-
                         <div>
-                            <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Digital Ecosystem Structure</label>
+                            <label class="block text-[10px] uppercase tracking-widest text-gray-500 mb-4">Product Ecosystem</label>
                             <div class="flex gap-4">
-                                <button onclick="setTiers(1)" id="t1" class="tier-btn border border-white/20 px-4 py-2 text-[10px] font-bold uppercase tracking-widest transition">Single Offer</button>
-                                <button onclick="setTiers(2)" id="t2" class="tier-btn border border-white/20 px-4 py-2 text-[10px] font-bold uppercase tracking-widest transition">Two-Tier</button>
-                                <button onclick="setTiers(3)" id="t3" class="tier-btn border border-white/20 px-4 py-2 text-[10px] font-bold uppercase tracking-widest transition">The Product Ladder (3)</button>
+                                <button onclick="setTiers(1)" id="t1" class="tier-btn border border-white/20 px-4 py-2 text-[10px] uppercase tracking-widest">Single</button>
+                                <button onclick="setTiers(2)" id="t2" class="tier-btn border border-white/20 px-4 py-2 text-[10px] uppercase tracking-widest">Two-Tier</button>
+                                <button onclick="setTiers(3)" id="t3" class="tier-btn border border-white/20 px-4 py-2 text-[10px] uppercase tracking-widest">Ladder (3)</button>
                             </div>
                         </div>
-
                         <div id="price-inputs" class="grid md:grid-cols-3 gap-6"></div>
                     </div>
 
-                    <div class="md:col-span-5 flex flex-col justify-center items-center border-t md:border-t-0 md:border-l border-white/10 pt-10 md:pt-0 md:pl-12">
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Uncaptured Launch Value</span>
+                    <div class="md:col-span-5 flex flex-col justify-center items-center border-t md:border-t-0 md:border-l border-white/10 pt-10 md:pt-0 md:pl-12 text-center">
+                        <span class="text-[10px] uppercase tracking-widest text-gray-500 mb-4">Launch Potential</span>
                         <div class="text-7xl font-semibold tracking-tighter" id="total-result">$0</div>
-                        <div class="mt-8 space-y-3 w-full" id="breakdown-ui"></div>
+                        <div class="text-[11px] text-gray-500 mt-4 uppercase tracking-[0.2em]" id="buyers-label">0 Potential Buyers</div>
+                        
+                        <div class="mt-12 w-full">
+                            <a href="mailto:partnerships@monerize.com" class="block w-full border border-white py-4 text-[11px] uppercase tracking-widest hover:bg-white hover:text-black transition duration-500">
+                                Apply for Partnership
+                            </a>
+                            <p class="text-[9px] text-gray-600 mt-4 uppercase tracking-widest italic">Selective partnerships. No upfront investment.</p>
+                        </div>
                     </div>
                 </div>
-                <p class="text-center mt-8 text-[10px] text-gray-600 uppercase tracking-widest">Based on proven industry benchmarks.</p>
             </div>
         </div>
     </section>
@@ -134,15 +154,12 @@
 
     <script>
         let currentTiers = 1;
+
         function setTiers(n) {
             currentTiers = n;
-            document.querySelectorAll('.tier-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'text-black', 'border-white');
-                btn.classList.add('text-gray-500', 'border-white/20');
-            });
-            const activeBtn = document.getElementById('t'+n);
-            activeBtn.classList.add('bg-white', 'text-black', 'border-white');
-            activeBtn.classList.remove('text-gray-500', 'border-white/20');
+            document.querySelectorAll('.tier-btn').forEach(btn => btn.classList.remove('active', 'bg-white', 'text-black'));
+            const active = document.getElementById('t' + n);
+            active.classList.add('active', 'bg-white', 'text-black');
             renderPriceInputs();
             calculate();
         }
@@ -150,32 +167,52 @@
         function renderPriceInputs() {
             const container = document.getElementById('price-inputs');
             container.innerHTML = '';
-            const labels = currentTiers === 1 ? ['Target Price'] : (currentTiers === 2 ? ['Entry', 'Premium'] : ['Entry ($29)', 'Core ($97)', 'High-End ($250)']);
+            const labels = currentTiers === 1 ? ['Price'] : (currentTiers === 2 ? ['Entry', 'Premium'] : ['Entry', 'Core', 'High']);
             const defaults = currentTiers === 1 ? [49] : (currentTiers === 2 ? [29, 97] : [29, 97, 250]);
-            for(let i=0; i<currentTiers; i++) {
-                container.innerHTML += `<div><label class="block text-[9px] font-bold text-gray-500 uppercase mb-2 tracking-widest">${labels[i]}</label><input type="number" id="p${i}" value="${defaults[i]}" oninput="calculate()" class="w-full bg-transparent border-b border-white/20 pb-1 outline-none text-lg font-light focus:border-white transition"></div>`;
+            for (let i = 0; i < currentTiers; i++) {
+                container.innerHTML += `
+                    <div class="fade-up">
+                        <label class="block text-[9px] text-gray-500 uppercase mb-2 tracking-widest">${labels[i]}</label>
+                        <input type="number" id="p${i}" value="${defaults[i]}" oninput="calculate()" class="w-full bg-transparent border-b border-white/20 pb-1 outline-none text-lg font-light focus:border-white transition">
+                    </div>`;
             }
         }
 
-        function calculate() {
-            const followers = document.getElementById('followers').value || 0;
-            const profile = document.getElementById('profile').value;
-            const rates = { conservative: 0.005, normal: 0.01, optimistic: 0.02 };
-            const totalBuyers = followers * rates[profile];
-            let totalRevenue = 0;
-            if(currentTiers === 1) totalRevenue = totalBuyers * (document.getElementById('p0').value || 0);
-            else if(currentTiers === 2) totalRevenue = (totalBuyers * 0.65 * (document.getElementById('p0').value || 0)) + (totalBuyers * 0.35 * (document.getElementById('p1').value || 0));
-            else totalRevenue = (totalBuyers * 0.60 * (document.getElementById('p0').value || 0)) + (totalBuyers * 0.30 * (document.getElementById('p1').value || 0)) + (totalBuyers * 0.10 * (document.getElementById('p2').value || 0));
-
-            document.getElementById('total-result').innerText = '$' + Math.round(totalRevenue).toLocaleString('en-US');
-            document.getElementById('breakdown-ui').innerHTML = `
-                <div class="flex justify-between text-[10px] text-gray-500 uppercase font-bold tracking-widest border-b border-white/5 pb-2"><span>Potential Buyers</span><span class="text-white">${Math.round(totalBuyers).toLocaleString()}</span></div>
-                <div class="flex justify-between text-[10px] text-gray-400 uppercase font-bold tracking-widest pt-2"><span>Revenue Per Launch</span><span class="text-white">$${Math.round(totalRevenue).toLocaleString()}</span></div>
-            `;
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const current = Math.floor(progress * (end - start) + start);
+                obj.innerHTML = '$' + current.toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
         }
+
+        function calculate() {
+            const f = document.getElementById('followers').value || 0;
+            const profile = document.getElementById('profile').value;
+            const r = { conservative: 0.005, normal: 0.01, optimistic: 0.02 }[profile];
+            const buyers = f * r;
+            let rev = 0;
+
+            if (currentTiers === 1) rev = buyers * (document.getElementById('p0').value || 0);
+            else if (currentTiers === 2) rev = (buyers * 0.65 * (document.getElementById('p0').value || 0)) + (buyers * 0.35 * (document.getElementById('p1').value || 0));
+            else rev = (buyers * 0.60 * (document.getElementById('p0').value || 0)) + (buyers * 0.30 * (document.getElementById('p1').value || 0)) + (buyers * 0.10 * (document.getElementById('p2').value || 0));
+
+            const display = document.getElementById('total-result');
+            const oldVal = parseInt(display.innerText.replace(/[^0-9]/g, '')) || 0;
+            animateValue(display, oldVal, Math.round(rev), 400);
+            
+            document.getElementById('buyers-label').innerText = Math.round(buyers).toLocaleString() + " Potential Buyers";
+        }
+
         setTiers(1);
-        document.getElementById('followers').addEventListener('input', calculate);
-        document.getElementById('profile').addEventListener('change', calculate);
+        document.getElementById('followers').oninput = calculate;
+        document.getElementById('profile').onchange = calculate;
     </script>
 </body>
 </html>
