@@ -96,7 +96,7 @@
         /* BEFORE/AFTER TRANSFORM */
         .transform-container {
             position: relative;
-            min-height: 600px;
+            min-height: 700px;
         }
         .state-before,
         .state-after {
@@ -341,9 +341,31 @@
             .diagonal-section { transform: skewY(-1deg); margin: 60px 0; }
             .stat-item { border-right: none; border-bottom: 1px solid rgba(0, 0, 0, 0.06); }
             .stat-item:last-child { border-bottom: none; }
-            .floating-cta { bottom: 16px; right: 16px; left: 16px; text-align: center; }
-            .transform-container { min-height: auto; }
-            .state-before, .state-after { position: relative; }
+            .floating-cta { 
+                bottom: 20px; 
+                right: 20px;
+                padding: 14px 28px;
+                font-size: 9px;
+                border-radius: 50px;
+            }
+            .transform-container { 
+                min-height: auto;
+            }
+            .state-before, 
+            .state-after { 
+                position: relative;
+                transform: none !important;
+            }
+            .transform-container.transformed .state-before {
+                display: none;
+            }
+            .transform-container:not(.transformed) .state-after {
+                display: none;
+            }
+            /* Mobile padding adjustment for Reality section */
+            #reality {
+                padding-bottom: 100px !important;
+            }
         }
 
         /* UTILITY */
@@ -418,7 +440,7 @@
     </section>
 
     <!-- BEFORE/AFTER REALITY -->
-    <section id="reality" class="section" style="background: var(--ink); color: var(--white); overflow: hidden;">
+    <section id="reality" class="section" style="background: var(--ink); color: var(--white); overflow: hidden; padding-bottom: 160px;">
         <div class="container">
             <div class="max-w-3xl mb-20 reveal">
                 <div class="text-xs font-bold uppercase tracking-widest mb-6" style="color: var(--gray);">The Creator Reality</div>
@@ -430,7 +452,7 @@
                 </p>
             </div>
 
-            <div class="transform-container reveal" id="transformContainer">
+            <div class="transform-container reveal" id="transformContainer" style="position: relative;">
                 <!-- BEFORE STATE -->
                 <div class="state-before">
                     <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 56px; border-radius: 4px;">
@@ -570,14 +592,16 @@
                 </div>
             </div>
 
-            <div class="text-center mt-16 reveal">
-                <button onclick="toggleTransform()" class="btn btn-primary"><span id="transformBtn">Show Transformation</span></button>
+            <div class="text-center reveal" style="margin-top: 56px;">
+                <button onclick="toggleTransform()" id="transformBtn" style="background: var(--cyan); color: var(--ink); padding: 20px 56px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 8px 24px rgba(0, 229, 255, 0.3);">
+                    Show Transformation
+                </button>
             </div>
         </div>
     </section>
 
     <!-- MODEL -->
-    <section id="model" class="diagonal-section" style="background: var(--beige); padding: 180px 0;">
+    <section id="model" class="section" style="background: var(--beige); padding: 120px 0;">
         <div class="container">
             <div class="grid lg:grid-cols-2 gap-20 items-center">
                 <div class="reveal">
@@ -659,7 +683,7 @@
 
                 <!-- Results -->
                 <div class="reveal" style="background: var(--ink); color: var(--white); padding: 56px; border-radius: 4px; text-align: center;">
-                    <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray); margin-bottom: 24px;">Estimated Annual Revenue</div>
+                    <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray); margin-bottom: 24px;">Estimated Revenue</div>
                     <div style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(3rem, 8vw, 5rem); font-weight: 700; line-height: 1; margin-bottom: 16px; background: linear-gradient(135deg, var(--white) 0%, var(--cyan) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" id="revenueResult">$49,500</div>
                     <div style="font-size: 13px; color: var(--gray); margin-bottom: 40px;" id="buyersResult">500 potential buyers (1% conversion)</div>
 
@@ -767,14 +791,31 @@
             document.getElementById('floatingCTA').classList.toggle('visible', window.scrollY > 1000);
         });
 
-        // BEFORE/AFTER TRANSFORM
+        // TRANSFORMATION BUTTON TOGGLE
         let transformed = false;
         function toggleTransform() {
             const container = document.getElementById('transformContainer');
             const btn = document.getElementById('transformBtn');
+            const section = document.getElementById('reality');
+            
             transformed = !transformed;
             container.classList.toggle('transformed', transformed);
             btn.textContent = transformed ? 'Show Current State' : 'Show Transformation';
+            
+            // Smooth scroll to top of section when transforming
+            if (transformed) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            // Add hover effect
+            btn.onmouseenter = () => {
+                btn.style.transform = 'translateY(-2px)';
+                btn.style.boxShadow = '0 12px 32px rgba(0, 229, 255, 0.4)';
+            };
+            btn.onmouseleave = () => {
+                btn.style.transform = 'translateY(0)';
+                btn.style.boxShadow = '0 8px 24px rgba(0, 229, 255, 0.3)';
+            };
         }
 
         // CALCULATOR
