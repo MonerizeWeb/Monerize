@@ -1,273 +1,849 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monerize | Partnership Studio</title>
+    <title>Monerize — Partnership Studio</title>
+    <meta name="description" content="Partnership studio for creators. Turn influence into ownership through digital products.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #FAFAFA; color: #111111; line-height: 1.8; letter-spacing: -0.02em; overflow-x: hidden; }
+        :root {
+            --ink: #0F1115;
+            --white: #FAFAFA;
+            --cyan: #00E5FF;
+            --gray: #9CA3AF;
+            --beige: #EDE9E4;
+        }
         
-        /* AURA SUBTIL (5% Opacidade) */
-        #bg-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; pointer-events: none;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0,0,0,0.05) 0%, rgba(250,250,250,0) 50%);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            background: var(--white); 
+            color: var(--ink); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 { 
+            font-family: 'Space Grotesk', sans-serif; 
+            font-weight: 600;
+            letter-spacing: -0.02em;
         }
 
+        /* GRAIN */
         .grain {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-            opacity: 0.04; z-index: 2; pointer-events: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: overlay;
         }
 
-        .section-container { max-width: 1200px; margin: 0 auto; padding: 120px 24px; position: relative; z-index: 10; }
-        
-        .bento-card { background: white; border: 1px solid #E5E7EB; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1); }
-        .bento-card:hover { transform: translateY(-8px); border-color: #111111; box-shadow: 0 20px 40px rgba(0,0,0,0.03); }
-        
-        .editorial-img { filter: grayscale(100%) contrast(105%); transition: 0.8s; object-fit: cover; border-radius: 4px; }
-        .editorial-img:hover { filter: grayscale(0%); }
+        /* NAV */
+        nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+        nav.scrolled {
+            background: rgba(250, 250, 250, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
 
-        .step-number { font-size: 11px; font-weight: 800; color: #D1D5DB; margin-bottom: 16px; display: block; letter-spacing: 0.2em; }
-        .roadmap-item { border-left: 1px solid #E5E7EB; padding-left: 32px; position: relative; padding-bottom: 40px; }
-        .roadmap-item::before { content: ''; position: absolute; left: -4.5px; top: 0; width: 8px; height: 8px; background: #111111; border-radius: 50%; }
-        .roadmap-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: #111111; }
-        .roadmap-text { font-size: 1.05rem; color: #666666; line-height: 1.6; }
+        /* HERO DEPTH LAYERS */
+        .hero-layer {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0;
+            animation: fadeInLayer 2s ease forwards;
+        }
+        @keyframes fadeInLayer {
+            to { opacity: 1; }
+        }
 
-        input, select, textarea { appearance: none; background: transparent; border-bottom: 1px solid rgba(0,0,0,0.1); padding: 12px 0; outline: none; transition: 0.3s; width: 100%; font-size: 16px; }
-        input:focus { border-color: #111111; }
-        .tier-btn.active { background-color: white !important; color: black !important; border-color: white !important; }
+        /* DIAGONAL SECTION */
+        .diagonal-section {
+            position: relative;
+            transform: skewY(-3deg);
+            margin: 120px 0;
+        }
+        .diagonal-section > * {
+            transform: skewY(3deg);
+        }
 
-        section { scroll-margin-top: 100px; }
+        /* SCROLL REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* BEFORE/AFTER TRANSFORM */
+        .transform-container {
+            position: relative;
+            min-height: 600px;
+        }
+        .state-before,
+        .state-after {
+            position: absolute;
+            width: 100%;
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .state-before {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .state-after {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+        .transform-container.transformed .state-before {
+            opacity: 0;
+            transform: translateX(-100px);
+        }
+        .transform-container.transformed .state-after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* CALCULATOR PRODUCT BUILDER */
+        .range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 0, 0, 0.1);
+            outline: none;
+            border-radius: 10px;
+        }
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--cyan);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 229, 255, 0.4);
+            transition: transform 0.2s;
+        }
+        .range-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        .range-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--cyan);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 229, 255, 0.4);
+        }
+
+        .tier-option {
+            border: 2px solid rgba(0, 0, 0, 0.06);
+            background: white;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .tier-option::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.03), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tier-option:hover::before {
+            opacity: 1;
+        }
+        .tier-option.selected {
+            border-color: var(--cyan);
+            box-shadow: 0 8px 24px rgba(0, 229, 255, 0.15);
+        }
+        .tier-option.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 12px; right: 12px;
+            width: 24px; height: 24px;
+            background: var(--cyan);
+            color: var(--ink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* REVENUE BREAKDOWN */
+        .revenue-bar {
+            height: 40px;
+            background: linear-gradient(90deg, var(--cyan) 0%, rgba(0, 229, 255, 0.4) 100%);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            color: var(--ink);
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* PRODUCT CARDS */
+        .product-card {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px; height: 0;
+            background: var(--cyan);
+            transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+        }
+        .product-card:hover::before {
+            height: 100%;
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 48px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary {
+            background: var(--ink);
+            color: var(--white);
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: var(--cyan);
+            transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 0;
+        }
+        .btn-primary:hover::before {
+            left: 0;
+        }
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+        .btn-primary:hover {
+            color: var(--ink);
+        }
+
+        /* STATS */
+        .stat-item {
+            text-align: center;
+            padding: 32px;
+            border-right: 1px solid rgba(0, 0, 0, 0.06);
+        }
+        .stat-item:last-child {
+            border-right: none;
+        }
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--ink) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* FLOATING CTA */
+        .floating-cta {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: var(--ink);
+            color: var(--white);
+            padding: 16px 32px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            border-radius: 100px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1000;
+            pointer-events: none;
+        }
+        .floating-cta.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+        .floating-cta:hover {
+            background: var(--cyan);
+            color: var(--ink);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 229, 255, 0.3);
+        }
+
+        /* FORMS */
+        .input-field {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 16px 0;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+        .input-field:focus {
+            border-bottom-color: var(--cyan);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .diagonal-section { transform: skewY(-1deg); margin: 60px 0; }
+            .stat-item { border-right: none; border-bottom: 1px solid rgba(0, 0, 0, 0.06); }
+            .stat-item:last-child { border-bottom: none; }
+            .floating-cta { bottom: 16px; right: 16px; left: 16px; text-align: center; }
+            .transform-container { min-height: auto; }
+            .state-before, .state-after { position: relative; }
+        }
+
+        /* UTILITY */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+        .section { padding: 120px 0; }
+        @media (max-width: 1024px) { .container { padding: 0 32px; } .section { padding: 80px 0; } }
+        @media (max-width: 768px) { .container { padding: 0 24px; } .section { padding: 60px 0; } }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <div id="bg-canvas"></div>
     <div class="grain"></div>
 
-    <nav class="w-full bg-[#FAFAFA]/80 backdrop-blur-md sticky top-0 z-[100] border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-8 py-6 flex justify-between items-center">
-            <div class="text-xl font-semibold tracking-tighter">Monerize</div>
-            <div class="hidden md:flex gap-12 text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400">
-                <a href="#philosophy" class="hover:text-[#111111] transition">Model</a>
-                <a href="#roadmap" class="hover:text-[#111111] transition">Roadmap</a>
-                <a href="#calculator" class="hover:text-[#111111] transition">Opportunity</a>
+    <!-- NAV -->
+    <nav class="fixed w-full top-0 z-50" id="nav">
+        <div class="container">
+            <div class="flex justify-between items-center py-6">
+                <div class="text-lg font-semibold tracking-tight">Monerize</div>
+                <div class="hidden md:flex gap-10 items-center text-xs font-medium uppercase tracking-wider text-gray-400">
+                    <a href="#reality" class="hover:text-black transition">Reality</a>
+                    <a href="#model" class="hover:text-black transition">Model</a>
+                    <a href="#calculator" class="hover:text-black transition">Calculator</a>
+                </div>
+                <a href="#contact" class="text-xs font-semibold uppercase tracking-wider border border-black px-6 py-2.5 hover:bg-black hover:text-white transition">Apply</a>
             </div>
-            <a href="#contact" class="text-[10px] font-bold uppercase tracking-widest border border-[#111111] px-6 py-2.5 hover:bg-[#111111] hover:text-white transition duration-500">Apply</a>
         </div>
     </nav>
 
-    <header class="section-container pt-40 pb-32">
-        <div class="max-w-4xl">
-            <h1 class="text-6xl md:text-8xl font-semibold mb-10 tracking-tight leading-[1.05]">
-                Build and monetize <span class="text-gray-300 italic">with your audience.</span>
-            </h1>
-            <p class="text-2xl text-gray-500 mb-16 leading-relaxed max-w-2xl font-light">
-                Monerize is a boutique partnership studio. We build, operate, and scale digital ecosystems for elite creators under a pure revenue-share model.
-            </p>
-            <div class="flex flex-wrap gap-10 items-center">
-                <a href="#calculator" class="bg-[#111111] text-white px-12 py-5 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition shadow-xl shadow-black/10">Analyze Potential</a>
-                <a href="#philosophy" class="text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-[#111111] transition">Our Framework —</a>
-            </div>
-        </div>
-    </header>
+    <!-- HERO -->
+    <section class="section relative overflow-hidden" style="padding-top: 160px; min-height: 90vh; display: flex; align-items: center;">
+        <!-- Depth Layers -->
+        <div class="hero-layer" style="top: 10%; right: 5%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0, 229, 255, 0.12) 0%, transparent 70%); animation-delay: 0s;"></div>
+        <div class="hero-layer" style="bottom: 10%; left: 5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(237, 233, 228, 0.8) 0%, transparent 70%); animation-delay: 0.3s;"></div>
+        <div class="hero-layer" style="top: 40%; left: 30%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(156, 163, 175, 0.08) 0%, transparent 70%); animation-delay: 0.6s;"></div>
 
-    <section id="philosophy" class="section-container pt-0">
-        <div class="grid md:grid-cols-12 gap-6">
-            <div class="bento-card md:col-span-8">
-                <h2 class="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-300 mb-16">Identity</h2>
-                <h3 class="text-4xl font-semibold mb-8 max-w-xl">A partner, not an agency.</h3>
-                <p class="text-gray-500 text-xl font-light leading-relaxed">We eliminate the friction of monetization. No monthly fees, no setup costs. We invest our capital and expertise into your vision, taking 100% of the operational risk.</p>
-            </div>
-            <div class="bento-card md:col-span-4 p-0 overflow-hidden bg-gray-100 min-h-[350px]">
-                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=800" class="editorial-img w-full h-full">
-            </div>
-            <div class="bento-card md:col-span-4">
-                <h4 class="font-bold mb-4 text-xs uppercase tracking-widest">Revenue Share</h4>
-                <p class="text-sm text-gray-400 font-light leading-relaxed">Absolute alignment. We only generate profit when we create measurable wealth for you.</p>
-            </div>
-            <div class="bento-card md:col-span-4">
-                <h4 class="font-bold mb-4 text-xs uppercase tracking-widest">End-to-End</h4>
-                <p class="text-sm text-gray-400 font-light leading-relaxed">From tech infrastructure to customer success. You stay in your zone of genius: creation.</p>
-            </div>
-            <div class="bento-card md:col-span-4">
-                <h4 class="font-bold mb-4 text-xs uppercase tracking-widest">Product Ladder</h4>
-                <p class="text-sm text-gray-400 font-light leading-relaxed">Multi-tier ecosystems designed to meet your audience at every stage of their journey.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="roadmap" class="bg-white border-y border-gray-100 py-40">
-        <div class="section-container">
-            <div class="max-w-2xl mb-24">
-                <h2 class="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-300 mb-6">Execution</h2>
-                <h3 class="text-5xl font-semibold tracking-tighter">The 8-Week Blueprint.</h3>
-                <p class="mt-6 text-gray-400 text-sm italic">Note: Timelines are estimated based on project complexity and content readiness.</p>
-            </div>
-            <div class="grid md:grid-cols-4 gap-16">
-                <div class="roadmap-item">
-                    <span class="step-number">PHASE 01</span>
-                    <h4 class="roadmap-title">Foundation</h4>
-                    <p class="roadmap-text">Market positioning, audience deep-dive, and the architecture of your Product Ladder.</p>
-                </div>
-                <div class="roadmap-item">
-                    <span class="step-number">PHASE 02</span>
-                    <h4 class="roadmap-title">Build</h4>
-                    <p class="roadmap-text">Custom platform development, automated funnels, and global checkout systems.</p>
-                </div>
-                <div class="roadmap-item">
-                    <span class="step-number">PHASE 03</span>
-                    <h4 class="roadmap-title">Content</h4>
-                    <p class="roadmap-text">Expert-led production support, marketing collateral, and launch triggers.</p>
-                </div>
-                <div class="roadmap-item">
-                    <span class="step-number">PHASE 04</span>
-                    <h4 class="roadmap-title">Launch</h4>
-                    <p class="roadmap-text">Strategic deployment, real-time optimization, and the start of recurring revenue.</p>
+        <div class="container relative z-10">
+            <div class="max-w-5xl">
+                <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-8 reveal">Partnership Studio</div>
+                <h1 class="reveal" style="font-size: clamp(2.5rem, 8vw, 7rem); line-height: 0.95; margin-bottom: 48px; font-weight: 700;">
+                    Influence is leverage.<br>
+                    <span style="background: linear-gradient(135deg, var(--gray) 0%, rgba(156, 163, 175, 0.4) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Products are ownership.</span>
+                </h1>
+                <p class="reveal" style="font-size: clamp(1.1rem, 2vw, 1.4rem); color: var(--gray); max-width: 700px; margin-bottom: 56px; font-weight: 400; line-height: 1.6;">
+                    We turn creators into founders through beautifully engineered digital products. Revenue-share partnership. Zero upfront cost.
+                </p>
+                <div class="flex flex-wrap gap-6 items-center reveal">
+                    <a href="#calculator" class="btn btn-primary"><span>Build Your Model</span></a>
+                    <a href="#reality" class="text-xs font-semibold uppercase tracking-wider text-gray-400 hover:text-black transition">See the shift →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="calculator" class="bg-[#111111] text-white py-40">
-        <div class="section-container">
-            <div class="max-w-5xl mx-auto">
-                <div class="grid md:grid-cols-2 gap-24 items-center">
-                    <div>
-                        <h2 class="text-5xl font-semibold mb-8 tracking-tighter leading-tight">The math of <br><span class="text-white/30 italic">uncaptured value.</span></h2>
-                        <div class="space-y-12">
-                            <div>
-                                <label class="block text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-4">Total Followers (700k Max)</label>
-                                <input type="number" id="followers" value="48000" oninput="calculate()" class="text-white border-white/10 focus:border-white text-3xl font-light w-full bg-transparent outline-none border-b pb-2">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-6">Product Ecosystem</label>
-                                <div class="flex gap-4">
-                                    <button onclick="setTiers(1)" id="t1" class="tier-btn border border-white/10 px-6 py-3 text-[10px] uppercase tracking-widest transition">Single</button>
-                                    <button onclick="setTiers(2)" id="t2" class="tier-btn border border-white/10 px-6 py-3 text-[10px] uppercase tracking-widest transition">Two-Tier</button>
-                                    <button onclick="setTiers(3)" id="t3" class="tier-btn border border-white/10 px-6 py-3 text-[10px] uppercase tracking-widest transition active bg-white text-black">Full Ladder</button>
+    <!-- STATS BAR -->
+    <section style="background: white; border-top: 1px solid rgba(0, 0, 0, 0.06); border-bottom: 1px solid rgba(0, 0, 0, 0.06);">
+        <div class="container">
+            <div class="grid grid-cols-1 md:grid-cols-3">
+                <div class="stat-item reveal">
+                    <div class="stat-number">8</div>
+                    <div class="text-xs uppercase tracking-wider text-gray-400">Weeks to Launch</div>
+                </div>
+                <div class="stat-item reveal">
+                    <div class="stat-number">$0</div>
+                    <div class="text-xs uppercase tracking-wider text-gray-400">Upfront Cost</div>
+                </div>
+                <div class="stat-item reveal">
+                    <div class="stat-number">100%</div>
+                    <div class="text-xs uppercase tracking-wider text-gray-400">Revenue Alignment</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEFORE/AFTER REALITY -->
+    <section id="reality" class="section" style="background: var(--ink); color: var(--white); overflow: hidden;">
+        <div class="container">
+            <div class="max-w-3xl mb-20 reveal">
+                <div class="text-xs font-bold uppercase tracking-widest mb-6" style="color: var(--gray);">The Creator Reality</div>
+                <h2 style="font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 24px;">
+                    You're building someone else's empire.
+                </h2>
+                <p style="font-size: 18px; color: var(--gray); line-height: 1.7;">
+                    Most creators are trapped in a fragile cycle. Here's what that looks like—and what happens when you break free.
+                </p>
+            </div>
+
+            <div class="transform-container reveal" id="transformContainer">
+                <!-- BEFORE STATE -->
+                <div class="state-before">
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 56px; border-radius: 4px;">
+                        <div style="display: inline-block; background: rgba(220, 38, 38, 0.15); color: #FCA5A5; padding: 8px 16px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 40px; border-radius: 4px;">Current State</div>
+                        
+                        <h3 style="font-size: 2rem; margin-bottom: 40px; font-weight: 600;">The Algorithm Trap</h3>
+
+                        <div style="margin-bottom: 48px;">
+                            <div style="font-size: 13px; font-weight: 600; margin-bottom: 20px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em;">Revenue Sources</div>
+                            <div style="display: flex; flex-direction: column; gap: 16px;">
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                        <span style="font-size: 14px;">Brand Sponsorships</span>
+                                        <span style="font-size: 14px; font-weight: 600;">60%</span>
+                                    </div>
+                                    <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
+                                        <div style="width: 60%; height: 100%; background: linear-gradient(90deg, #DC2626, #EF4444);"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                        <span style="font-size: 14px;">Platform Ad Revenue</span>
+                                        <span style="font-size: 14px; font-weight: 600;">30%</span>
+                                    </div>
+                                    <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
+                                        <div style="width: 30%; height: 100%; background: linear-gradient(90deg, #DC2626, #EF4444);"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                        <span style="font-size: 14px;">Owned Products</span>
+                                        <span style="font-size: 14px; font-weight: 600;">10%</span>
+                                    </div>
+                                    <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
+                                        <div style="width: 10%; height: 100%; background: linear-gradient(90deg, #DC2626, #EF4444);"></div>
+                                    </div>
                                 </div>
                             </div>
-                            <div id="price-inputs" class="grid grid-cols-3 gap-6"></div>
+                        </div>
+
+                        <div style="margin-bottom: 48px;">
+                            <div style="font-size: 13px; font-weight: 600; margin-bottom: 20px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em;">Dependencies</div>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                                <div style="display: flex; align-items: start; gap: 12px;">
+                                    <div style="width: 6px; height: 6px; background: #DC2626; border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
+                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">Algorithm volatility kills reach</span>
+                                </div>
+                                <div style="display: flex; align-items: start; gap: 12px;">
+                                    <div style="width: 6px; height: 6px; background: #DC2626; border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
+                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">Time-for-money ceiling</span>
+                                </div>
+                                <div style="display: flex; align-items: start; gap: 12px;">
+                                    <div style="width: 6px; height: 6px; background: #DC2626; border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
+                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">No compounding assets</span>
+                                </div>
+                                <div style="display: flex; align-items: start; gap: 12px;">
+                                    <div style="width: 6px; height: 6px; background: #DC2626; border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
+                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">Audience underutilized 90%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(220, 38, 38, 0.1); border-left: 3px solid #DC2626; padding: 24px;">
+                            <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #FCA5A5; text-transform: uppercase; letter-spacing: 0.1em;">Reality Check</div>
+                            <div style="font-size: 16px; line-height: 1.6; color: rgba(255, 255, 255, 0.9);">Fragile income. No ownership. Content hamster wheel with zero equity.</div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="bg-white/5 border border-white/10 p-10 md:p-14 text-center rounded-sm min-h-[380px] flex flex-col justify-center">
-                        <span class="text-[10px] uppercase tracking-[0.5em] text-gray-500 mb-8 block">Potential Revenue</span>
-                        <div class="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tighter mb-8 break-keep" id="total-result" style="line-height: 1;">$0</div>
-                        <p class="text-[11px] text-gray-500 uppercase tracking-[0.2em]" id="buyers-label">0 Estimated Buyers</p>
+                <!-- AFTER STATE -->
+                <div class="state-after">
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 229, 255, 0.3); padding: 56px; border-radius: 4px;">
+                        <div style="display: inline-block; background: rgba(5, 150, 105, 0.15); color: #6EE7B7; padding: 8px 16px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 40px; border-radius: 4px;">With Monerize</div>
+                        
+                        <h3 style="font-size: 2rem; margin-bottom: 40px; font-weight: 600;">The Ownership Model</h3>
+
+                        <div style="margin-bottom: 48px;">
+                            <div style="font-size: 13px; font-weight: 600; margin-bottom: 20px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em;">Revenue Sources</div>
+                            <div style="display: flex; flex-direction: column; gap: 16px;">
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                        <span style="font-size: 14px;">Owned Digital Products</span>
+                                        <span style="font-size: 14px; font-weight: 600; color: var(--cyan);">60%</span>
+                                    </div>
+                                    <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
+                                        <div style="width: 60%; height: 100%; background: linear-gradient(90deg, var(--cyan), #06B6D4);"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                        <span style="font-size: 14px;">Selective Brand Partnerships</span>
+                                        <span style="font-size: 14px; font-weight: 600;">25%</span>
+                                    </div>
+                                    <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
+                                        <div style="width: 25%; height: 100%; background: linear-gradient(90deg, var(--cyan), #06B6D4);"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                        <span style="font-size: 14px;">Platform Revenue</span>
+                                        <span style="font-size: 14px; font-weight: 600;">15%</span>
+                                    </div>
+                                    <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
+                                        <div style="width: 15%; height: 100%; background: linear-gradient(90deg, var(--cyan), #06B6D4);"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 48px;">
+                            <div style="font-size: 13px; font-weight: 600; margin-bottom: 20px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em;">Transformation</div>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                                <div style="display: flex; align-items: start; gap: 12px;">
+                                    <div style="width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
+                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.9);">Recurring revenue streams</span>
+                                </div>
+                                <div style="display: flex; align-items: start; gap: 12px;">
+                                    <div style="width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
+                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.9);">Asset value compounds</span>
+                                </div>
+                                <div style="display: flex; align-items: start; gap: 12px;">
+                                    <div style="width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
+                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.9);">Platform independence</span>
+                                </div>
+                                <div style="display: flex; align-items: start; gap: 12px;">
+                                    <div style="width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
+                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.9);">10x audience monetization</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(0, 229, 255, 0.08); border-left: 3px solid var(--cyan); padding: 24px;">
+                            <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.1em;">New Reality</div>
+                            <div style="font-size: 16px; line-height: 1.6; color: rgba(255, 255, 255, 0.9);">Stable income. Owned assets. Creator becomes founder.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-16 reveal">
+                <button onclick="toggleTransform()" class="btn btn-primary"><span id="transformBtn">Show Transformation</span></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODEL -->
+    <section id="model" class="diagonal-section" style="background: var(--beige); padding: 180px 0;">
+        <div class="container">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="reveal">
+                    <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Partnership Model</div>
+                    <h2 style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 32px;">A partner,<br>not an agency.</h2>
+                    <p style="font-size: 18px; color: #666; line-height: 1.7; margin-bottom: 32px;">
+                        We operate like a technical co-founder. Revenue share means absolute alignment—we only profit when we create measurable wealth for you.
+                    </p>
+                    <div style="border-left: 3px solid var(--cyan); padding-left: 24px; background: rgba(0, 229, 255, 0.05); padding: 24px;">
+                        <div style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">Zero Upfront Cost</div>
+                        <div style="font-size: 15px; color: #666; line-height: 1.6;">We invest capital and expertise. You invest vision and distribution. We build the asset together.</div>
+                    </div>
+                </div>
+
+                <div class="grid gap-6 reveal">
+                    <div class="product-card p-8">
+                        <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray); margin-bottom: 16px;">What We Build</div>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 12px; font-weight: 600;">Digital Product Ecosystems</h3>
+                        <p style="color: #666; font-size: 15px; line-height: 1.7;">Courses. Challenges. Memberships. Toolkits. Multi-tier systems for every audience segment.</p>
+                    </div>
+                    <div class="product-card p-8">
+                        <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray); margin-bottom: 16px;">How We Work</div>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 12px; font-weight: 600;">End-to-End Infrastructure</h3>
+                        <p style="color: #666; font-size: 15px; line-height: 1.7;">Architecture. Build. Payments. Launch. Optimization. You focus on creation.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="section-container">
-        <div class="max-w-3xl mx-auto text-center">
-            <h2 class="text-4xl font-semibold mb-4 tracking-tight">Apply for Partnership</h2>
-            <p class="text-gray-500 font-light mb-16">Limited to 2 new partners per quarter.</p>
-            <form action="https://formspree.io/f/mlgwrybe" method="POST" class="space-y-12 text-left">
-                <div class="grid md:grid-cols-2 gap-12">
-                    <input type="text" name="name" required placeholder="Full Name">
-                    <input type="email" name="email" required placeholder="Email Address">
+    <!-- CALCULATOR -->
+    <section id="calculator" class="section" style="background: white;">
+        <div class="container">
+            <div class="max-w-3xl mx-auto mb-20 text-center reveal">
+                <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Product Configurator</div>
+                <h2 style="font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.1; margin-bottom: 24px;">Build your revenue model.</h2>
+                <p style="font-size: 17px; color: var(--gray); line-height: 1.7;">Configure your product ecosystem and see potential revenue in real-time.</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <!-- Audience Size -->
+                <div class="reveal" style="background: white; border: 1px solid rgba(0, 0, 0, 0.06); padding: 48px; margin-bottom: 32px; border-radius: 4px;">
+                    <div style="margin-bottom: 32px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                            <label style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #666;">Audience Size</label>
+                            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: var(--ink);" id="followerDisplay">50,000</div>
+                        </div>
+                        <input type="range" id="followerSlider" min="5000" max="500000" step="5000" value="50000" class="range-slider" oninput="updateCalculator()">
+                        <div style="display: flex; justify-content: space-between; margin-top: 12px; font-size: 12px; color: var(--gray);">
+                            <span>5k</span>
+                            <span>100k</span>
+                            <span>250k</span>
+                            <span>500k</span>
+                        </div>
+                    </div>
                 </div>
-                <input type="text" name="instagram" placeholder="Instagram @Handle">
-                <textarea name="message" rows="4" required placeholder="Tell us about your project..."></textarea>
-                <button type="submit" class="w-full bg-[#111111] text-white py-6 text-[10px] font-bold uppercase tracking-[0.3em] hover:opacity-90 transition">Submit Application</button>
-            </form>
+
+                <!-- Product Tiers -->
+                <div class="reveal" style="margin-bottom: 32px;">
+                    <div style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #666; margin-bottom: 20px;">Product Ecosystem</div>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="tier-option" onclick="selectTier(1)" id="tier1">
+                            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 12px;">Single Product</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px;">$49</div>
+                            <div style="font-size: 13px; color: #666;">One offer. Simple entry.</div>
+                        </div>
+                        <div class="tier-option" onclick="selectTier(2)" id="tier2">
+                            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 12px;">Two-Tier</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px;">$29 + $97</div>
+                            <div style="font-size: 13px; color: #666;">Entry and premium.</div>
+                        </div>
+                        <div class="tier-option selected" onclick="selectTier(3)" id="tier3">
+                            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 12px;">Full Ladder</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px;">$29–$250</div>
+                            <div style="font-size: 13px; color: #666;">Complete ecosystem.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div class="reveal" style="background: var(--ink); color: var(--white); padding: 56px; border-radius: 4px; text-align: center;">
+                    <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray); margin-bottom: 24px;">Estimated Annual Revenue</div>
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(3rem, 8vw, 5rem); font-weight: 700; line-height: 1; margin-bottom: 16px; background: linear-gradient(135deg, var(--white) 0%, var(--cyan) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" id="revenueResult">$49,500</div>
+                    <div style="font-size: 13px; color: var(--gray); margin-bottom: 40px;" id="buyersResult">500 potential buyers (1% conversion)</div>
+
+                    <!-- Revenue Breakdown -->
+                    <div id="revenueBreakdown" style="max-width: 600px; margin: 0 auto;">
+                        <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 16px; text-align: left;">Revenue Distribution</div>
+                        <!-- Bars will be injected here -->
+                    </div>
+
+                    <div style="margin-top: 40px; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                        <p style="font-size: 13px; color: rgba(255, 255, 255, 0.5); line-height: 1.6;">Revenue shared between creator and Monerize. Based on 1% conversion benchmark.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer class="border-t border-gray-100 py-20">
-        <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-10">
-            <div class="flex flex-col gap-2">
-                <span class="text-2xl font-semibold tracking-tighter">Monerize</span>
-                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.1em]">Monerize© — Creator Monetization Partnership Studio</span>
+    <!-- PROCESS -->
+    <section class="section" style="background: var(--beige);">
+        <div class="container">
+            <div class="max-w-2xl mb-20 reveal">
+                <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Execution</div>
+                <h2 style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1;">8-week blueprint.</h2>
             </div>
-            <a href="https://instagram.com/monerize" target="_blank" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black transition">Instagram</a>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div class="reveal">
+                    <div style="width: 48px; height: 48px; background: var(--ink); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: 24px;">1</div>
+                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 12px;">Foundation</h4>
+                    <p style="font-size: 14px; color: #666; line-height: 1.6;">Market positioning, audience analysis, product architecture.</p>
+                </div>
+                <div class="reveal">
+                    <div style="width: 48px; height: 48px; background: var(--ink); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: 24px;">2</div>
+                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 12px;">Build</h4>
+                    <p style="font-size: 14px; color: #666; line-height: 1.6;">Platform development, funnels, global payment systems.</p>
+                </div>
+                <div class="reveal">
+                    <div style="width: 48px; height: 48px; background: var(--ink); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: 24px;">3</div>
+                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 12px;">Content</h4>
+                    <p style="font-size: 14px; color: #666; line-height: 1.6;">Production support, marketing collateral, launch assets.</p>
+                </div>
+                <div class="reveal">
+                    <div style="width: 48px; height: 48px; background: var(--ink); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: 24px;">4</div>
+                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 12px;">Launch & Scale</h4>
+                    <p style="font-size: 14px; color: #666; line-height: 1.6;">Coordinated launch, analytics, continuous optimization.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section" style="background: white;">
+        <div class="container">
+            <div class="max-w-2xl mx-auto text-center reveal">
+                <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Partnership</div>
+                <h2 style="font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 20px;">Apply for partnership</h2>
+                <p style="font-size: 16px; color: var(--gray); margin-bottom: 64px; line-height: 1.7;">Limited to 2 new partners per quarter.</p>
+
+                <form action="https://formspree.io/f/mlgwrybe" method="POST" style="text-align: left;">
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <input type="text" name="name" required placeholder="Full Name" class="input-field">
+                        <input type="email" name="email" required placeholder="Email" class="input-field">
+                    </div>
+                    <input type="text" name="instagram" placeholder="Instagram @Handle" class="input-field" style="margin-bottom: 32px;">
+                    <textarea name="message" rows="5" required placeholder="Tell us about your vision..." class="input-field" style="margin-bottom: 48px; resize: vertical;"></textarea>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;"><span>Submit Application</span></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="border-top: 1px solid rgba(0, 0, 0, 0.06); padding: 80px 0 40px; background: white;">
+        <div class="container">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+                <div>
+                    <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; font-family: 'Space Grotesk', sans-serif;">Monerize</div>
+                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray);">Partnership Studio</div>
+                </div>
+                <a href="https://instagram.com/monerize" target="_blank" style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray); transition: color 0.3s;">Instagram</a>
+            </div>
+            <div style="text-align: center; padding-top: 32px; border-top: 1px solid rgba(0, 0, 0, 0.06);">
+                <p style="font-size: 11px; color: var(--gray);">© 2026 Monerize — All Rights Reserved</p>
+            </div>
         </div>
     </footer>
 
+    <!-- FLOATING CTA -->
+    <a href="#contact" class="floating-cta" id="floatingCTA">Apply Now</a>
+
     <script>
-        // Efeito Aura (5% Opacidade)
-        const bg = document.getElementById('bg-canvas');
-        window.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth) * 100;
-            const y = (e.clientY / window.innerHeight) * 100;
-            bg.style.setProperty('--x', x + '%');
-            bg.style.setProperty('--y', y + '%');
+        // SCROLL REVEAL
+        const reveals = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        reveals.forEach(el => revealObserver.observe(el));
+
+        // NAV SCROLL
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+            document.getElementById('floatingCTA').classList.toggle('visible', window.scrollY > 1000);
         });
 
-        // Lógica Calculadora
-        let currentTiers = 3;
-        function setTiers(n) {
-            currentTiers = n;
-            document.querySelectorAll('.tier-btn').forEach(btn => btn.classList.remove('active', 'bg-white', 'text-black'));
-            document.getElementById('t' + n).classList.add('active', 'bg-white', 'text-black');
-            renderPriceInputs();
-            calculate();
+        // BEFORE/AFTER TRANSFORM
+        let transformed = false;
+        function toggleTransform() {
+            const container = document.getElementById('transformContainer');
+            const btn = document.getElementById('transformBtn');
+            transformed = !transformed;
+            container.classList.toggle('transformed', transformed);
+            btn.textContent = transformed ? 'Show Current State' : 'Show Transformation';
         }
 
-        function renderPriceInputs() {
-            const container = document.getElementById('price-inputs');
-            container.innerHTML = '';
-            const labels = currentTiers === 1 ? ['Price'] : (currentTiers === 2 ? ['Entry', 'Premium'] : ['Entry', 'Core', 'High']);
-            const defaults = currentTiers === 1 ? [49] : (currentTiers === 2 ? [29, 97] : [29, 97, 250]);
-            for (let i = 0; i < currentTiers; i++) {
-                container.innerHTML += `<div><label class="block text-[9px] text-gray-500 uppercase mb-2 tracking-widest">${labels[i]}</label><input type="number" id="p${i}" value="${defaults[i]}" oninput="calculate()" class="w-full bg-transparent border-b border-white/20 pb-1 outline-none text-lg font-light focus:border-white transition text-white"></div>`;
-            }
+        // CALCULATOR
+        let selectedTier = 3;
+        const tierConfigs = {
+            1: [{ name: 'Single Product', price: 49, split: 1 }],
+            2: [{ name: 'Entry', price: 29, split: 0.65 }, { name: 'Premium', price: 97, split: 0.35 }],
+            3: [{ name: 'Entry', price: 29, split: 0.60 }, { name: 'Core', price: 97, split: 0.30 }, { name: 'Premium', price: 250, split: 0.10 }]
+        };
+
+        function selectTier(n) {
+            selectedTier = n;
+            [1,2,3].forEach(i => document.getElementById('tier' + i).classList.toggle('selected', i === n));
+            updateCalculator();
         }
 
-        function animateValue(obj, start, end, duration, isCap) {
-            if (isCap) { obj.innerHTML = "Custom"; return; }
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const current = Math.floor(progress * (end - start) + start);
-                obj.innerHTML = '$' + current.toLocaleString();
-                if (progress < 1) window.requestAnimationFrame(step);
+        function updateCalculator() {
+            const followers = parseInt(document.getElementById('followerSlider').value);
+            const buyers = Math.round(followers * 0.01);
+            
+            document.getElementById('followerDisplay').textContent = followers.toLocaleString();
+            document.getElementById('buyersResult').textContent = `${buyers.toLocaleString()} potential buyers (1% conversion)`;
+
+            let totalRevenue = 0;
+            const config = tierConfigs[selectedTier];
+            const breakdown = document.getElementById('revenueBreakdown');
+            let barsHTML = '<div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 16px; text-align: left;">Revenue Distribution</div>';
+
+            config.forEach(tier => {
+                const tierRevenue = buyers * tier.split * tier.price;
+                totalRevenue += tierRevenue;
+                const percentage = (tierRevenue / (buyers * config.reduce((sum, t) => sum + t.split * t.price, 0))) * 100;
+                barsHTML += `
+                    <div style="margin-bottom: 12px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+                            <span>${tier.name} ($${tier.price})</span>
+                            <span style="font-weight: 600;">$${Math.round(tierRevenue).toLocaleString()}</span>
+                        </div>
+                        <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden;">
+                            <div style="width: ${percentage}%; height: 100%; background: linear-gradient(90deg, var(--cyan), #06B6D4); transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            breakdown.innerHTML = barsHTML;
+            
+            const displayElem = document.getElementById('revenueResult');
+            animateValue(displayElem, parseInt(displayElem.textContent.replace(/[^0-9]/g, '')) || 0, Math.round(totalRevenue), 600);
+        }
+
+        function animateValue(elem, start, end, duration) {
+            const startTime = performance.now();
+            const step = (currentTime) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const value = Math.floor(start + (end - start) * progress);
+                elem.textContent = '$' + value.toLocaleString();
+                if (progress < 1) requestAnimationFrame(step);
             };
-            window.requestAnimationFrame(step);
+            requestAnimationFrame(step);
         }
 
-        function calculate() {
-            const f = parseInt(document.getElementById('followers').value) || 0;
-            const display = document.getElementById('total-result');
-            const label = document.getElementById('buyers-label');
-            
-            if (f > 700000) { 
-                animateValue(display, 0, 0, 400, true); 
-                display.classList.add('text-gray-400');
-                label.innerText = "Contact for Enterprise scale";
-                return; 
-            } else {
-                display.classList.remove('text-gray-400');
-            }
-            
-            const rate = 0.01;
-            const buyers = f * rate;
-            let rev = 0;
-            
-            if (currentTiers === 1) {
-                rev = buyers * (document.getElementById('p0')?.value || 0);
-            } else if (currentTiers === 2) {
-                rev = (buyers * 0.65 * (document.getElementById('p0')?.value || 0)) + (buyers * 0.35 * (document.getElementById('p1')?.value || 0));
-            } else {
-                rev = (buyers * 0.60 * (document.getElementById('p0')?.value || 0)) + (buyers * 0.30 * (document.getElementById('p1')?.value || 0)) + (buyers * 0.10 * (document.getElementById('p2')?.value || 0));
-            }
-            
-            const oldVal = parseInt(display.innerText.replace(/[^0-9]/g, '')) || 0;
-            animateValue(display, oldVal, Math.round(rev), 400, false);
-            label.innerText = Math.round(buyers).toLocaleString() + " Potential Buyers";
-        }
-
-        // Inicializar
-        renderPriceInputs();
-        calculate();
+        // Initialize
+        updateCalculator();
+        setTimeout(() => reveals.forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('active');
+        }), 100);
     </script>
+
 </body>
 </html>
