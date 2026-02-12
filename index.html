@@ -1,890 +1,1206 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monerize — Partnership Studio</title>
-    <meta name="description" content="Partnership studio for creators. Turn influence into ownership through digital products.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --ink: #0F1115;
-            --white: #FAFAFA;
-            --cyan: #00E5FF;
-            --gray: #9CA3AF;
-            --beige: #EDE9E4;
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        html { scroll-behavior: smooth; }
-        
-        body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            background: var(--white); 
-            color: var(--ink); 
-            line-height: 1.6; 
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-        
-        h1, h2, h3, h4 { 
-            font-family: 'Space Grotesk', sans-serif; 
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Monerize — Partnership Studio for Creators</title>
+  <meta name="description" content="Turn influence into ownership. Monerize builds beautifully engineered digital product ecosystems with creators—revenue-share, zero upfront cost." />
+  <meta name="theme-color" content="#0B0D10" />
 
-        /* GRAIN */
-        .grain {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: overlay;
-        }
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Monerize — Partnership Studio for Creators" />
+  <meta property="og:description" content="Turn influence into ownership through digital products. Revenue-share partnership. Zero upfront cost." />
+  <meta property="og:type" content="website" />
+  <!-- Set a real URL + image when you have them -->
+  <meta property="og:url" content="" />
+  <meta property="og:image" content="" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-        /* NAV */
-        nav {
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-        }
-        nav.scrolled {
-            background: rgba(250, 250, 250, 0.8);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        /* HERO DEPTH LAYERS */
-        .hero-layer {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0;
-            animation: fadeInLayer 2s ease forwards;
-        }
-        @keyframes fadeInLayer {
-            to { opacity: 1; }
-        }
+  <style>
+    :root{
+      --bg:#0B0D10;
+      --panel:#0F1217;
+      --card:#121722;
+      --text:#EDEFF4;
+      --muted:#A7B0C0;
+      --muted2:#6F7A8C;
+      --line:rgba(255,255,255,.08);
+      --line2:rgba(255,255,255,.12);
+      --accent:#00E5FF;
+      --accent2:#7CFFDA;
+      --warn:#FF6B6B;
+      --ok:#6EE7B7;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --shadow2: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1180px;
+    }
 
-        /* DIAGONAL SECTION */
-        .diagonal-section {
-            position: relative;
-            transform: skewY(-3deg);
-            margin: 120px 0;
-        }
-        .diagonal-section > * {
-            transform: skewY(3deg);
-        }
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1000px 600px at 15% 15%, rgba(0,229,255,.12), transparent 55%),
+        radial-gradient(900px 650px at 90% 25%, rgba(124,255,218,.10), transparent 55%),
+        radial-gradient(900px 700px at 50% 110%, rgba(255,255,255,.05), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.5;
+      overflow-x:hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-        /* SCROLL REVEAL */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    h1,h2,h3,h4{
+      font-family: "Space Grotesk", Inter, system-ui, sans-serif;
+      letter-spacing:-0.02em;
+      margin:0;
+    }
 
-        /* BEFORE/AFTER TRANSFORM */
-        .transform-container {
-            position: relative;
-            min-height: 700px;
-        }
-        .state-before,
-        .state-after {
-            position: absolute;
-            width: 100%;
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .state-before {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        .state-after {
-            opacity: 0;
-            transform: translateX(100px);
-        }
-        .transform-container.transformed .state-before {
-            opacity: 0;
-            transform: translateX(-100px);
-        }
-        .transform-container.transformed .state-after {
-            opacity: 1;
-            transform: translateX(0);
-        }
+    a{ color:inherit; text-decoration:none; }
+    a:focus, button:focus, input:focus, textarea:focus{ outline: 2px solid rgba(0,229,255,.55); outline-offset: 2px; }
 
-        /* CALCULATOR PRODUCT BUILDER */
-        .range-slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 2px;
-            background: rgba(0, 0, 0, 0.1);
-            outline: none;
-            border-radius: 10px;
-        }
-        .range-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            background: var(--cyan);
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0, 229, 255, 0.4);
-            transition: transform 0.2s;
-        }
-        .range-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-        }
-        .range-slider::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            background: var(--cyan);
-            border-radius: 50%;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 2px 8px rgba(0, 229, 255, 0.4);
-        }
+    /* Layout */
+    .wrap{ max-width: var(--max); margin:0 auto; padding: 0 22px; }
+    .section{ padding: 92px 0; }
+    @media (max-width: 860px){ .section{ padding: 70px 0; } }
+    @media (max-width: 520px){ .section{ padding: 58px 0; } }
 
-        .tier-option {
-            border: 2px solid rgba(0, 0, 0, 0.06);
-            background: white;
-            padding: 24px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .tier-option::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(0, 229, 255, 0.03), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .tier-option:hover::before {
-            opacity: 1;
-        }
-        .tier-option.selected {
-            border-color: var(--cyan);
-            box-shadow: 0 8px 24px rgba(0, 229, 255, 0.15);
-        }
-        .tier-option.selected::after {
-            content: '✓';
-            position: absolute;
-            top: 12px; right: 12px;
-            width: 24px; height: 24px;
-            background: var(--cyan);
-            color: var(--ink);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-        }
+    /* Subtle grain */
+    .grain{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:9999;
+      opacity:.07;
+      mix-blend-mode: overlay;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+    }
 
-        /* REVENUE BREAKDOWN */
-        .revenue-bar {
-            height: 40px;
-            background: linear-gradient(90deg, var(--cyan) 0%, rgba(0, 229, 255, 0.4) 100%);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            color: var(--ink);
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+    /* Header */
+    .header{
+      position:sticky; top:0;
+      z-index:1000;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(11,13,16,.55);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .headerInner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 16px 0;
+      gap: 12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 700;
+      letter-spacing:-0.02em;
+    }
+    .brandLogo{
+      width: 28px; height: 28px;
+      border-radius: 999px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 0 0 6px rgba(0,229,255,.10);
+      flex: 0 0 auto;
+    }
+    .nav{
+      display:flex; gap:18px; align-items:center;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .nav a{ padding:10px 8px; border-radius: 12px; }
+    .nav a:hover{ background: rgba(255,255,255,.06); color: var(--text); }
 
-        /* PRODUCT CARDS */
-        .product-card {
-            background: white;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-        }
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 3px; height: 0;
-            background: var(--cyan);
-            transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
-        }
-        .product-card:hover::before {
-            height: 100%;
-        }
+    .ctaRow{ display:flex; gap:10px; align-items:center; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.02);
+      color: var(--text);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      cursor:pointer;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.22); }
+    .btnPrimary{
+      background: linear-gradient(135deg, rgba(0,229,255,.20), rgba(124,255,218,.14));
+      border-color: rgba(0,229,255,.45);
+      box-shadow: 0 12px 35px rgba(0,229,255,.12);
+    }
+    .btnPrimary:hover{ border-color: rgba(0,229,255,.70); box-shadow: 0 16px 45px rgba(0,229,255,.18); }
+    .btnIcon{
+      width: 34px; height: 34px; border-radius: 999px;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .hideSm{ display:flex; }
+    @media (max-width: 860px){
+      .nav{ display:none; }
+      .hideSm{ display:none; }
+    }
 
-        /* BUTTONS */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 18px 48px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-primary {
-            background: var(--ink);
-            color: var(--white);
-        }
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: var(--cyan);
-            transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 0;
-        }
-        .btn-primary:hover::before {
-            left: 0;
-        }
-        .btn-primary span {
-            position: relative;
-            z-index: 1;
-        }
-        .btn-primary:hover {
-            color: var(--ink);
-        }
+    /* Hero */
+    .hero{ padding: 74px 0 34px; }
+    .heroGrid{
+      display:grid; grid-template-columns: 1.1fr .9fr;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 980px){ .heroGrid{ grid-template-columns: 1fr; } }
 
-        /* STATS */
-        .stat-item {
-            text-align: center;
-            padding: 32px;
-            border-right: 1px solid rgba(0, 0, 0, 0.06);
-        }
-        .stat-item:last-child {
-            border-right: none;
-        }
-        .stat-number {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 3rem;
-            font-weight: 700;
-            line-height: 1;
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, var(--ink) 0%, var(--cyan) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      font-weight: 600;
+    }
+    .ping{
+      width:8px; height:8px; border-radius:999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(0,229,255,.14);
+    }
 
-        /* FLOATING CTA */
-        .floating-cta {
-            position: fixed;
-            bottom: 32px;
-            right: 32px;
-            background: var(--ink);
-            color: var(--white);
-            padding: 16px 32px;
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            border-radius: 100px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 1000;
-            pointer-events: none;
-        }
-        .floating-cta.visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: all;
-        }
-        .floating-cta:hover {
-            background: var(--cyan);
-            color: var(--ink);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(0, 229, 255, 0.3);
-        }
+    .hero h1{
+      font-size: clamp(38px, 5.4vw, 72px);
+      line-height: 0.98;
+      margin: 0 0 18px;
+    }
+    .gradText{
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 55%, #fff 120%);
+      -webkit-background-clip: text;
+      background-clip:text;
+      color: transparent;
+    }
+    .lead{
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 54ch;
+      margin: 0 0 22px;
+    }
+    .heroActions{
+      display:flex; gap:12px; flex-wrap: wrap;
+      margin: 18px 0 10px;
+    }
+    .micro{
+      color: var(--muted2);
+      font-size: 13px;
+      margin-top: 8px;
+    }
+    .micro strong{ color: var(--text); font-weight: 600; }
 
-        /* FORMS */
-        .input-field {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 16px 0;
-            font-size: 16px;
-            transition: border-color 0.3s;
-            outline: none;
-        }
-        .input-field:focus {
-            border-bottom-color: var(--cyan);
-        }
+    .heroCard{
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow2);
+      padding: 18px;
+      position: relative;
+      overflow:hidden;
+    }
+    .heroCard:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(500px 220px at 20% 0%, rgba(0,229,255,.20), transparent 60%),
+        radial-gradient(520px 240px at 90% 10%, rgba(124,255,218,.14), transparent 62%);
+      opacity:.55;
+      pointer-events:none;
+    }
+    .heroCardInner{ position:relative; }
+    .heroList{ display:grid; gap: 12px; margin-top: 10px; }
+    .heroItem{
+      display:flex; gap:12px; align-items:flex-start;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(11,13,16,.35);
+    }
+    .icon{
+      width: 36px; height: 36px; border-radius: 14px;
+      display:grid; place-items:center;
+      background: rgba(0,229,255,.10);
+      border: 1px solid rgba(0,229,255,.22);
+      flex: 0 0 auto;
+    }
+    .heroItem h4{ font-size: 16px; margin:0 0 4px; }
+    .heroItem p{ margin:0; color: var(--muted); font-size: 13px; }
 
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .diagonal-section { transform: skewY(-1deg); margin: 60px 0; }
-            .stat-item { border-right: none; border-bottom: 1px solid rgba(0, 0, 0, 0.06); }
-            .stat-item:last-child { border-bottom: none; }
-            .floating-cta { 
-                bottom: 20px; 
-                right: 20px;
-                padding: 14px 28px;
-                font-size: 9px;
-                border-radius: 50px;
-            }
-            .transform-container { 
-                min-height: auto;
-            }
-            .state-before, 
-            .state-after { 
-                position: relative;
-                transform: none !important;
-            }
-            .transform-container.transformed .state-before {
-                display: none;
-            }
-            .transform-container:not(.transformed) .state-after {
-                display: none;
-            }
-            /* Mobile padding adjustment for Reality section */
-            #reality {
-                padding-bottom: 100px !important;
-            }
-        }
+    /* Social proof strip */
+    .strip{
+      margin-top: 22px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      background: rgba(255,255,255,.02);
+    }
+    .stripInner{
+      display:flex; gap:16px; justify-content:space-between; align-items:center;
+      padding: 16px 0;
+      flex-wrap: wrap;
+    }
+    .stat{
+      display:flex; gap:10px; align-items:baseline;
+      min-width: 160px;
+    }
+    .stat strong{
+      font-family: "Space Grotesk";
+      font-size: 28px;
+      letter-spacing:-0.02em;
+    }
+    .stat span{ color: var(--muted); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
 
-        /* UTILITY */
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
-        .section { padding: 120px 0; }
-        @media (max-width: 1024px) { .container { padding: 0 32px; } .section { padding: 80px 0; } }
-        @media (max-width: 768px) { .container { padding: 0 24px; } .section { padding: 60px 0; } }
-    </style>
+    /* Cards / grids */
+    .grid3{ display:grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .grid2{ display:grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+    @media (max-width: 900px){ .grid3{ grid-template-columns: 1fr; } .grid2{ grid-template-columns: 1fr; } }
+
+    .card{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    }
+    .card h3{ font-size: 18px; margin-bottom: 8px; }
+    .card p{ margin:0; color: var(--muted); font-size: 14px; }
+    .tag{
+      display:inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      margin-bottom: 10px;
+    }
+
+    /* Timeline */
+    .timeline{ display:grid; gap: 12px; }
+    .step{
+      display:grid; grid-template-columns: 90px 1fr;
+      gap: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    @media (max-width: 640px){ .step{ grid-template-columns: 1fr; } }
+    .week{
+      font-family:"Space Grotesk";
+      font-weight: 700;
+      letter-spacing: -.02em;
+      color: var(--text);
+      font-size: 18px;
+    }
+    .step p{ margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+
+    /* Calculator */
+    .calcShell{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .calcTop{
+      padding: 22px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      display:flex; justify-content:space-between; align-items:flex-end;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .calcTop h2{ font-size: 28px; }
+    .calcTop p{ margin:6px 0 0; color: var(--muted); font-size: 14px; max-width: 62ch; }
+
+    .calcBody{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    @media (max-width: 980px){ .calcBody{ grid-template-columns: 1fr; } }
+
+    .calcPane{ padding: 22px; }
+    .calcPane + .calcPane{ border-left: 1px solid rgba(255,255,255,.08); }
+    @media (max-width: 980px){
+      .calcPane + .calcPane{ border-left:none; border-top: 1px solid rgba(255,255,255,.08); }
+    }
+
+    .labelRow{ display:flex; justify-content:space-between; gap: 12px; align-items:baseline; }
+    .label{
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 700;
+    }
+    .bigNum{
+      font-family:"Space Grotesk";
+      font-weight: 800;
+      font-size: 30px;
+      letter-spacing:-.02em;
+    }
+
+    input[type="range"]{
+      width:100%;
+      margin-top: 12px;
+      accent-color: var(--accent);
+    }
+    .rangeMeta{
+      display:flex; justify-content:space-between;
+      color: var(--muted2);
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .tierGrid{ display:grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 12px; }
+    @media (max-width: 980px){ .tierGrid{ grid-template-columns: 1fr; } }
+    .tier{
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      cursor:pointer;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      position:relative;
+    }
+    .tier:hover{ transform: translateY(-1px); border-color: rgba(0,229,255,.32); background: rgba(0,229,255,.06); }
+    .tier.selected{
+      border-color: rgba(0,229,255,.70);
+      background: rgba(0,229,255,.10);
+      box-shadow: 0 14px 35px rgba(0,229,255,.10);
+    }
+    .tier small{ display:block; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; }
+    .tier strong{ display:block; font-family:"Space Grotesk"; font-size: 20px; margin-top: 6px; }
+    .tier span{ display:block; color: var(--muted); font-size: 13px; margin-top: 3px; }
+
+    .resultBox{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(11,13,16,.35);
+      padding: 18px;
+      margin-top: 16px;
+    }
+    .resultVal{
+      font-family:"Space Grotesk";
+      font-weight: 900;
+      font-size: clamp(34px, 4.2vw, 52px);
+      letter-spacing:-.02em;
+      line-height:1.0;
+      margin: 10px 0 6px;
+      background: linear-gradient(135deg, #fff 0%, var(--accent) 60%, var(--accent2) 130%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
+    .resultMeta{ color: var(--muted); font-size: 13px; }
+
+    .bars{ margin-top: 14px; display:grid; gap: 10px; }
+    .barRow{ display:grid; gap: 6px; }
+    .barTop{ display:flex; justify-content:space-between; gap: 12px; color: var(--muted); font-size: 13px; }
+    .barTrack{
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      overflow:hidden;
+    }
+    .barFill{
+      height:100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .35s ease;
+    }
+
+    .note{
+      color: var(--muted2);
+      font-size: 12px;
+      margin-top: 12px;
+    }
+
+    /* FAQ */
+    details{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+    details + details{ margin-top: 10px; }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex; justify-content:space-between; gap: 12px; align-items:center;
+      font-weight: 700;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .faqA{ color: var(--muted); font-size: 14px; margin-top: 10px; }
+
+    /* Apply */
+    .applyGrid{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 860px){ .applyGrid{ grid-template-columns: 1fr; } }
+
+    .field{
+      width:100%;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(11,13,16,.35);
+      color: var(--text);
+      font-size: 14px;
+      outline:none;
+      transition: border-color .15s ease, background .15s ease;
+    }
+    .field:focus{ border-color: rgba(0,229,255,.65); background: rgba(0,229,255,.05); }
+    textarea.field{ min-height: 140px; resize: vertical; }
+
+    .formFoot{
+      display:flex; gap: 12px; justify-content:space-between; align-items:center; flex-wrap:wrap;
+      margin-top: 12px;
+      color: var(--muted2);
+      font-size: 12px;
+    }
+
+    /* Footer */
+    footer{
+      border-top: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.02);
+      padding: 42px 0;
+    }
+    .footRow{
+      display:flex; justify-content:space-between; align-items:center; gap: 12px; flex-wrap: wrap;
+    }
+    .footSmall{ color: var(--muted2); font-size: 12px; }
+
+    /* Floating CTA */
+    .floatCta{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 1200;
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events:none;
+      transition: transform .18s ease, opacity .18s ease, background .18s ease;
+      box-shadow: 0 18px 55px rgba(0,0,0,.45);
+    }
+    .floatCta.visible{
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events:auto;
+    }
+
+    /* Story: punchy + clean + premium scroll feel */
+    .storyShell{
+      display:grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 18px;
+      align-items:start;
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+    .storySticky{
+      position: sticky;
+      top: 92px;
+      align-self:start;
+      padding: 26px;
+      border-right: 1px solid rgba(255,255,255,.08);
+      min-height: 420px;
+    }
+    .storyTitle{
+      font-size: clamp(28px, 3.2vw, 44px);
+      line-height: 1.02;
+      margin-top: 10px;
+    }
+    .storyAccent{
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 70%);
+      -webkit-background-clip: text;
+      background-clip:text;
+      color: transparent;
+    }
+    .storySub{
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 42ch;
+    }
+    .storyRail{
+      margin-top: 18px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      overflow:hidden;
+    }
+    .storyRailFill{
+      height:100%;
+      width:0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .25s ease;
+    }
+    .storySteps{ padding: 12px; }
+    .storyStep{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(11,13,16,.35);
+      border-radius: 18px;
+      padding: 22px;
+      margin: 12px;
+    }
+    .storyBig{
+      font-family: "Space Grotesk", Inter, system-ui, sans-serif;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      font-size: clamp(22px, 2.4vw, 34px);
+      line-height: 1.05;
+    }
+    .storySmall{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .storyFinal{
+      background: linear-gradient(180deg, rgba(0,229,255,.08), rgba(124,255,218,.05));
+      border-color: rgba(0,229,255,.25);
+    }
+    .storyCtaRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .storyFine{
+      margin-top: 10px;
+      color: var(--muted2);
+      font-size: 12px;
+    }
+    .reveal{
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .45s ease, transform .45s ease;
+    }
+    .reveal.in{
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (max-width: 980px){
+      .storyShell{ grid-template-columns: 1fr; }
+      .storySticky{
+        position: relative;
+        top:auto;
+        border-right:none;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+        min-height: auto;
+      }
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      .btn, .tier, .barFill, .floatCta, .reveal, .storyRailFill{ transition:none !important; }
+    }
+  </style>
 </head>
+
 <body>
+  <div class="grain" aria-hidden="true"></div>
 
-    <div class="grain"></div>
+  <header class="header">
+    <div class="wrap">
+      <div class="headerInner">
+        <a class="brand" href="#top" aria-label="Monerize home">
+          <img class="brandLogo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAA..." alt="Monerize logo" />
+          <span>Monerize</span>
+        </a>
 
-    <!-- NAV -->
-    <nav class="fixed w-full top-0 z-50" id="nav">
-        <div class="container">
-            <div class="flex justify-between items-center py-6">
-                <div class="text-lg font-semibold tracking-tight">Monerize</div>
-                <div class="hidden md:flex gap-10 items-center text-xs font-medium uppercase tracking-wider text-gray-400">
-                    <a href="#reality" class="hover:text-black transition">Reality</a>
-                    <a href="#model" class="hover:text-black transition">Model</a>
-                    <a href="#calculator" class="hover:text-black transition">Calculator</a>
-                </div>
-                <a href="#contact" class="text-xs font-semibold uppercase tracking-wider border border-black px-6 py-2.5 hover:bg-black hover:text-white transition">Apply</a>
-            </div>
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="#model">Model</a>
+          <a href="#story">Story</a>
+          <a href="#calculator">Calculator</a>
+          <a href="#process">Process</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+
+        <div class="ctaRow">
+          <a class="btn hideSm" href="https://instagram.com/monerize" target="_blank" rel="noopener noreferrer">
+            <span class="btnIcon" aria-hidden="true">⌁</span>
+            Instagram
+          </a>
+          <a class="btn btnPrimary" href="#apply">Apply</a>
         </div>
-    </nav>
+      </div>
+    </div>
+  </header>
 
+  <main id="top">
     <!-- HERO -->
-    <section class="section relative overflow-hidden" style="padding-top: 160px; min-height: 90vh; display: flex; align-items: center;">
-        <!-- Depth Layers -->
-        <div class="hero-layer" style="top: 10%; right: 5%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0, 229, 255, 0.12) 0%, transparent 70%); animation-delay: 0s;"></div>
-        <div class="hero-layer" style="bottom: 10%; left: 5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(237, 233, 228, 0.8) 0%, transparent 70%); animation-delay: 0.3s;"></div>
-        <div class="hero-layer" style="top: 40%; left: 30%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(156, 163, 175, 0.08) 0%, transparent 70%); animation-delay: 0.6s;"></div>
-
-        <div class="container relative z-10">
-            <div class="max-w-5xl">
-                <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-8 reveal">Partnership Studio</div>
-                <h1 class="reveal" style="font-size: clamp(2.5rem, 8vw, 7rem); line-height: 0.95; margin-bottom: 48px; font-weight: 700;">
-                    Influence is leverage.<br>
-                    <span style="background: linear-gradient(135deg, var(--gray) 0%, rgba(156, 163, 175, 0.4) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Products are ownership.</span>
-                </h1>
-                <p class="reveal" style="font-size: clamp(1.1rem, 2vw, 1.4rem); color: var(--gray); max-width: 700px; margin-bottom: 56px; font-weight: 400; line-height: 1.6;">
-                    We turn creators into founders through beautifully engineered digital products. Revenue-share partnership. Zero upfront cost.
-                </p>
-                <div class="flex flex-wrap gap-6 items-center reveal">
-                    <a href="#calculator" class="btn btn-primary"><span>Build Your Model</span></a>
-                    <a href="#reality" class="text-xs font-semibold uppercase tracking-wider text-gray-400 hover:text-black transition">See the shift →</a>
-                </div>
+    <section class="hero">
+      <div class="wrap">
+        <div class="heroGrid">
+          <div>
+            <div class="kicker">
+              <span class="pill"><span class="ping" aria-hidden="true"></span> Partnership studio</span>
+              <span class="pill">Revenue-share • $0 upfront</span>
             </div>
+
+            <h1>
+              Influence is leverage.<br />
+              <span class="gradText">Products are ownership.</span>
+            </h1>
+
+            <p class="lead">
+              Monerize turns creators into founders by building high-converting digital product systems:
+              offer, checkout, delivery, and retention—end-to-end.
+            </p>
+
+            <div class="heroActions">
+              <a class="btn btnPrimary" href="#apply">Apply for partnership</a>
+              <a class="btn" href="#calculator">Estimate your revenue</a>
+              <a class="btn" href="#model" aria-label="Learn how it works">How it works</a>
+            </div>
+
+            <p class="micro">
+              <strong>Best fit:</strong> creators with a clear niche + engaged audience. We build the asset together.
+            </p>
+          </div>
+
+          <aside class="heroCard" aria-label="Why Monerize">
+            <div class="heroCardInner">
+              <div class="tag">What you get</div>
+              <h3 style="font-size:22px; margin-bottom: 10px;">A product business—engineered.</h3>
+              <p style="color:var(--muted); margin:0 0 12px;">
+                Not templates. Not advice. We execute like a technical co-founder.
+              </p>
+
+              <div class="heroList">
+                <div class="heroItem">
+                  <div class="icon" aria-hidden="true">⚡</div>
+                  <div>
+                    <h4>Launch-ready systems</h4>
+                    <p>Offer ladder, funnels, checkout, onboarding, delivery—all built to convert.</p>
+                  </div>
+                </div>
+                <div class="heroItem">
+                  <div class="icon" aria-hidden="true">🧠</div>
+                  <div>
+                    <h4>Messaging that sells</h4>
+                    <p>Simple positioning, clear promise, and pricing that matches your audience.</p>
+                  </div>
+                </div>
+                <div class="heroItem">
+                  <div class="icon" aria-hidden="true">📈</div>
+                  <div>
+                    <h4>Optimize over time</h4>
+                    <p>We improve the funnel and offer so revenue grows instead of resetting.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
         </div>
-    </section>
+      </div>
 
-    <!-- STATS BAR -->
-    <section style="background: white; border-top: 1px solid rgba(0, 0, 0, 0.06); border-bottom: 1px solid rgba(0, 0, 0, 0.06);">
-        <div class="container">
-            <div class="grid grid-cols-1 md:grid-cols-3">
-                <div class="stat-item reveal">
-                    <div class="stat-number">8</div>
-                    <div class="text-xs uppercase tracking-wider text-gray-400">Weeks to Launch</div>
-                </div>
-                <div class="stat-item reveal">
-                    <div class="stat-number">$0</div>
-                    <div class="text-xs uppercase tracking-wider text-gray-400">Upfront Cost</div>
-                </div>
-                <div class="stat-item reveal">
-                    <div class="stat-number">100%</div>
-                    <div class="text-xs uppercase tracking-wider text-gray-400">Revenue Alignment</div>
-                </div>
-            </div>
+      <!-- Social proof / trust strip -->
+      <div class="strip" id="proof" aria-label="Key stats">
+        <div class="wrap">
+          <div class="stripInner">
+            <div class="stat"><strong>8</strong> <span>Weeks to launch</span></div>
+            <div class="stat"><strong>$0</strong> <span>Upfront cost</span></div>
+            <div class="stat"><strong>Aligned</strong> <span>We win when you win</span></div>
+            <div class="stat"><strong>Global</strong> <span>Payments + delivery</span></div>
+          </div>
         </div>
-    </section>
-
-    <!-- BEFORE/AFTER REALITY -->
-    <section id="reality" class="section" style="background: var(--ink); color: var(--white); overflow: hidden; padding-bottom: 160px;">
-        <div class="container">
-            <div class="max-w-3xl mb-20 reveal">
-                <div class="text-xs font-bold uppercase tracking-widest mb-6" style="color: var(--gray);">The Creator Reality</div>
-                <h2 style="font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 24px;">
-                    You're building someone else's empire.
-                </h2>
-                <p style="font-size: 18px; color: var(--gray); line-height: 1.7;">
-                    Most creators are trapped in a fragile cycle. Here's what that looks like—and what happens when you break free.
-                </p>
-            </div>
-
-            <div class="transform-container reveal" id="transformContainer" style="position: relative;">
-                <!-- BEFORE STATE -->
-                <div class="state-before">
-                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 56px; border-radius: 4px;">
-                        <div style="display: inline-block; background: rgba(220, 38, 38, 0.15); color: #FCA5A5; padding: 8px 16px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 40px; border-radius: 4px;">Current State</div>
-                        
-                        <h3 style="font-size: 2rem; margin-bottom: 40px; font-weight: 600;">The Algorithm Trap</h3>
-
-                        <div style="margin-bottom: 48px;">
-                            <div style="font-size: 13px; font-weight: 600; margin-bottom: 20px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em;">Revenue Sources</div>
-                            <div style="display: flex; flex-direction: column; gap: 16px;">
-                                <div>
-                                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                        <span style="font-size: 14px;">Brand Sponsorships</span>
-                                        <span style="font-size: 14px; font-weight: 600;">60%</span>
-                                    </div>
-                                    <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
-                                        <div style="width: 60%; height: 100%; background: linear-gradient(90deg, #DC2626, #EF4444);"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                        <span style="font-size: 14px;">Platform Ad Revenue</span>
-                                        <span style="font-size: 14px; font-weight: 600;">30%</span>
-                                    </div>
-                                    <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
-                                        <div style="width: 30%; height: 100%; background: linear-gradient(90deg, #DC2626, #EF4444);"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                        <span style="font-size: 14px;">Owned Products</span>
-                                        <span style="font-size: 14px; font-weight: 600;">10%</span>
-                                    </div>
-                                    <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
-                                        <div style="width: 10%; height: 100%; background: linear-gradient(90deg, #DC2626, #EF4444);"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="margin-bottom: 48px;">
-                            <div style="font-size: 13px; font-weight: 600; margin-bottom: 20px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em;">Dependencies</div>
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
-                                <div style="display: flex; align-items: start; gap: 12px;">
-                                    <div style="width: 6px; height: 6px; background: #DC2626; border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
-                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">Algorithm volatility kills reach</span>
-                                </div>
-                                <div style="display: flex; align-items: start; gap: 12px;">
-                                    <div style="width: 6px; height: 6px; background: #DC2626; border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
-                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">Time-for-money ceiling</span>
-                                </div>
-                                <div style="display: flex; align-items: start; gap: 12px;">
-                                    <div style="width: 6px; height: 6px; background: #DC2626; border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
-                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">No compounding assets</span>
-                                </div>
-                                <div style="display: flex; align-items: start; gap: 12px;">
-                                    <div style="width: 6px; height: 6px; background: #DC2626; border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
-                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">Audience underutilized 90%</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="background: rgba(220, 38, 38, 0.1); border-left: 3px solid #DC2626; padding: 24px;">
-                            <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #FCA5A5; text-transform: uppercase; letter-spacing: 0.1em;">Reality Check</div>
-                            <div style="font-size: 16px; line-height: 1.6; color: rgba(255, 255, 255, 0.9);">Fragile income. No ownership. Content hamster wheel with zero equity.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- AFTER STATE -->
-                <div class="state-after">
-                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 229, 255, 0.3); padding: 56px; border-radius: 4px;">
-                        <div style="display: inline-block; background: rgba(5, 150, 105, 0.15); color: #6EE7B7; padding: 8px 16px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 40px; border-radius: 4px;">With Monerize</div>
-                        
-                        <h3 style="font-size: 2rem; margin-bottom: 40px; font-weight: 600;">The Ownership Model</h3>
-
-                        <div style="margin-bottom: 48px;">
-                            <div style="font-size: 13px; font-weight: 600; margin-bottom: 20px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em;">Revenue Sources</div>
-                            <div style="display: flex; flex-direction: column; gap: 16px;">
-                                <div>
-                                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                        <span style="font-size: 14px;">Owned Digital Products</span>
-                                        <span style="font-size: 14px; font-weight: 600; color: var(--cyan);">60%</span>
-                                    </div>
-                                    <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
-                                        <div style="width: 60%; height: 100%; background: linear-gradient(90deg, var(--cyan), #06B6D4);"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                        <span style="font-size: 14px;">Selective Brand Partnerships</span>
-                                        <span style="font-size: 14px; font-weight: 600;">25%</span>
-                                    </div>
-                                    <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
-                                        <div style="width: 25%; height: 100%; background: linear-gradient(90deg, var(--cyan), #06B6D4);"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                        <span style="font-size: 14px;">Platform Revenue</span>
-                                        <span style="font-size: 14px; font-weight: 600;">15%</span>
-                                    </div>
-                                    <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
-                                        <div style="width: 15%; height: 100%; background: linear-gradient(90deg, var(--cyan), #06B6D4);"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="margin-bottom: 48px;">
-                            <div style="font-size: 13px; font-weight: 600; margin-bottom: 20px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em;">Transformation</div>
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
-                                <div style="display: flex; align-items: start; gap: 12px;">
-                                    <div style="width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
-                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.9);">Recurring revenue streams</span>
-                                </div>
-                                <div style="display: flex; align-items: start; gap: 12px;">
-                                    <div style="width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
-                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.9);">Asset value compounds</span>
-                                </div>
-                                <div style="display: flex; align-items: start; gap: 12px;">
-                                    <div style="width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
-                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.9);">Platform independence</span>
-                                </div>
-                                <div style="display: flex; align-items: start; gap: 12px;">
-                                    <div style="width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
-                                    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.9);">10x audience monetization</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="background: rgba(0, 229, 255, 0.08); border-left: 3px solid var(--cyan); padding: 24px;">
-                            <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.1em;">New Reality</div>
-                            <div style="font-size: 16px; line-height: 1.6; color: rgba(255, 255, 255, 0.9);">Stable income. Owned assets. Creator becomes founder.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center reveal" style="margin-top: 56px;">
-                <button onclick="toggleTransform()" id="transformBtn" style="background: var(--cyan); color: var(--ink); padding: 20px 56px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 8px 24px rgba(0, 229, 255, 0.3);">
-                    Show Transformation
-                </button>
-            </div>
-        </div>
+      </div>
     </section>
 
     <!-- MODEL -->
-    <section id="model" class="section" style="background: var(--beige); padding: 120px 0;">
-        <div class="container">
-            <div class="grid lg:grid-cols-2 gap-20 items-center">
-                <div class="reveal">
-                    <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Partnership Model</div>
-                    <h2 style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 32px;">A partner,<br>not an agency.</h2>
-                    <p style="font-size: 18px; color: #666; line-height: 1.7; margin-bottom: 32px;">
-                        We operate like a technical co-founder. Revenue share means absolute alignment—we only profit when we create measurable wealth for you.
-                    </p>
-                    <div style="border-left: 3px solid var(--cyan); padding-left: 24px; background: rgba(0, 229, 255, 0.05); padding: 24px;">
-                        <div style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">Zero Upfront Cost</div>
-                        <div style="font-size: 15px; color: #666; line-height: 1.6;">We invest capital and expertise. You invest vision and distribution. We build the asset together.</div>
-                    </div>
-                </div>
-
-                <div class="grid gap-6 reveal">
-                    <div class="product-card p-8">
-                        <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray); margin-bottom: 16px;">What We Build</div>
-                        <h3 style="font-size: 1.5rem; margin-bottom: 12px; font-weight: 600;">Digital Product Ecosystems</h3>
-                        <p style="color: #666; font-size: 15px; line-height: 1.7;">Courses. Challenges. Memberships. Toolkits. Multi-tier systems for every audience segment.</p>
-                    </div>
-                    <div class="product-card p-8">
-                        <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray); margin-bottom: 16px;">How We Work</div>
-                        <h3 style="font-size: 1.5rem; margin-bottom: 12px; font-weight: 600;">End-to-End Infrastructure</h3>
-                        <p style="color: #666; font-size: 15px; line-height: 1.7;">Architecture. Build. Payments. Launch. Optimization. You focus on creation.</p>
-                    </div>
-                </div>
-            </div>
+    <section class="section" id="model">
+      <div class="wrap">
+        <div style="display:grid; gap: 10px; margin-bottom: 18px;">
+          <div class="tag">Partnership model</div>
+          <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height:1.05;">
+            A partner, not an agency.
+          </h2>
+          <p style="color:var(--muted); margin:0; max-width: 75ch;">
+            We build the product business with you. Revenue-share means we only win when you win.
+          </p>
         </div>
+
+        <div class="grid3" style="margin-top: 18px;">
+          <div class="card">
+            <div class="tag">Build</div>
+            <h3>Your product</h3>
+            <p>Courses, challenges, memberships, toolkits—built around what your audience wants.</p>
+          </div>
+          <div class="card">
+            <div class="tag">Sell</div>
+            <h3>Pages that convert</h3>
+            <p>Landing page, checkout, upsells, email capture—made to be simple and fast.</p>
+          </div>
+          <div class="card">
+            <div class="tag">Deliver</div>
+            <h3>Delivery + retention</h3>
+            <p>Onboarding, content delivery, support flow, and retention so people stay.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="section story" id="story">
+      <div class="wrap">
+        <div class="storyShell">
+          <div class="storySticky">
+            <div class="tag">Simple story</div>
+            <h2 class="storyTitle">
+              You have followers.<br />
+              <span class="storyAccent">But you don’t have a product.</span>
+            </h2>
+            <p class="storySub">
+              Short. Clear. Built for any niche.
+            </p>
+
+            <div class="storyRail" aria-hidden="true">
+              <div class="storyRailFill" id="storyRailFill"></div>
+            </div>
+          </div>
+
+          <div class="storySteps" id="storySteps">
+            <div class="storyStep reveal">
+              <div class="storyBig">You post.</div>
+              <div class="storySmall">People watch. Save. Comment. DM.</div>
+            </div>
+
+            <div class="storyStep reveal">
+              <div class="storyBig">Brand deals come and go.</div>
+              <div class="storySmall">Some months are great. Some months are quiet.</div>
+            </div>
+
+            <div class="storyStep reveal">
+              <div class="storyBig">No product means no control.</div>
+              <div class="storySmall">You can’t plan revenue if you don’t own what you sell.</div>
+            </div>
+
+            <div class="storyStep reveal">
+              <div class="storyBig">A product fixes that.</div>
+              <div class="storySmall">Your audience can buy from you directly.</div>
+            </div>
+
+            <div class="storyStep reveal">
+              <div class="storyBig">We build the whole system.</div>
+              <div class="storySmall">Product → Checkout → Delivery → Retention.</div>
+            </div>
+
+            <div class="storyStep reveal storyFinal">
+              <div class="storyBig">Now your content drives sales.</div>
+              <div class="storySmall">Predictable revenue. Full control. Something you own.</div>
+
+              <div class="storyCtaRow">
+                <a class="btn btnPrimary" href="#apply">Apply for partnership</a>
+                <a class="btn" href="#calculator">Estimate revenue</a>
+              </div>
+              <div class="storyFine">We take on a small number of partners at a time. (Not “2 per quarter.”)</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- CALCULATOR -->
-    <section id="calculator" class="section" style="background: white;">
-        <div class="container">
-            <div class="max-w-3xl mx-auto mb-20 text-center reveal">
-                <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Product Configurator</div>
-                <h2 style="font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.1; margin-bottom: 24px;">Build your revenue model.</h2>
-                <p style="font-size: 17px; color: var(--gray); line-height: 1.7;">Configure your product ecosystem and see potential revenue in real-time.</p>
+    <section class="section" id="calculator">
+      <div class="wrap">
+        <div class="calcShell" role="region" aria-label="Revenue model calculator">
+          <div class="calcTop">
+            <div>
+              <div class="tag">Revenue estimator</div>
+              <h2>Build your revenue model.</h2>
+              <p>Adjust audience size and offer ladder. See a simple estimate using a <strong>1% conversion benchmark</strong>.</p>
+            </div>
+            <a class="btn" href="#apply">Apply</a>
+          </div>
+
+          <div class="calcBody">
+            <div class="calcPane">
+              <div class="labelRow">
+                <div>
+                  <div class="label">Audience size</div>
+                  <div class="micro" style="margin:6px 0 0;">Use total followers/subscribers (rough benchmark).</div>
+                </div>
+                <div class="bigNum" id="followerDisplay">50,000</div>
+              </div>
+
+              <input type="range" id="followerSlider" min="5000" max="500000" step="5000" value="50000" oninput="updateCalculator()" aria-label="Audience size slider" />
+              <div class="rangeMeta"><span>5k</span><span>100k</span><span>250k</span><span>500k</span></div>
+
+              <div style="margin-top: 18px;">
+                <div class="label">Offer ladder</div>
+                <div class="tierGrid" role="radiogroup" aria-label="Offer ladder options">
+                  <div class="tier" role="radio" aria-checked="false" tabindex="0" onclick="selectTier(1)" onkeydown="tierKey(event,1)" id="tier1">
+                    <small>Single product</small>
+                    <strong>$49</strong>
+                    <span>One offer. Simple entry.</span>
+                  </div>
+                  <div class="tier" role="radio" aria-checked="false" tabindex="0" onclick="selectTier(2)" onkeydown="tierKey(event,2)" id="tier2">
+                    <small>Two-tier</small>
+                    <strong>$29 + $97</strong>
+                    <span>Entry and premium.</span>
+                  </div>
+                  <div class="tier selected" role="radio" aria-checked="true" tabindex="0" onclick="selectTier(3)" onkeydown="tierKey(event,3)" id="tier3">
+                    <small>Full ladder</small>
+                    <strong>$29–$250</strong>
+                    <span>Complete ecosystem.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="resultBox" aria-label="Calculator assumptions">
+                <div class="label">Assumptions</div>
+                <p class="note" style="margin:10px 0 0;">
+                  This estimate is directional. Results vary by niche, pricing, and conversion. We build around your audience and improve over time.
+                </p>
+              </div>
             </div>
 
-            <div class="max-w-4xl mx-auto">
-                <!-- Audience Size -->
-                <div class="reveal" style="background: white; border: 1px solid rgba(0, 0, 0, 0.06); padding: 48px; margin-bottom: 32px; border-radius: 4px;">
-                    <div style="margin-bottom: 32px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                            <label style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #666;">Audience Size</label>
-                            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: var(--ink);" id="followerDisplay">50,000</div>
-                        </div>
-                        <input type="range" id="followerSlider" min="5000" max="500000" step="5000" value="50000" class="range-slider" oninput="updateCalculator()">
-                        <div style="display: flex; justify-content: space-between; margin-top: 12px; font-size: 12px; color: var(--gray);">
-                            <span>5k</span>
-                            <span>100k</span>
-                            <span>250k</span>
-                            <span>500k</span>
-                        </div>
-                    </div>
+            <div class="calcPane">
+              <div class="resultBox" style="margin-top:0;">
+                <div class="label">Estimated revenue</div>
+                <div class="resultVal" id="revenueResult">$49,500</div>
+                <div class="resultMeta" id="buyersResult">500 potential buyers (1% conversion)</div>
+
+                <div class="bars" id="revenueBreakdown" aria-label="Revenue distribution breakdown"></div>
+
+                <div class="note" style="margin-top: 14px;">
+                  Revenue is shared between creator and Monerize (aligned incentives).
                 </div>
+              </div>
 
-                <!-- Product Tiers -->
-                <div class="reveal" style="margin-bottom: 32px;">
-                    <div style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #666; margin-bottom: 20px;">Product Ecosystem</div>
-                    <div class="grid md:grid-cols-3 gap-4">
-                        <div class="tier-option" onclick="selectTier(1)" id="tier1">
-                            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 12px;">Single Product</div>
-                            <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px;">$49</div>
-                            <div style="font-size: 13px; color: #666;">One offer. Simple entry.</div>
-                        </div>
-                        <div class="tier-option" onclick="selectTier(2)" id="tier2">
-                            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 12px;">Two-Tier</div>
-                            <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px;">$29 + $97</div>
-                            <div style="font-size: 13px; color: #666;">Entry and premium.</div>
-                        </div>
-                        <div class="tier-option selected" onclick="selectTier(3)" id="tier3">
-                            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 12px;">Full Ladder</div>
-                            <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px;">$29–$250</div>
-                            <div style="font-size: 13px; color: #666;">Complete ecosystem.</div>
-                        </div>
-                    </div>
+              <div class="card" style="margin-top: 14px;">
+                <div class="tag">Next step</div>
+                <h3 style="margin-bottom: 8px;">Want a real plan?</h3>
+                <p>Apply with your niche + audience. We’ll map the best product ladder and build the system end-to-end.</p>
+                <div style="margin-top: 12px;">
+                  <a class="btn btnPrimary" href="#apply">Apply for partnership</a>
                 </div>
-
-                <!-- Results -->
-                <div class="reveal" style="background: var(--ink); color: var(--white); padding: 56px; border-radius: 4px; text-align: center;">
-                    <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray); margin-bottom: 24px;">Estimated Revenue</div>
-                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(3rem, 8vw, 5rem); font-weight: 700; line-height: 1; margin-bottom: 16px; background: linear-gradient(135deg, var(--white) 0%, var(--cyan) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" id="revenueResult">$49,500</div>
-                    <div style="font-size: 13px; color: var(--gray); margin-bottom: 40px;" id="buyersResult">500 potential buyers (1% conversion)</div>
-
-                    <!-- Revenue Breakdown -->
-                    <div id="revenueBreakdown" style="max-width: 600px; margin: 0 auto;">
-                        <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 16px; text-align: left;">Revenue Distribution</div>
-                        <!-- Bars will be injected here -->
-                    </div>
-
-                    <div style="margin-top: 40px; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-                        <p style="font-size: 13px; color: rgba(255, 255, 255, 0.5); line-height: 1.6;">Revenue shared between creator and Monerize. Based on 1% conversion benchmark.</p>
-                    </div>
-                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- PROCESS -->
-    <section class="section" style="background: var(--beige);">
-        <div class="container">
-            <div class="max-w-2xl mb-20 reveal">
-                <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Execution</div>
-                <h2 style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1;">8-week blueprint.</h2>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
-                <div class="reveal">
-                    <div style="width: 48px; height: 48px; background: var(--ink); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: 24px;">1</div>
-                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 12px;">Foundation</h4>
-                    <p style="font-size: 14px; color: #666; line-height: 1.6;">Market positioning, audience analysis, product architecture.</p>
-                </div>
-                <div class="reveal">
-                    <div style="width: 48px; height: 48px; background: var(--ink); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: 24px;">2</div>
-                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 12px;">Build</h4>
-                    <p style="font-size: 14px; color: #666; line-height: 1.6;">Platform development, funnels, global payment systems.</p>
-                </div>
-                <div class="reveal">
-                    <div style="width: 48px; height: 48px; background: var(--ink); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: 24px;">3</div>
-                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 12px;">Content</h4>
-                    <p style="font-size: 14px; color: #666; line-height: 1.6;">Production support, marketing collateral, launch assets.</p>
-                </div>
-                <div class="reveal">
-                    <div style="width: 48px; height: 48px; background: var(--ink); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: 24px;">4</div>
-                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 12px;">Launch & Scale</h4>
-                    <p style="font-size: 14px; color: #666; line-height: 1.6;">Coordinated launch, analytics, continuous optimization.</p>
-                </div>
-            </div>
+    <section class="section" id="process">
+      <div class="wrap">
+        <div style="display:grid; gap: 10px; margin-bottom: 18px;">
+          <div class="tag">Execution</div>
+          <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height:1.05;">An 8-week blueprint.</h2>
+          <p style="color:var(--muted); margin:0; max-width: 75ch;">
+            Clear phases. Fast feedback. Built to launch, then improve based on real data.
+          </p>
         </div>
+
+        <div class="timeline">
+          <div class="step">
+            <div class="week">Weeks 1–2</div>
+            <div>
+              <h3 style="font-size: 18px;">Foundation</h3>
+              <p>Audience insights, offer, pricing, and launch plan.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="week">Weeks 3–5</div>
+            <div>
+              <h3 style="font-size: 18px;">Build</h3>
+              <p>Pages, checkout, onboarding, delivery system, and analytics.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="week">Weeks 6–7</div>
+            <div>
+              <h3 style="font-size: 18px;">Assets</h3>
+              <p>Product structure, packaging, launch creatives, and email flow.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="week">Week 8</div>
+            <div>
+              <h3 style="font-size: 18px;">Launch & improve</h3>
+              <p>Release, track performance, and build the improvement roadmap.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="section" style="background: white;">
-        <div class="container">
-            <div class="max-w-2xl mx-auto text-center reveal">
-                <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Partnership</div>
-                <h2 style="font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 20px;">Apply for partnership</h2>
-                <p style="font-size: 16px; color: var(--gray); margin-bottom: 64px; line-height: 1.7;">Limited to 2 new partners per quarter.</p>
-
-                <form action="https://formspree.io/f/mlgwrybe" method="POST" style="text-align: left;">
-                    <div class="grid md:grid-cols-2 gap-8 mb-8">
-                        <input type="text" name="name" required placeholder="Full Name" class="input-field">
-                        <input type="email" name="email" required placeholder="Email" class="input-field">
-                    </div>
-                    <input type="text" name="instagram" placeholder="Instagram @Handle" class="input-field" style="margin-bottom: 32px;">
-                    <textarea name="message" rows="5" required placeholder="Tell us about your vision..." class="input-field" style="margin-bottom: 48px; resize: vertical;"></textarea>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;"><span>Submit Application</span></button>
-                </form>
-            </div>
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div style="display:grid; gap: 10px; margin-bottom: 18px;">
+          <div class="tag">FAQ</div>
+          <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height:1.05;">Questions, answered.</h2>
+          <p style="color:var(--muted); margin:0; max-width: 75ch;">
+            If you have a clear niche and an audience that trusts you, this can work extremely well.
+          </p>
         </div>
+
+        <div class="grid2">
+          <div>
+            <details>
+              <summary>Do I pay anything upfront? <span aria-hidden="true">＋</span></summary>
+              <div class="faqA">No. We operate on a revenue-share partnership. We invest the build effort and only win when the product performs.</div>
+            </details>
+            <details>
+              <summary>What do you build, exactly? <span aria-hidden="true">＋</span></summary>
+              <div class="faqA">Product ladder, landing pages, checkout, onboarding, delivery, analytics, and an improvement plan.</div>
+            </details>
+            <details>
+              <summary>How fast can we launch? <span aria-hidden="true">＋</span></summary>
+              <div class="faqA">Typical timeline is around 8 weeks depending on scope.</div>
+            </details>
+          </div>
+
+          <div>
+            <details>
+              <summary>Do you work with any niche? <span aria-hidden="true">＋</span></summary>
+              <div class="faqA">We prioritize clear niches with strong trust. If your audience has a real problem and you have credibility, you’re likely a fit.</div>
+            </details>
+            <details>
+              <summary>Is the calculator accurate? <span aria-hidden="true">＋</span></summary>
+              <div class="faqA">It’s directional. Real performance depends on niche, price, offer strength, and conversion. We build a tailored model from your audience.</div>
+            </details>
+            <details>
+              <summary>How many partners do you take? <span aria-hidden="true">＋</span></summary>
+              <div class="faqA">We take on a small number of partners at a time to keep execution high-touch. (We do <strong>not</strong> limit to “2 per quarter.”)</div>
+            </details>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer style="border-top: 1px solid rgba(0, 0, 0, 0.06); padding: 80px 0 40px; background: white;">
-        <div class="container">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
-                <div>
-                    <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; font-family: 'Space Grotesk', sans-serif;">Monerize</div>
-                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray);">Partnership Studio</div>
+    <!-- APPLY / CONTACT -->
+    <section class="section" id="apply">
+      <div class="wrap">
+        <div class="card" style="border-radius: var(--radius2); padding: 24px;">
+          <div class="grid2" style="gap: 18px; align-items:start;">
+            <div>
+              <div class="tag">Partnership</div>
+              <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height:1.05;">Apply for partnership</h2>
+              <p style="color:var(--muted); margin: 10px 0 0;">
+                Tell us what you create, who you help, and what you want to build. If it’s a fit, we’ll respond by email.
+              </p>
+
+              <div class="card" style="margin-top: 14px;">
+                <div class="tag">Tip</div>
+                <h3 style="margin-bottom: 8px;">Great applications include:</h3>
+                <p style="margin:0; color:var(--muted);">
+                  niche • audience size • engagement • your product idea • the result you help people get
+                </p>
+              </div>
+
+              <div style="margin-top: 14px;">
+                <a class="btn" href="https://instagram.com/monerize" target="_blank" rel="noopener noreferrer">
+                  <span class="btnIcon" aria-hidden="true">⌁</span>
+                  Instagram: @monerize
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <form action="https://formspree.io/f/mlgwrybe" method="POST" aria-label="Partnership application form">
+                <div class="applyGrid">
+                  <input class="field" type="text" name="name" required placeholder="Full Name" autocomplete="name" />
+                  <input class="field" type="email" name="email" required placeholder="Email" autocomplete="email" />
                 </div>
-                <a href="https://instagram.com/monerize" target="_blank" style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray); transition: color 0.3s;">Instagram</a>
+
+                <div style="margin-top: 12px;">
+                  <input class="field" type="text" name="instagram" placeholder="Instagram @Handle (optional)" />
+                </div>
+
+                <div style="margin-top: 12px;">
+                  <textarea class="field" name="message" rows="6" required placeholder="Tell us about your niche, audience, and what you want to build..."></textarea>
+                </div>
+
+                <button class="btn btnPrimary" type="submit" style="width:100%; justify-content:center; margin-top: 12px;">
+                  Submit application
+                </button>
+
+                <div class="formFoot">
+                  <span>We reply by email.</span>
+                  <span>By submitting, you agree to be contacted about your application.</span>
+                </div>
+              </form>
             </div>
-            <div style="text-align: center; padding-top: 32px; border-top: 1px solid rgba(0, 0, 0, 0.06);">
-                <p style="font-size: 11px; color: var(--gray);">© 2026 Monerize — All Rights Reserved</p>
-            </div>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <!-- FLOATING CTA -->
-    <a href="#contact" class="floating-cta" id="floatingCTA">Apply Now</a>
+    <a class="btn btnPrimary floatCta" href="#apply" id="floatCta">Apply</a>
+  </main>
 
-    <script>
-        // SCROLL REVEAL
-        const reveals = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        reveals.forEach(el => revealObserver.observe(el));
+  <footer>
+    <div class="wrap">
+      <div class="footRow">
+        <div class="brand" aria-label="Monerize footer brand">
+          <img class="brandLogo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAA..." alt="Monerize logo" />
+          <div style="display:grid; gap: 2px;">
+            <strong style="font-family:'Space Grotesk'; font-size: 18px;">Monerize</strong>
+            <span class="footSmall">Partnership Studio</span>
+          </div>
+        </div>
 
-        // NAV SCROLL
-        const nav = document.getElementById('nav');
-        window.addEventListener('scroll', () => {
-            nav.classList.toggle('scrolled', window.scrollY > 50);
-            document.getElementById('floatingCTA').classList.toggle('visible', window.scrollY > 1000);
+        <div class="footRow" style="gap: 10px;">
+          <a class="btn" href="https://instagram.com/monerize" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a class="btn" href="#apply">Apply</a>
+        </div>
+      </div>
+
+      <div style="margin-top: 18px; border-top: 1px solid rgba(255,255,255,.08); padding-top: 16px;" class="footSmall">
+        © <span id="year"></span> Monerize — All Rights Reserved
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Floating CTA
+    const floatCta = document.getElementById('floatCta');
+    const showAt = 800;
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > showAt) floatCta.classList.add('visible');
+      else floatCta.classList.remove('visible');
+    }, { passive: true });
+
+    // Calculator logic (1% conversion, tiers, breakdown)
+    let selectedTier = 3;
+
+    const tierConfigs = {
+      1: [{ name: 'Single Product', price: 49, split: 1 }],
+      2: [{ name: 'Entry', price: 29, split: 0.65 }, { name: 'Premium', price: 97, split: 0.35 }],
+      3: [{ name: 'Entry', price: 29, split: 0.60 }, { name: 'Core', price: 97, split: 0.30 }, { name: 'Premium', price: 250, split: 0.10 }]
+    };
+
+    function tierKey(e, n){
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        selectTier(n);
+      }
+    }
+
+    function selectTier(n){
+      selectedTier = n;
+      [1,2,3].forEach(i => {
+        const el = document.getElementById('tier' + i);
+        const isSelected = i === n;
+        el.classList.toggle('selected', isSelected);
+        el.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+      });
+      updateCalculator();
+    }
+
+    function animateValue(elem, start, end, duration){
+      const startTime = performance.now();
+      const step = (t) => {
+        const p = Math.min((t - startTime) / duration, 1);
+        const v = Math.floor(start + (end - start) * p);
+        elem.textContent = '$' + v.toLocaleString();
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+
+    function updateCalculator(){
+      const followers = parseInt(document.getElementById('followerSlider').value, 10);
+      const buyers = Math.round(followers * 0.01);
+
+      document.getElementById('followerDisplay').textContent = followers.toLocaleString();
+      document.getElementById('buyersResult').textContent = `${buyers.toLocaleString()} potential buyers (1% conversion)`;
+
+      const config = tierConfigs[selectedTier];
+      const breakdownEl = document.getElementById('revenueBreakdown');
+
+      const denom = config.reduce((sum, t) => sum + (t.split * t.price), 0);
+      let totalRevenue = 0;
+
+      let html = '';
+      config.forEach(t => {
+        const tierRevenue = buyers * t.split * t.price;
+        totalRevenue += tierRevenue;
+        const pct = denom > 0 ? ((t.split * t.price) / denom) * 100 : 0;
+
+        html += `
+          <div class="barRow">
+            <div class="barTop">
+              <span>${t.name} ($${t.price})</span>
+              <span style="font-weight:700; color: rgba(255,255,255,.92);">$${Math.round(tierRevenue).toLocaleString()}</span>
+            </div>
+            <div class="barTrack" aria-hidden="true">
+              <div class="barFill" style="width:${pct.toFixed(1)}%"></div>
+            </div>
+          </div>
+        `;
+      });
+
+      breakdownEl.innerHTML = html;
+
+      const display = document.getElementById('revenueResult');
+      const current = parseInt(display.textContent.replace(/[^0-9]/g,''), 10) || 0;
+      animateValue(display, current, Math.round(totalRevenue), 450);
+    }
+
+    // Init calculator
+    updateCalculator();
+
+    // Story reveal + progress rail
+    (function(){
+      const steps = Array.from(document.querySelectorAll('#storySteps .reveal'));
+      const fill = document.getElementById('storyRailFill');
+      if (!steps.length || !fill) return;
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+          }
         });
 
-        // TRANSFORMATION BUTTON TOGGLE
-        let transformed = false;
-        function toggleTransform() {
-            const container = document.getElementById('transformContainer');
-            const btn = document.getElementById('transformBtn');
-            const section = document.getElementById('reality');
-            
-            transformed = !transformed;
-            container.classList.toggle('transformed', transformed);
-            btn.textContent = transformed ? 'Show Current State' : 'Show Transformation';
-            
-            // Smooth scroll to top of section when transforming
-            if (transformed) {
-                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            
-            // Add hover effect
-            btn.onmouseenter = () => {
-                btn.style.transform = 'translateY(-2px)';
-                btn.style.boxShadow = '0 12px 32px rgba(0, 229, 255, 0.4)';
-            };
-            btn.onmouseleave = () => {
-                btn.style.transform = 'translateY(0)';
-                btn.style.boxShadow = '0 8px 24px rgba(0, 229, 255, 0.3)';
-            };
-        }
+        const revealed = steps.filter(s => s.classList.contains('in')).length;
+        const pct = Math.round((revealed / steps.length) * 100);
+        fill.style.width = pct + '%';
+      }, { threshold: 0.35 });
 
-        // CALCULATOR
-        let selectedTier = 3;
-        const tierConfigs = {
-            1: [{ name: 'Single Product', price: 49, split: 1 }],
-            2: [{ name: 'Entry', price: 29, split: 0.65 }, { name: 'Premium', price: 97, split: 0.35 }],
-            3: [{ name: 'Entry', price: 29, split: 0.60 }, { name: 'Core', price: 97, split: 0.30 }, { name: 'Premium', price: 250, split: 0.10 }]
-        };
-
-        function selectTier(n) {
-            selectedTier = n;
-            [1,2,3].forEach(i => document.getElementById('tier' + i).classList.toggle('selected', i === n));
-            updateCalculator();
-        }
-
-        function updateCalculator() {
-            const followers = parseInt(document.getElementById('followerSlider').value);
-            const buyers = Math.round(followers * 0.01);
-            
-            document.getElementById('followerDisplay').textContent = followers.toLocaleString();
-            document.getElementById('buyersResult').textContent = `${buyers.toLocaleString()} potential buyers (1% conversion)`;
-
-            let totalRevenue = 0;
-            const config = tierConfigs[selectedTier];
-            const breakdown = document.getElementById('revenueBreakdown');
-            let barsHTML = '<div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 16px; text-align: left;">Revenue Distribution</div>';
-
-            config.forEach(tier => {
-                const tierRevenue = buyers * tier.split * tier.price;
-                totalRevenue += tierRevenue;
-                const percentage = (tierRevenue / (buyers * config.reduce((sum, t) => sum + t.split * t.price, 0))) * 100;
-                barsHTML += `
-                    <div style="margin-bottom: 12px;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
-                            <span>${tier.name} ($${tier.price})</span>
-                            <span style="font-weight: 600;">$${Math.round(tierRevenue).toLocaleString()}</span>
-                        </div>
-                        <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden;">
-                            <div style="width: ${percentage}%; height: 100%; background: linear-gradient(90deg, var(--cyan), #06B6D4); transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);"></div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            breakdown.innerHTML = barsHTML;
-            
-            const displayElem = document.getElementById('revenueResult');
-            animateValue(displayElem, parseInt(displayElem.textContent.replace(/[^0-9]/g, '')) || 0, Math.round(totalRevenue), 600);
-        }
-
-        function animateValue(elem, start, end, duration) {
-            const startTime = performance.now();
-            const step = (currentTime) => {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const value = Math.floor(start + (end - start) * progress);
-                elem.textContent = '$' + value.toLocaleString();
-                if (progress < 1) requestAnimationFrame(step);
-            };
-            requestAnimationFrame(step);
-        }
-
-        // Initialize
-        updateCalculator();
-        setTimeout(() => reveals.forEach(el => {
-            if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('active');
-        }), 100);
-    </script>
-
+      steps.forEach(s => io.observe(s));
+    })();
+  </script>
 </body>
 </html>
