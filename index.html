@@ -102,16 +102,12 @@
       font-weight: 700;
       letter-spacing:-0.02em;
     }
-    .brandLogo{
-      width: 28px; height: 28px;
-      border-radius: 999px;
-      object-fit: cover;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.03);
-      box-shadow: 0 0 0 6px rgba(0,229,255,.10);
-      flex: 0 0 auto;
+        .logoDot{
+      width: 10px; height: 10px; border-radius: 99px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 6px rgba(0,229,255,.12);
     }
-    .nav{
+.nav{
       display:flex; gap:18px; align-items:center;
       color: var(--muted);
       font-size: 12px;
@@ -145,12 +141,6 @@
       box-shadow: 0 12px 35px rgba(0,229,255,.12);
     }
     .btnPrimary:hover{ border-color: rgba(0,229,255,.70); box-shadow: 0 16px 45px rgba(0,229,255,.18); }
-    .btnIcon{
-      width: 34px; height: 34px; border-radius: 999px;
-      display:grid; place-items:center;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-    }
     .hideSm{ display:flex; }
     @media (max-width: 860px){
       .nav{ display:none; }
@@ -637,7 +627,7 @@
     <div class="wrap">
       <div class="headerInner">
         <a class="brand" href="#top" aria-label="Monerize home">
-          <img class="brandLogo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAA..." alt="Monerize logo" />
+          <span class="logoDot" aria-hidden="true"></span>
           <span>Monerize</span>
         </a>
 
@@ -651,7 +641,6 @@
 
         <div class="ctaRow">
           <a class="btn hideSm" href="https://instagram.com/monerize" target="_blank" rel="noopener noreferrer">
-            <span class="btnIcon" aria-hidden="true">⌁</span>
             Instagram
           </a>
           <a class="btn btnPrimary" href="#apply">Apply</a>
@@ -774,7 +763,7 @@
       </div>
     </section>
 
-    <!-- STORY -->
+    <!-- STORY (NEW) -->
     <section class="section story" id="story">
       <div class="wrap">
         <div class="storyShell">
@@ -827,8 +816,7 @@
                 <a class="btn btnPrimary" href="#apply">Apply for partnership</a>
                 <a class="btn" href="#calculator">Estimate revenue</a>
               </div>
-              <div class="storyFine">We take on a small number of partners at a time. (Not “2 per quarter.”)</div>
-            </div>
+              </div>
           </div>
         </div>
       </div>
@@ -848,6 +836,7 @@
           </div>
 
           <div class="calcBody">
+            <!-- Inputs -->
             <div class="calcPane">
               <div class="labelRow">
                 <div>
@@ -889,6 +878,7 @@
               </div>
             </div>
 
+            <!-- Outputs -->
             <div class="calcPane">
               <div class="resultBox" style="margin-top:0;">
                 <div class="label">Estimated revenue</div>
@@ -996,11 +986,7 @@
               <summary>Is the calculator accurate? <span aria-hidden="true">＋</span></summary>
               <div class="faqA">It’s directional. Real performance depends on niche, price, offer strength, and conversion. We build a tailored model from your audience.</div>
             </details>
-            <details>
-              <summary>How many partners do you take? <span aria-hidden="true">＋</span></summary>
-              <div class="faqA">We take on a small number of partners at a time to keep execution high-touch. (We do <strong>not</strong> limit to “2 per quarter.”)</div>
-            </details>
-          </div>
+            </div>
         </div>
       </div>
     </section>
@@ -1027,7 +1013,6 @@
 
               <div style="margin-top: 14px;">
                 <a class="btn" href="https://instagram.com/monerize" target="_blank" rel="noopener noreferrer">
-                  <span class="btnIcon" aria-hidden="true">⌁</span>
                   Instagram: @monerize
                 </a>
               </div>
@@ -1070,7 +1055,7 @@
     <div class="wrap">
       <div class="footRow">
         <div class="brand" aria-label="Monerize footer brand">
-          <img class="brandLogo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAA..." alt="Monerize logo" />
+          <span class="logoDot" aria-hidden="true"></span>
           <div style="display:grid; gap: 2px;">
             <strong style="font-family:'Space Grotesk'; font-size: 18px;">Monerize</strong>
             <span class="footSmall">Partnership Studio</span>
