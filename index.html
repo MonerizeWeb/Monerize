@@ -612,6 +612,31 @@
       }
     }
 
+
+    .followerEditable{
+      display:inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: text;
+      user-select: text;
+      transition: border-color .15s ease, background .15s ease, transform .15s ease;
+      min-width: 120px;
+      text-align: right;
+    }
+    .followerEditable:hover{
+      border-color: rgba(255,255,255,.16);
+      background: rgba(255,255,255,.03);
+      transform: translateY(-1px);
+    }
+    .followerEditable:focus{
+      outline: none;
+      border-color: rgba(0,229,255,.65);
+      background: rgba(0,229,255,.06);
+      box-shadow: 0 12px 28px rgba(0,0,0,.22);
+    }
+
     /* Reduce motion */
     @media (prefers-reduced-motion: reduce){
       html{ scroll-behavior:auto; }
@@ -843,11 +868,11 @@
                   <div class="label">Audience size</div>
                   <div class="micro" style="margin:6px 0 0;">Use total followers/subscribers (rough benchmark).</div>
                 </div>
-                <div class="bigNum" id="followerDisplay">50,000</div>
+                <div class="bigNum"><span id="followerDisplay" class="followerEditable" contenteditable="true" role="spinbutton" aria-label="Audience size" aria-valuemin="5000" aria-valuemax="500000" aria-valuenow="50000">50,000</span></div>
               </div>
 
-              <input type="range" id="followerSlider" min="5000" max="500000" step="5000" value="50000" oninput="updateCalculator()" aria-label="Audience size slider" />
-              <div class="rangeMeta"><span>5k</span><span>100k</span><span>250k</span><span>500k</span></div>
+              <input type="range" id="followerSlider" min="0" max="1000" step="1" value="0" oninput="updateCalculator()" aria-label="Audience size slider" />
+              <div class="rangeMeta"><span>5k</span><span>25k</span><span>75k</span><span>150k</span><span>500k</span></div>
 
               <div style="margin-top: 18px;">
                 <div class="label">Offer ladder</div>
@@ -1124,11 +1149,94 @@
       requestAnimationFrame(step);
     }
 
-    function updateCalculator(){
-      const followers = parseInt(document.getElementById('followerSlider').value, 10);
+    function sliderToFollowers(v){
+      // 0..850 covers 5k..150k (high precision where most creators are)
+      // 851..1000 covers 150k..500k
+      if (v <= 850) return Math.round(5000 + (v/850)*145000);
+      return Math.round(150000 + ((v-850)/150)*350000);
+    }
+
+    function followersToSlider(f){
+      // inverse mapping so the knob starts in the right place
+      if (f <= 150000) return Math.round(((f-5000)/145000)*850);
+      return Math.round(850 + ((f-150000)/350000)*150);
+    }
+
+    
+    // Editable audience number (click to type)
+    const followerEl = document.getElementById('followerDisplay');
+    const sliderEl = document.getElementById('followerSlider');
+    let isEditingFollowers = false;
+
+    function clampFollowers(v){
+      if (isNaN(v)) return 50000;
+      return Math.max(5000, Math.min(500000, v));
+    }
+
+    function formatInt(n){
+      try { return Number(n).toLocaleString(); } catch(e){ return String(n); }
+    }
+
+    function parseDigits(text){
+      const digits = (text || '').replace(/[^0-9]/g,'');
+      return digits ? parseInt(digits, 10) : NaN;
+    }
+
+    if (followerEl && sliderEl){
+      followerEl.addEventListener('focus', () => {
+        isEditingFollowers = true;
+        // Put plain digits for easy typing
+        const current = parseDigits(followerEl.textContent);
+        followerEl.textContent = isNaN(current) ? '' : String(current);
+        // Select all text
+        const range = document.createRange();
+        range.selectNodeContents(followerEl);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      });
+
+      followerEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter'){
+          e.preventDefault();
+          followerEl.blur();
+        }
+        if (e.key === 'Escape'){
+          e.preventDefault();
+          isEditingFollowers = false;
+          // revert to slider value
+          const followers = sliderToFollowers(parseInt(sliderEl.value, 10));
+          followerEl.textContent = formatInt(followers);
+          followerEl.blur();
+        }
+      });
+
+      followerEl.addEventListener('input', () => {
+        const v = clampFollowers(parseDigits(followerEl.textContent));
+        if (!isNaN(v)){
+          followerEl.setAttribute('aria-valuenow', String(v));
+          sliderEl.value = followersToSlider(v);
+          updateCalculator(true); // from typing
+        }
+      });
+
+      followerEl.addEventListener('blur', () => {
+        const v = clampFollowers(parseDigits(followerEl.textContent));
+        const finalV = isNaN(v) ? sliderToFollowers(parseInt(sliderEl.value, 10)) : v;
+        followerEl.textContent = formatInt(finalV);
+        followerEl.setAttribute('aria-valuenow', String(finalV));
+        sliderEl.value = followersToSlider(finalV);
+        isEditingFollowers = false;
+        updateCalculator();
+      });
+    }
+
+function updateCalculator(fromTyping=false){
+      const sliderVal = parseInt(document.getElementById('followerSlider').value, 10);
+      const followers = sliderToFollowers(sliderVal);
       const buyers = Math.round(followers * 0.01);
 
-      document.getElementById('followerDisplay').textContent = followers.toLocaleString();
+      if (!isEditingFollowers && followerEl) { followerEl.textContent = formatInt(followers); followerEl.setAttribute('aria-valuenow', String(followers)); }
       document.getElementById('buyersResult').textContent = `${buyers.toLocaleString()} potential buyers (1% conversion)`;
 
       const config = tierConfigs[selectedTier];
@@ -1164,6 +1272,8 @@
     }
 
     // Init calculator
+    // Start around 50,000 followers (default)
+    document.getElementById('followerSlider').value = followersToSlider(50000);
     updateCalculator();
 
     // Story reveal + progress rail
